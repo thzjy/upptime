@@ -600,5 +600,90 @@
         "latency_ms": 805
       }
     ]
+  },
+  {
+    "time": "2026-04-21T15:51:48Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 8,
+      "unhealthy": 1,
+      "duration_ms": 1311
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1152
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 848
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 839
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 598
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 491,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 670
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1310
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 506
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 506
+      }
+    ]
   }
 ]

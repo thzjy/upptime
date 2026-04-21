@@ -1,35 +1,29 @@
 {
-  "updated_at": "2026-04-21T15:31:10Z",
+  "updated_at": "2026-04-21T15:51:48Z",
   "gateway": {
     "ok": true,
     "state": "degraded",
     "last_error": null
   },
   "summary": {
-    "total": 10,
-    "healthy": 9,
+    "total": 9,
+    "healthy": 8,
     "unhealthy": 1,
-    "duration_ms": 1379
+    "duration_ms": 1311
   },
   "channels": [
     {
-      "name": "anthropic-models",
-      "display_name": "Anthropic Official",
+      "name": "openai-models",
+      "display_name": "OpenAI 官方",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 1130,
+        "latency_ms": 1152,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -620,6 +614,12 @@
         },
         {
           "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -628,23 +628,17 @@
       "unhealthy_stats": []
     },
     {
-      "name": "grok-models",
-      "display_name": "Grok Official",
+      "name": "openrouter-models",
+      "display_name": "OpenRouter",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 958,
+        "latency_ms": 848,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1235,6 +1229,627 @@
         },
         {
           "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        }
+      ],
+      "unhealthy_stats": []
+    },
+    {
+      "name": "anthropic-models",
+      "display_name": "Anthropic Official",
+      "current": {
+        "ok": true,
+        "state": "up",
+        "model": null,
+        "latency_ms": 839,
+        "status_code": 200,
+        "error": null
+      },
+      "history": [
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": "2026-04-21T14:39:28Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:50:26Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:56:16Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:15:15Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -1249,17 +1864,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 958,
+        "latency_ms": 598,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1853,1848 +2462,9 @@
           "color": "green",
           "status_code": 200,
           "error": null
-        }
-      ],
-      "unhealthy_stats": []
-    },
-    {
-      "name": "vertex-model",
-      "display_name": "Vertex Official",
-      "current": {
-        "ok": true,
-        "state": "up",
-        "model": "gemini-2.5-flash-lite",
-        "latency_ms": 1183,
-        "status_code": 200,
-        "error": null
-      },
-      "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": "2026-04-21T14:39:28Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:50:26Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:54:17Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:54:40Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:56:16Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T15:15:15Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T15:31:10Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        }
-      ],
-      "unhealthy_stats": []
-    },
-    {
-      "name": "cliproxyapi-codex",
-      "display_name": "Codex API relay service",
-      "current": {
-        "ok": true,
-        "state": "up",
-        "model": "gpt-5.4",
-        "latency_ms": 805,
-        "status_code": 200,
-        "error": null
-      },
-      "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": "2026-04-21T14:39:28Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:50:26Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:54:17Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:54:40Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:56:16Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T15:15:15Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T15:31:10Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        }
-      ],
-      "unhealthy_stats": []
-    },
-    {
-      "name": "openai-models",
-      "display_name": "OpenAI 模型列表",
-      "current": {
-        "ok": true,
-        "state": "up",
-        "model": null,
-        "latency_ms": 1366,
-        "status_code": 200,
-        "error": null
-      },
-      "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
-          "time": "2026-04-21T14:39:28Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:50:26Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:54:17Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:54:40Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T14:56:16Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
-        },
-        {
-          "time": "2026-04-21T15:15:15Z",
-          "color": "green",
-          "status_code": 200,
-          "error": null
         },
         {
-          "time": "2026-04-21T15:31:10Z",
+          "time": "2026-04-21T15:51:48Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -3709,7 +2479,7 @@
         "ok": false,
         "state": "unhealthy",
         "model": null,
-        "latency_ms": 686,
+        "latency_ms": 491,
         "status_code": 404,
         "error": "unexpected_status"
       },
@@ -4267,12 +3037,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "yellow",
           "status_code": 404,
@@ -4310,6 +3074,12 @@
         },
         {
           "time": "2026-04-21T15:31:10Z",
+          "color": "yellow",
+          "status_code": 404,
+          "error": "unexpected_status"
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
           "color": "yellow",
           "status_code": 404,
           "error": "unexpected_status"
@@ -4318,28 +3088,22 @@
       "unhealthy_stats": [
         {
           "key": "404:unexpected_status",
-          "count": 7
+          "count": 8
         }
       ]
     },
     {
-      "name": "aws-bedrock-models",
-      "display_name": "AWS Bedrock 模型列表",
+      "name": "grok-models",
+      "display_name": "Grok Official",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 1379,
+        "latency_ms": 670,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -4930,6 +3694,12 @@
         },
         {
           "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -4938,23 +3708,17 @@
       "unhealthy_stats": []
     },
     {
-      "name": "openrouter-models",
-      "display_name": "OpenRouter Official",
+      "name": "aws-bedrock-models",
+      "display_name": "AWS Bedrock Claude",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 1138,
+        "latency_ms": 1310,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -5545,6 +4309,627 @@
         },
         {
           "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        }
+      ],
+      "unhealthy_stats": []
+    },
+    {
+      "name": "cliproxyapi-codex",
+      "display_name": "Codex API relay service",
+      "current": {
+        "ok": true,
+        "state": "up",
+        "model": null,
+        "latency_ms": 506,
+        "status_code": 200,
+        "error": null
+      },
+      "history": [
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": "2026-04-21T14:39:28Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:50:26Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:56:16Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:15:15Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -5558,18 +4943,12 @@
       "current": {
         "ok": true,
         "state": "up",
-        "model": "gemini-2.5-pro",
-        "latency_ms": 805,
+        "model": null,
+        "latency_ms": 506,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -6160,6 +5539,12 @@
         },
         {
           "time": "2026-04-21T15:31:10Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T15:51:48Z",
           "color": "green",
           "status_code": 200,
           "error": null
