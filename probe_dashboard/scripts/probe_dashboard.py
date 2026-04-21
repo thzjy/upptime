@@ -211,6 +211,19 @@ def status_label(current):
     return "NO DATA"
 
 
+def should_show_model(channel_name, current):
+    model = current.get("model")
+    if not model:
+        return False
+    name = str(channel_name or "")
+    # Only real model invocation probes should show their model. List probes and
+    # "model exists in /v1/models" probes intentionally hide model names.
+    return name in {
+        "vertex-model",
+        "aws-bedrock-opus-4-6",
+    }
+
+
 def render_html(dashboard):
     channels_html = []
     for channel in dashboard["channels"]:
@@ -225,7 +238,7 @@ def render_html(dashboard):
             f'<span class="stat"><b>{html.escape(item["key"])}</b> x{item["count"]}</span>'
             for item in stats
         )
-        model = current.get("model")
+        model = current.get("model") if should_show_model(channel["name"], current) else None
         model_html = f'<p>模型：{html.escape(str(model))}</p>' if model else ""
         latency = "-" if current.get("latency_ms") is None else f'{current.get("latency_ms")}ms'
         error = current.get("error")
