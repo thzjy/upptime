@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-04-21T16:15:39Z",
+  "updated_at": "2026-04-21T17:35:30Z",
   "gateway": {
     "ok": true,
-    "state": "up",
+    "state": "degraded",
     "last_error": null
   },
   "summary": {
     "total": 9,
-    "healthy": 9,
-    "unhealthy": 0,
-    "duration_ms": 2813
+    "healthy": 7,
+    "unhealthy": 2,
+    "duration_ms": 1341
   },
   "channels": [
     {
@@ -19,17 +19,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 2813,
+        "latency_ms": 1080,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -620,6 +614,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -634,17 +634,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 872,
+        "latency_ms": 849,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1235,6 +1229,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -1249,17 +1249,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 863,
+        "latency_ms": 840,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1850,6 +1844,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -1864,17 +1864,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 630,
+        "latency_ms": 842,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -2465,6 +2459,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -2479,17 +2479,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 815,
+        "latency_ms": 548,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -3080,6 +3074,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -3099,17 +3099,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 697,
+        "latency_ms": 839,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -3700,6 +3694,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -3714,17 +3714,11 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 1285,
+        "latency_ms": 1341,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -4315,6 +4309,12 @@
         },
         {
           "time": "2026-04-21T16:15:39Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -4326,20 +4326,14 @@
       "name": "cliproxyapi-codex",
       "display_name": "Codex API relay service",
       "current": {
-        "ok": true,
-        "state": "up",
+        "ok": false,
+        "state": "unhealthy",
         "model": null,
-        "latency_ms": 538,
-        "status_code": 200,
-        "error": null
+        "latency_ms": 516,
+        "status_code": 503,
+        "error": "unexpected_status"
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -4933,28 +4927,33 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
+          "color": "orange",
+          "status_code": 503,
+          "error": "unexpected_status"
         }
       ],
-      "unhealthy_stats": []
+      "unhealthy_stats": [
+        {
+          "key": "503:unexpected_status",
+          "count": 1
+        }
+      ]
     },
     {
       "name": "cliproxyapi-gemini",
       "display_name": "Gemini API relay service",
       "current": {
-        "ok": true,
-        "state": "up",
+        "ok": false,
+        "state": "unhealthy",
         "model": null,
-        "latency_ms": 540,
-        "status_code": 200,
-        "error": null
+        "latency_ms": 515,
+        "status_code": 503,
+        "error": "unexpected_status"
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -5548,9 +5547,20 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T17:35:30Z",
+          "color": "orange",
+          "status_code": 503,
+          "error": "unexpected_status"
         }
       ],
-      "unhealthy_stats": []
+      "unhealthy_stats": [
+        {
+          "key": "503:unexpected_status",
+          "count": 1
+        }
+      ]
     }
   ]
 }
