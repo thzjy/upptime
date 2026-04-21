@@ -1,34 +1,29 @@
 {
-  "updated_at": "2026-04-21T12:57:24Z",
+  "updated_at": "2026-04-21T14:09:14Z",
   "gateway": {
     "ok": true,
     "state": "degraded",
     "last_error": null
   },
   "summary": {
-    "total": 13,
-    "healthy": 11,
-    "unhealthy": 2,
-    "duration_ms": 2235
+    "total": 10,
+    "healthy": 9,
+    "unhealthy": 1,
+    "duration_ms": 1800
   },
   "channels": [
     {
       "name": "openai-models",
+      "display_name": "openai-models",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 1007,
+        "latency_ms": 1619,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -619,6 +614,12 @@
         },
         {
           "time": "2026-04-21T12:57:24Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -628,21 +629,16 @@
     },
     {
       "name": "gemini-models",
+      "display_name": "gemini-models",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 675,
+        "latency_ms": 1132,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1236,12 +1232,19 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
       "unhealthy_stats": []
     },
     {
       "name": "aws-bedrock-opus-4-6",
+      "display_name": "aws-bedrock-opus-4-6",
       "current": {
         "ok": true,
         "state": "up",
@@ -1828,12 +1831,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T12:13:17Z",
           "color": "green",
           "status_code": 200,
@@ -1850,17 +1847,24 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
         }
       ],
       "unhealthy_stats": []
     },
     {
       "name": "anthropic-models",
+      "display_name": "anthropic-models",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 851,
+        "latency_ms": 993,
         "status_code": 200,
         "error": null
       },
@@ -2442,12 +2446,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T12:13:17Z",
           "color": "green",
           "status_code": 200,
@@ -2461,6 +2459,12 @@
         },
         {
           "time": "2026-04-21T12:57:24Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -2470,21 +2474,16 @@
     },
     {
       "name": "grok-models",
+      "display_name": "grok-models",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 673,
+        "latency_ms": 966,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -3075,6 +3074,12 @@
         },
         {
           "time": "2026-04-21T12:57:24Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -3084,21 +3089,16 @@
     },
     {
       "name": "aws-bedrock-models",
+      "display_name": "aws-bedrock-models",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 1358,
+        "latency_ms": 1366,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -3692,12 +3692,19 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
       "unhealthy_stats": []
     },
     {
       "name": "cliproxyapi-claude",
+      "display_name": "cliproxyapi-claude",
       "current": {
         "ok": false,
         "state": "unhealthy",
@@ -4284,12 +4291,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T12:13:17Z",
           "color": "blue",
           "status_code": 200,
@@ -4306,6 +4307,12 @@
           "color": "blue",
           "status_code": 200,
           "error": "missing_required_body_keyword"
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
         }
       ],
       "unhealthy_stats": [
@@ -4317,21 +4324,16 @@
     },
     {
       "name": "cliproxyapi-codex",
+      "display_name": "cliproxyapi-codex",
       "current": {
         "ok": true,
         "state": "up",
         "model": "gpt-5.4",
-        "latency_ms": 526,
+        "latency_ms": 807,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -4922,6 +4924,12 @@
         },
         {
           "time": "2026-04-21T12:57:24Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -4931,21 +4939,16 @@
     },
     {
       "name": "openrouter-models",
+      "display_name": "openrouter-models",
       "current": {
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 862,
+        "latency_ms": 1336,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -5536,6 +5539,12 @@
         },
         {
           "time": "2026-04-21T12:57:24Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -5545,21 +5554,16 @@
     },
     {
       "name": "vertex-model",
+      "display_name": "vertex-model",
       "current": {
         "ok": true,
         "state": "up",
         "model": "gemini-2.5-flash-lite",
-        "latency_ms": 815,
+        "latency_ms": 1061,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -6150,6 +6154,12 @@
         },
         {
           "time": "2026-04-21T12:57:24Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -6159,21 +6169,16 @@
     },
     {
       "name": "cliproxyapi-gemini",
+      "display_name": "cliproxyapi-gemini",
       "current": {
         "ok": true,
         "state": "up",
         "model": "gemini-2.5-pro",
-        "latency_ms": 525,
+        "latency_ms": 807,
         "status_code": 200,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -6767,12 +6772,19 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
       "unhealthy_stats": []
     },
     {
       "name": "cliproxyapi-grok",
+      "display_name": "cliproxyapi-grok",
       "current": {
         "ok": false,
         "state": "unhealthy",
@@ -7359,12 +7371,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T12:13:17Z",
           "color": "blue",
           "status_code": 200,
@@ -7381,6 +7387,12 @@
           "color": "blue",
           "status_code": 200,
           "error": "missing_required_body_keyword"
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
         }
       ],
       "unhealthy_stats": [
@@ -7392,6 +7404,7 @@
     },
     {
       "name": "cliproxyapi-models",
+      "display_name": "cliproxyapi-models",
       "current": {
         "ok": true,
         "state": "up",
@@ -7978,12 +7991,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T12:13:17Z",
           "color": "green",
           "status_code": 200,
@@ -8000,9 +8007,635 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
         }
       ],
       "unhealthy_stats": []
+    },
+    {
+      "name": "vertex-models",
+      "display_name": "Vertex Official",
+      "current": {
+        "ok": false,
+        "state": "unhealthy",
+        "model": null,
+        "latency_ms": 584,
+        "status_code": 404,
+        "error": "unexpected_status"
+      },
+      "history": [
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": null,
+          "color": "gray",
+          "status_code": null,
+          "error": "no_data"
+        },
+        {
+          "time": "2026-04-21T12:13:17Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T12:37:29Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T12:57:24Z",
+          "color": "gray",
+          "status_code": null,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:09:14Z",
+          "color": "yellow",
+          "status_code": 404,
+          "error": "unexpected_status"
+        }
+      ],
+      "unhealthy_stats": [
+        {
+          "key": "404:unexpected_status",
+          "count": 1
+        }
+      ]
     }
   ]
 }
