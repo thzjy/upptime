@@ -360,7 +360,7 @@ def render_html(dashboard):
 
     <nav class="legend">
       <span><i class="dot green"></i>正常</span>
-      <span><i class="dot blue"></i>200 业务异常</span>
+      <span><i class="dot blue"></i>未接入</span>
       <span><i class="dot yellow"></i>4xx</span>
       <span><i class="dot orange"></i>5xx</span>
       <span><i class="dot red"></i>网关失败/超时</span>
