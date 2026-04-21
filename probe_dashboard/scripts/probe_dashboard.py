@@ -5,7 +5,7 @@ import os
 import urllib.error
 import urllib.request
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 
@@ -15,12 +15,25 @@ DATA_DIR = OUT_DIR / "data"
 HISTORY_PATH = DATA_DIR / "probe-history.json"
 DASHBOARD_PATH = DATA_DIR / "probe-dashboard.json"
 INDEX_PATH = OUT_DIR / "index.html"
+LOGO_SOURCE = ROOT.parent / "docs-logox" / "public" / "logo.svg"
+LOGO_PATH = OUT_DIR / "logo.svg"
 MAX_HISTORY = int(os.getenv("PROBE_HISTORY_LIMIT", "5000"))
 GRID_SIZE = int(os.getenv("PROBE_GRID_SIZE", "100"))
+DISPLAY_TZ = timezone(timedelta(hours=8))
 
 
 def utc_now():
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def format_time(raw):
+    if not raw:
+        return "无数据"
+    try:
+        dt = datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
+    except ValueError:
+        return str(raw)
+    return dt.astimezone(DISPLAY_TZ).strftime("%Y-%m-%d %H:%M:%S")
 
 
 def load_history():
@@ -62,15 +75,18 @@ def fetch_summary():
 
 
 def known_channel_names(history):
-    names = []
+    channels = []
     seen = set()
     for sample in history:
         for check in sample.get("checks", []):
             name = check.get("name")
             if name and name not in seen:
                 seen.add(name)
-                names.append(name)
-    return names
+                channels.append({
+                    "name": name,
+                    "display_name": check.get("display_name") or name,
+                })
+    return channels
 
 
 def check_color(sample, check):
@@ -126,10 +142,11 @@ def current_for_channel(history, name):
 
 
 def build_dashboard(history):
-    names = known_channel_names(history)
+    known_channels = known_channel_names(history)
     recent = history[-GRID_SIZE:]
     channels = []
-    for name in names:
+    for known in known_channels:
+        name = known["name"]
         cells = []
         errors = Counter()
         for sample in recent:
@@ -148,6 +165,7 @@ def build_dashboard(history):
             cells.insert(0, {"time": None, "color": "gray", "status_code": None, "error": "no_data"})
         channels.append({
             "name": name,
+            "display_name": known["display_name"],
             "current": current_for_channel(history, name),
             "history": cells,
             "unhealthy_stats": [
@@ -191,7 +209,7 @@ def render_html(dashboard):
     for channel in dashboard["channels"]:
         current = channel["current"]
         cells = "".join(
-            f'<span class="cell {cell["color"]}" title="{html.escape(str(cell.get("time") or "no data"))} '
+            f'<span class="cell {cell["color"]}" title="{html.escape(format_time(cell.get("time")))} '
             f'{html.escape(str(cell.get("status_code") or ""))} {html.escape(str(cell.get("error") or ""))}"></span>'
             for cell in channel["history"]
         )
@@ -199,16 +217,18 @@ def render_html(dashboard):
         stats_html = "".join(
             f'<span class="stat"><b>{html.escape(item["key"])}</b> x{item["count"]}</span>'
             for item in stats
-        ) or '<span class="muted">No unhealthy records in last 100 checks</span>'
-        model = current.get("model") or "-"
+        ) or '<span class="muted">最近 100 次无异常</span>'
+        model = current.get("model")
+        model_html = f'<p>模型：{html.escape(str(model))}</p>' if model else ""
         latency = "-" if current.get("latency_ms") is None else f'{current.get("latency_ms")}ms'
         error = current.get("error") or "-"
         channels_html.append(f"""
         <section class="channel">
           <div class="channel-head">
             <div>
-              <h2>{html.escape(channel["name"])}</h2>
-              <p>Model: {html.escape(str(model))}</p>
+              <h2>{html.escape(channel["display_name"])}</h2>
+              <p>{html.escape(channel["name"])}</p>
+              {model_html}
             </div>
             <div class="status {html.escape(current.get("state", "no_data"))}">{html.escape(status_label(current))}</div>
           </div>
@@ -229,7 +249,8 @@ def render_html(dashboard):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LOGOX Probe Status</title>
+  <title>LOGOX 渠道监控</title>
+  <link rel="icon" href="./logo.svg" type="image/svg+xml">
   <style>
     :root {{
       --bg: #f4efe6;
@@ -264,6 +285,8 @@ def render_html(dashboard):
       margin-bottom: 22px;
     }}
     h1 {{ font-size: clamp(34px, 6vw, 70px); line-height: .9; margin: 0; letter-spacing: -.06em; }}
+    .title-row {{ display: flex; align-items: center; gap: 14px; }}
+    .title-logo {{ width: clamp(38px, 6vw, 64px); height: clamp(38px, 6vw, 64px); filter: drop-shadow(0 10px 18px rgba(31, 157, 85, .18)); }}
     .subtitle {{ color: var(--muted); margin: 12px 0 0; }}
     .badge {{
       border: 1px solid var(--line);
@@ -321,30 +344,32 @@ def render_html(dashboard):
   <main>
     <header class="hero">
       <div>
-        <h1>LOGOX Probe Status</h1>
-        <p class="subtitle">Each channel keeps its latest 100 summary checks. Updated every 30 minutes by GitHub Actions.</p>
+        <div class="title-row">
+          <img class="title-logo" src="./logo.svg" alt="LOGOX">
+          <h1>LOGOX 渠道监控</h1>
+        </div>
+        <p class="subtitle">更新时间：{html.escape(format_time(dashboard.get("updated_at")))}</p>
       </div>
       <div class="badge {html.escape(gateway.get("state", "down"))}">
-        <span>Gateway</span>
         <strong>{html.escape(gateway.get("state", "down"))}</strong>
-        <small>Updated {html.escape(dashboard.get("updated_at", "-"))}</small>
+        <small>更新于 {html.escape(format_time(dashboard.get("updated_at")))}</small>
       </div>
     </header>
 
     <section class="cards">
-      <div class="card"><b>{html.escape(str(summary.get("total", "-")))}</b><span>Total channels</span></div>
-      <div class="card"><b>{html.escape(str(summary.get("healthy", "-")))}</b><span>Healthy</span></div>
-      <div class="card"><b>{html.escape(str(summary.get("unhealthy", "-")))}</b><span>Unhealthy</span></div>
-      <div class="card"><b>{html.escape(str(summary.get("duration_ms", "-")))}</b><span>Summary ms</span></div>
+      <div class="card"><b>{html.escape(str(summary.get("total", "-")))}</b><span>渠道总数</span></div>
+      <div class="card"><b>{html.escape(str(summary.get("healthy", "-")))}</b><span>健康</span></div>
+      <div class="card"><b>{html.escape(str(summary.get("unhealthy", "-")))}</b><span>异常</span></div>
+      <div class="card"><b>{html.escape(str(summary.get("duration_ms", "-")))}</b><span>汇总耗时 ms</span></div>
     </section>
 
     <nav class="legend">
-      <span><i class="dot green"></i>ok</span>
-      <span><i class="dot blue"></i>200 business mismatch</span>
+      <span><i class="dot green"></i>正常</span>
+      <span><i class="dot blue"></i>200 业务异常</span>
       <span><i class="dot yellow"></i>4xx</span>
       <span><i class="dot orange"></i>5xx</span>
-      <span><i class="dot red"></i>gateway down / timeout</span>
-      <span><i class="dot gray"></i>no data</span>
+      <span><i class="dot red"></i>网关失败/超时</span>
+      <span><i class="dot gray"></i>无数据</span>
     </nav>
 
     {''.join(channels_html)}
@@ -356,6 +381,8 @@ def render_html(dashboard):
 
 def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
+    if LOGO_SOURCE.exists():
+        LOGO_PATH.write_text(LOGO_SOURCE.read_text(encoding="utf-8"), encoding="utf-8")
     history = load_history()
     history.append(fetch_summary())
     history = history[-MAX_HISTORY:]
