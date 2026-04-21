@@ -77,7 +77,7 @@ def fetch_summary():
 def known_channel_names(history):
     channels = []
     seen = set()
-    for check in latest_checks(history):
+    for check in ordered_checks(latest_checks(history)):
         name = check.get("name")
         if name and name not in seen:
             seen.add(name)
@@ -94,6 +94,15 @@ def latest_checks(history):
         if sample.get("gateway_ok") and checks:
             return checks
     return []
+
+
+def ordered_checks(checks):
+    if any(isinstance(check.get("order"), int) for check in checks):
+        return sorted(
+            checks,
+            key=lambda check: check.get("order") if isinstance(check.get("order"), int) else 999999,
+        )
+    return checks
 
 
 def check_color(sample, check):
