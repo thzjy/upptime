@@ -2,21 +2,22 @@ owner: thzjy
 repo: upptime
 
 sites:
-  - name: New API Health
+  - name: API Gateway
     url: https://logox.top/health
 
 status-website:
   baseUrl: /upptime
 
-  logoUrl: https://raw.githubusercontent.com/upptime/upptime.js.org/master/static/img/icon.svg
-  name: New API Status
+  logoUrl: https://docs.logox.top/logo.svg
+  name: Logox Status
 
-  introTitle: "**New API** 状态页"
-  introMessage: 这是 new-api 的外部可用性监控页面。
+  introTitle: "系统状态"
+  introMessage: "实时展示 Logox API 与核心服务的可用性、响应时间与历史事件。"
 
   navbar:
-    - title: Status
+    - title: 状态页
       href: /
-
-    - title: GitHub
-      href: https://github.com/thzjy/upptime
+    - title: 官网
+      href: https://logox.top
+    - title: API 文档
+      href: https://docs.logox.top
