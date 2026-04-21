@@ -77,15 +77,15 @@ def fetch_summary():
 def known_channel_names(history):
     channels = []
     seen = set()
-    for sample in history:
-        for check in sample.get("checks", []):
-            name = check.get("name")
-            if name and name not in seen:
-                seen.add(name)
-                channels.append({
-                    "name": name,
-                    "display_name": check.get("display_name") or name,
-                })
+    latest_checks = history[-1].get("checks", []) if history else []
+    for check in latest_checks:
+        name = check.get("name")
+        if name and name not in seen:
+            seen.add(name)
+            channels.append({
+                "name": name,
+                "display_name": check.get("display_name") or name,
+            })
     return channels
 
 
@@ -217,28 +217,29 @@ def render_html(dashboard):
         stats_html = "".join(
             f'<span class="stat"><b>{html.escape(item["key"])}</b> x{item["count"]}</span>'
             for item in stats
-        ) or '<span class="muted">最近 100 次无异常</span>'
+        )
         model = current.get("model")
         model_html = f'<p>模型：{html.escape(str(model))}</p>' if model else ""
         latency = "-" if current.get("latency_ms") is None else f'{current.get("latency_ms")}ms'
-        error = current.get("error") or "-"
+        error = current.get("error")
+        error_html = f'<span>错误：{html.escape(str(error))}</span>' if error else ""
+        stats_block = f'<div class="stats"><span class="stats-label">异常统计</span>{stats_html}</div>' if stats_html else ""
         channels_html.append(f"""
         <section class="channel">
           <div class="channel-head">
             <div>
               <h2>{html.escape(channel["display_name"])}</h2>
-              <p>{html.escape(channel["name"])}</p>
               {model_html}
             </div>
             <div class="status {html.escape(current.get("state", "no_data"))}">{html.escape(status_label(current))}</div>
           </div>
           <div class="meta">
-            <span>Status code: {html.escape(str(current.get("status_code") or "-"))}</span>
-            <span>Latency: {html.escape(latency)}</span>
-            <span>Error: {html.escape(str(error))}</span>
+            <span>状态码：{html.escape(str(current.get("status_code") or "-"))}</span>
+            <span>延迟：{html.escape(latency)}</span>
+            {error_html}
           </div>
           <div class="grid">{cells}</div>
-          <div class="stats">{stats_html}</div>
+          {stats_block}
         </section>
         """)
 
@@ -250,7 +251,6 @@ def render_html(dashboard):
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LOGOX 渠道监控</title>
-  <link rel="icon" href="./logo.svg" type="image/svg+xml">
   <style>
     :root {{
       --bg: #f4efe6;
@@ -285,8 +285,6 @@ def render_html(dashboard):
       margin-bottom: 22px;
     }}
     h1 {{ font-size: clamp(34px, 6vw, 70px); line-height: .9; margin: 0; letter-spacing: -.06em; }}
-    .title-row {{ display: flex; align-items: center; gap: 14px; }}
-    .title-logo {{ width: clamp(38px, 6vw, 64px); height: clamp(38px, 6vw, 64px); filter: drop-shadow(0 10px 18px rgba(31, 157, 85, .18)); }}
     .subtitle {{ color: var(--muted); margin: 12px 0 0; }}
     .badge {{
       border: 1px solid var(--line);
@@ -333,6 +331,7 @@ def render_html(dashboard):
     .blue {{ background: var(--blue); }}
     .gray {{ background: var(--gray); }}
     .stats {{ display: flex; flex-wrap: wrap; gap: 8px; }}
+    .stats-label {{ color: var(--muted); font-size: 12px; line-height: 28px; }}
     .stat {{ background: rgba(31, 38, 31, .06); border: 1px solid rgba(31, 38, 31, .08); border-radius: 999px; padding: 6px 9px; font-size: 12px; color: var(--muted); }}
     @media (max-width: 820px) {{
       .hero, .cards {{ grid-template-columns: 1fr; }}
@@ -344,11 +343,7 @@ def render_html(dashboard):
   <main>
     <header class="hero">
       <div>
-        <div class="title-row">
-          <img class="title-logo" src="./logo.svg" alt="LOGOX">
-          <h1>LOGOX 渠道监控</h1>
-        </div>
-        <p class="subtitle">更新时间：{html.escape(format_time(dashboard.get("updated_at")))}</p>
+        <h1>LOGOX 渠道监控</h1>
       </div>
       <div class="badge {html.escape(gateway.get("state", "down"))}">
         <strong>{html.escape(gateway.get("state", "down"))}</strong>

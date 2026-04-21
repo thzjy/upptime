@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
   {
     "time": "2026-04-21T12:13:17Z",
@@ -380,3 +381,951 @@
     ]
   }
 ]
+=======
+[
+  {
+    "time": "2026-04-21T12:13:17Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 2166
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 972
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 864
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 2165
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 863
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 863
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1358
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 539,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 539
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 872
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 1278
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 536
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 536,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 538
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T12:37:29Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 2157
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1103
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 897
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 2156
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 896
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 896
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1293
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 569,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 571
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 906
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 865
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 572
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 571,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 572
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T13:23:16Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 2335
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1350
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 908
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 2335
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1086
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1086
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1370
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 909,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 760
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1095
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 1191
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 758
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 758,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 760
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T13:24:58Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 1987
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1057
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 834
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 1986
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 832
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 833
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1259
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 662,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 505
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 843
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 967
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 508
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 507,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 505
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T13:28:21Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 1806
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 984
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 837
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 1805
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 837
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1372
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 509,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 509
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 845
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 962
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 506
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 507,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 509
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T13:29:01Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 2538
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1017
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 674
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 2538
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 844
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 839
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1284
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 510,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 515
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 854
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 993
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 511
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 514,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 511
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T13:30:24Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 13,
+      "healthy": 11,
+      "unhealthy": 2,
+      "duration_ms": 1979
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 995
+      },
+      {
+        "name": "gemini-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 832
+      },
+      {
+        "name": "aws-bedrock-opus-4-6",
+        "ok": true,
+        "model": "us.anthropic.claude-opus-4-6-v1",
+        "status_code": 200,
+        "latency_ms": 1979
+      },
+      {
+        "name": "anthropic-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1100
+      },
+      {
+        "name": "grok-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 832
+      },
+      {
+        "name": "aws-bedrock-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1295
+      },
+      {
+        "name": "cliproxyapi-claude",
+        "ok": false,
+        "model": "claude-sonnet-4-6",
+        "status_code": 200,
+        "latency_ms": 510,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 512
+      },
+      {
+        "name": "openrouter-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 841
+      },
+      {
+        "name": "vertex-model",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 914
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 503
+      },
+      {
+        "name": "cliproxyapi-grok",
+        "ok": false,
+        "model": "grok-4.20",
+        "status_code": 200,
+        "latency_ms": 510,
+        "error": "missing_required_body_keyword"
+      },
+      {
+        "name": "cliproxyapi-models",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 512
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:24:46Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1375
+    },
+    "checks": [
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 636
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 511
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 511
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 489,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1034
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1303
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 846
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:25:47Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 13364
+    },
+    "checks": [
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 873
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 830
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 504
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 503
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 573,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 13364
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1284
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 841
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:29:21Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1361
+    },
+    "checks": [
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 830
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 645
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 828
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 503
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 504
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 489,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1167
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 830
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1298
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836
+      }
+    ]
+  }
+]
+>>>>>>> a4da10e (Update probe dashboard layout)
