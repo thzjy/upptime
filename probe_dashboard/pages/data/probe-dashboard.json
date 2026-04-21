@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-21T14:54:17Z",
+  "updated_at": "2026-04-21T14:54:40Z",
   "gateway": {
     "ok": true,
     "state": "degraded",
@@ -601,12 +601,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -620,6 +614,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -1216,12 +1216,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -1235,6 +1229,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -1831,12 +1831,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -1850,6 +1844,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -2446,12 +2446,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -2465,6 +2459,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -3061,12 +3061,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "yellow",
           "status_code": 404,
@@ -3083,12 +3077,18 @@
           "color": "yellow",
           "status_code": 404,
           "error": "unexpected_status"
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
+          "color": "yellow",
+          "status_code": 404,
+          "error": "unexpected_status"
         }
       ],
       "unhealthy_stats": [
         {
           "key": "404:unexpected_status",
-          "count": 3
+          "count": 4
         }
       ]
     },
@@ -3681,12 +3681,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -3700,6 +3694,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -4296,12 +4296,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -4315,6 +4309,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -4911,12 +4911,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -4930,6 +4924,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -5526,12 +5526,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -5545,6 +5539,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
@@ -6141,12 +6141,6 @@
           "error": "no_data"
         },
         {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
-        {
           "time": "2026-04-21T14:39:28Z",
           "color": "green",
           "status_code": 200,
@@ -6160,6 +6154,12 @@
         },
         {
           "time": "2026-04-21T14:54:17Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
+        },
+        {
+          "time": "2026-04-21T14:54:40Z",
           "color": "green",
           "status_code": 200,
           "error": null
