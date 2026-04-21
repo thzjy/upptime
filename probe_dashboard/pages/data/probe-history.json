@@ -685,5 +685,89 @@
         "latency_ms": 506
       }
     ]
+  },
+  {
+    "time": "2026-04-21T16:01:41Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 1255
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1231
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 864
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 667
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 856
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 865
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 658
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1255
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 505
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 504
+      }
+    ]
   }
 ]
