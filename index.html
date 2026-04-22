@@ -89,6 +89,20 @@
     .status.unhealthy { background: var(--yellow); color: #2c2400; }
     .status.gateway_down, .status.no_data { background: var(--red); }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .stable-progress {
+      margin-top: 12px;
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #e7ece8;
+    }
+    .stable-progress span {
+      display: block;
+      height: 100%;
+      width: var(--stable-width, 0%);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green), #74c879);
+    }
     .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; margin-top: 14px; }
     .cell { width: auto; height: 17px; }
     .error { margin-top: 14px; color: var(--red); }
@@ -226,6 +240,11 @@
       return hours.toFixed(1);
     }
 
+    function stableProgressPercent(hours) {
+      if (!Number.isFinite(hours)) return 0;
+      return Math.max(0, Math.min(100, (hours / 24) * 100));
+    }
+
     function statusLabel(state) {
       if (state === "healthy") return "up";
       if (state === "degraded") return "degraded";
@@ -317,6 +336,7 @@
         const current = latestCheck(samples, channel.name);
         const state = channelState(current);
         const stableHours = stableHoursForChannel(samples, channel.name, current);
+        const stablePercent = stableProgressPercent(stableHours);
         const cells = recent.map((sample) => {
           const check = (sample.checks || []).find((item) => item.name === channel.name);
           const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
@@ -335,6 +355,9 @@
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
               <span>${t.stable}: ${stableHours == null ? "-" : `${fmtHours(stableHours)} ${t.hours}`}</span>
               ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
+            </div>
+            <div class="stable-progress" title="${t.stable}: ${stableHours == null ? "-" : `${fmtHours(stableHours)} ${t.hours}`}">
+              <span style="--stable-width: ${stablePercent}%"></span>
             </div>
             <div class="grid">${cells}</div>
           </article>`;
