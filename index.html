@@ -258,7 +258,13 @@
       return null;
     }
 
-    function stableHoursForChannel(samples, name) {
+    function stableHoursForChannel(samples, name, current) {
+      if (current && Number.isFinite(Number(current.stable_hours))) {
+        return Number(current.stable_hours);
+      }
+      if (current && Number.isFinite(Number(current.stable_for_seconds))) {
+        return Number(current.stable_for_seconds) / 3600;
+      }
       let latestHealthyAt = null;
       let stableSince = null;
       for (let i = samples.length - 1; i >= 0; i--) {
@@ -310,7 +316,7 @@
       const html = channels.map((channel) => {
         const current = latestCheck(samples, channel.name);
         const state = channelState(current);
-        const stableHours = stableHoursForChannel(samples, channel.name);
+        const stableHours = stableHoursForChannel(samples, channel.name, current);
         const cells = recent.map((sample) => {
           const check = (sample.checks || []).find((item) => item.name === channel.name);
           const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
