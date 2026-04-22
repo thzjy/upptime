@@ -105,7 +105,7 @@
     <header class="hero">
       <div>
         <h1>LOGOX 渠道监控</h1>
-        <p class="muted" id="source"></p>
+        <p class="muted">数据来源：<a id="source" href="#" target="_blank" rel="noopener noreferrer"></a></p>
       </div>
       <div class="badge">
         <strong id="gateway-state">loading</strong>
@@ -144,7 +144,9 @@
     const pollMs = 30000;
     const gridSize = 120;
 
-    document.getElementById("source").textContent = `数据源：${apiBase}`;
+    const sourceLink = document.getElementById("source");
+    sourceLink.href = apiBase;
+    sourceLink.textContent = apiBase;
 
     function fmtTime(raw) {
       if (!raw) return "-";
@@ -157,6 +159,12 @@
       if (!Number.isFinite(days)) return "-";
       if (days < 1) return days.toFixed(2);
       return days.toFixed(1);
+    }
+
+    function fmtHours(hours) {
+      if (!Number.isFinite(hours)) return "-";
+      if (hours < 1) return hours.toFixed(2);
+      return hours.toFixed(1);
     }
 
     function statusLabel(state) {
@@ -189,6 +197,22 @@
         if (found) return found;
       }
       return null;
+    }
+
+    function stableHoursForChannel(samples, name) {
+      let latestHealthyAt = null;
+      let stableSince = null;
+      for (let i = samples.length - 1; i >= 0; i--) {
+        const sample = samples[i];
+        const check = (sample.checks || []).find((item) => item.name === name);
+        if (!check || !check.ok) break;
+        const checkedAt = new Date(sample.checked_at);
+        if (Number.isNaN(checkedAt.getTime())) break;
+        latestHealthyAt ||= checkedAt;
+        stableSince = checkedAt;
+      }
+      if (!latestHealthyAt || !stableSince) return null;
+      return Math.max(0, latestHealthyAt.getTime() - stableSince.getTime()) / 3600000;
     }
 
     function collectChannels(samples) {
@@ -227,6 +251,7 @@
       const html = channels.map((channel) => {
         const current = latestCheck(samples, channel.name);
         const state = channelState(current);
+        const stableHours = stableHoursForChannel(samples, channel.name);
         const cells = recent.map((sample) => {
           const check = (sample.checks || []).find((item) => item.name === channel.name);
           const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
@@ -243,6 +268,7 @@
             <div class="meta">
               <span>状态码：${current?.status_code || "-"}</span>
               <span>延迟：${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
+              <span>稳定运行：${stableHours == null ? "-" : `${fmtHours(stableHours)}小时`}</span>
               ${current?.error ? `<span>错误：${escapeHtml(current.error)}</span>` : ""}
             </div>
             <div class="grid">${cells}</div>
