@@ -137,9 +137,7 @@
 
   <script>
     const params = new URLSearchParams(location.search);
-    const defaultApi = location.protocol.startsWith("http") && !location.hostname.includes("github.io")
-      ? location.origin
-      : "https://tgw.logox.top";
+    const defaultApi = "https://tgw.logox.top";
     const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
