@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LOGOX 渠道监控</title>
+  <title>LOGOX Channel Monitor</title>
   <style>
     :root {
       --bg: #f6f7f2;
@@ -15,7 +15,6 @@
       --yellow: #d6a21b;
       --orange: #df6b21;
       --red: #c9382e;
-      --blue: #2775c7;
       --gray: #c9cfca;
     }
     * { box-sizing: border-box; }
@@ -68,7 +67,6 @@
     .yellow { background: var(--yellow); }
     .orange { background: var(--orange); }
     .red { background: var(--red); }
-    .blue { background: var(--blue); }
     .gray { background: var(--gray); }
     .channel {
       border: 1px solid var(--line);
@@ -104,29 +102,29 @@
   <main>
     <header class="hero">
       <div>
-        <h1>LOGOX 渠道监控</h1>
-        <p class="muted">数据源：<span id="source"></span></p>
+        <h1 data-i18n="title">LOGOX Channel Monitor</h1>
+        <p class="muted"><span data-i18n="sourceLabel">Source:</span><span id="source"></span></p>
       </div>
       <div class="badge">
         <strong id="gateway-state">loading</strong>
-        <small id="updated-at">正在读取探针数据</small>
+        <small id="updated-at" data-i18n="loading">Loading probe data</small>
       </div>
     </header>
 
     <section class="cards">
-      <div class="card"><b id="total">-</b><span>渠道总数</span></div>
-      <div class="card"><b id="healthy">-</b><span>健康</span></div>
-      <div class="card"><b id="unhealthy">-</b><span>异常</span></div>
-      <div class="card"><b id="duration">-</b><span>汇总耗时 ms</span></div>
-      <div class="card"><b id="stable-days">-</b><span>稳定运行天数</span></div>
+      <div class="card"><b id="total">-</b><span data-i18n="total">Channels</span></div>
+      <div class="card"><b id="healthy">-</b><span data-i18n="healthy">Healthy</span></div>
+      <div class="card"><b id="unhealthy">-</b><span data-i18n="unhealthy">Unhealthy</span></div>
+      <div class="card"><b id="duration">-</b><span data-i18n="duration">Summary ms</span></div>
+      <div class="card"><b id="stable-days">-</b><span data-i18n="stableDays">Stable days</span></div>
     </section>
 
     <div class="toolbar">
       <div class="legend">
-        <span><i class="dot green"></i>正常</span>
-        <span><i class="dot yellow"></i>异常</span>
-        <span><i class="dot red"></i>网关失败</span>
-        <span><i class="dot gray"></i>无数据</span>
+        <span><i class="dot green"></i><span data-i18n="normal">Normal</span></span>
+        <span><i class="dot yellow"></i><span data-i18n="abnormal">Abnormal</span></span>
+        <span><i class="dot red"></i><span data-i18n="gatewayFailed">Gateway failed</span></span>
+        <span><i class="dot gray"></i><span data-i18n="noData">No data</span></span>
       </div>
       <span id="sample-count">-</span>
     </div>
@@ -136,6 +134,68 @@
   </main>
 
   <script>
+    const messages = {
+      zh: {
+        title: "LOGOX 渠道监控",
+        sourceLabel: "数据源：",
+        loading: "正在读取探针数据",
+        total: "渠道总数",
+        healthy: "健康",
+        unhealthy: "异常",
+        duration: "汇总耗时 ms",
+        stableDays: "稳定运行天数",
+        normal: "正常",
+        abnormal: "异常",
+        gatewayFailed: "网关失败",
+        noData: "无数据",
+        updatedAt: "更新于",
+        samples: "样本",
+        interval: "采集间隔",
+        seconds: "秒",
+        statusCode: "状态码",
+        latency: "延迟",
+        stable: "稳定运行",
+        hours: "小时",
+        error: "错误",
+        noChannels: "暂无渠道数据",
+        loadFailed: "读取失败",
+      },
+      en: {
+        title: "LOGOX Channel Monitor",
+        sourceLabel: "Source:",
+        loading: "Loading probe data",
+        total: "Channels",
+        healthy: "Healthy",
+        unhealthy: "Unhealthy",
+        duration: "Summary ms",
+        stableDays: "Stable days",
+        normal: "Normal",
+        abnormal: "Abnormal",
+        gatewayFailed: "Gateway failed",
+        noData: "No data",
+        updatedAt: "Updated at",
+        samples: "Samples",
+        interval: "interval",
+        seconds: "s",
+        statusCode: "Status",
+        latency: "Latency",
+        stable: "Stable",
+        hours: "hours",
+        error: "Error",
+        noChannels: "No channel data",
+        loadFailed: "Load failed",
+      },
+    };
+    const lang = navigator.languages?.some((item) => String(item).toLowerCase().startsWith("zh"))
+      ? "zh"
+      : "en";
+    const t = messages[lang];
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    document.title = t.title;
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      node.textContent = t[node.dataset.i18n] || node.textContent;
+    });
+
     const params = new URLSearchParams(location.search);
     const defaultApi = "https://tgw.logox.top";
     const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
@@ -150,7 +210,7 @@
       if (!raw) return "-";
       const date = new Date(raw);
       if (Number.isNaN(date.getTime())) return String(raw);
-      return date.toLocaleString("zh-CN", { hour12: false });
+      return date.toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { hour12: false });
     }
 
     function fmtDays(days) {
@@ -235,14 +295,14 @@
       document.getElementById("gateway-state").textContent = state;
       document.getElementById("gateway-state").className = state;
       badge.className = `badge ${state}`;
-      document.getElementById("updated-at").textContent = `更新于 ${fmtTime(latest.checked_at || data.updated_at)}`;
+      document.getElementById("updated-at").textContent = `${t.updatedAt} ${fmtTime(latest.checked_at || data.updated_at)}`;
       document.getElementById("total").textContent = summary.total ?? "-";
       document.getElementById("healthy").textContent = summary.healthy ?? "-";
       document.getElementById("unhealthy").textContent = summary.unhealthy ?? "-";
       document.getElementById("duration").textContent = summary.duration_ms ?? "-";
       document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);
       document.getElementById("sample-count").textContent =
-        `样本 ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}，采集间隔 ${data.interval_seconds || "-"} 秒`;
+        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
 
       const recent = samples.slice(-gridSize);
       const channels = collectChannels(samples);
@@ -264,15 +324,15 @@
               <div class="status ${state}">${state.toUpperCase()}</div>
             </div>
             <div class="meta">
-              <span>状态码：${current?.status_code || "-"}</span>
-              <span>延迟：${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
-              <span>稳定运行：${stableHours == null ? "-" : `${fmtHours(stableHours)}小时`}</span>
-              ${current?.error ? `<span>错误：${escapeHtml(current.error)}</span>` : ""}
+              <span>${t.statusCode}: ${current?.status_code || "-"}</span>
+              <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
+              <span>${t.stable}: ${stableHours == null ? "-" : `${fmtHours(stableHours)} ${t.hours}`}</span>
+              ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
             </div>
             <div class="grid">${cells}</div>
           </article>`;
       }).join("");
-      document.getElementById("channels").innerHTML = html || '<p class="muted">暂无渠道数据</p>';
+      document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
       document.getElementById("error").textContent = "";
     }
 
@@ -293,7 +353,7 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         render(await response.json());
       } catch (error) {
-        document.getElementById("error").textContent = `读取失败：${error.message}`;
+        document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;
       }
     }
 
