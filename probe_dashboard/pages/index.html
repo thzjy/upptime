@@ -105,7 +105,7 @@
     <header class="hero">
       <div>
         <h1>LOGOX 渠道监控</h1>
-        <p class="muted">数据来源：<a id="source" href="#" target="_blank" rel="noopener noreferrer"></a></p>
+        <p class="muted">数据来源：<span id="source"></span></p>
       </div>
       <div class="badge">
         <strong id="gateway-state">loading</strong>
@@ -144,9 +144,7 @@
     const pollMs = 30000;
     const gridSize = 120;
 
-    const sourceLink = document.getElementById("source");
-    sourceLink.href = apiBase;
-    sourceLink.textContent = apiBase;
+    document.getElementById("source").textContent = apiBase;
 
     function fmtTime(raw) {
       if (!raw) return "-";
