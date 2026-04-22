@@ -186,7 +186,8 @@
         loadFailed: "Load failed",
       },
     };
-    const lang = navigator.languages?.some((item) => String(item).toLowerCase().startsWith("zh"))
+    const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
+    const lang = preferredLang.startsWith("zh")
       ? "zh"
       : "en";
     const t = messages[lang];
