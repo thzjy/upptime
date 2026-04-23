@@ -1,9 +1,14 @@
 name: Probe Dashboard
 
 on:
-  schedule:
-    - cron: "*/30 * * * *"
   workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/probe-dashboard.yml"
+      - "probe_dashboard/pages/**"
+      - "probe_dashboard/README.md"
 
 permissions:
   contents: write
@@ -25,29 +30,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build probe dashboard
-        env:
-          PROBE_SUMMARY_URL: ${{ vars.PROBE_SUMMARY_URL || 'https://tgw.logox.top/probe/summary' }}
-          PROBE_AUTH_TOKEN: ${{ secrets.PROBE_AUTH_TOKEN }}
-        run: python3 probe_dashboard/scripts/probe_dashboard.py
-
-      - name: Commit probe history
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add probe_dashboard/pages
-          git diff --cached --quiet || git commit -m "Update probe dashboard [skip ci]"
-          git pull --rebase --autostash
-          git push
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy probe dashboard
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: probe_dashboard/pages
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: probe_dashboard/pages
+          cname: monitor.logox.top
+          force_orphan: false
+          user_name: github-actions
+          user_email: github-actions@github.com
