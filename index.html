@@ -1,26 +1,365 @@
-<!DOCTYPE html> <html lang=en> <head> <meta charset=utf-8> <meta content="width=device-width,initial-scale=1" name=viewport> <meta content=#333333 name=theme-color> <base href=/ > <link href=manifest.json rel=manifest crossorigin=use-credentials> <script>__SAPPER__={baseUrl:"",preloaded:[void 0,{}]};if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js');(function(){try{eval("async function x(){}");var main="/client/client.d6960c50.js"}catch(e){main="/client/legacy/client.8b8fbae8.js"};var s=document.createElement("script");try{new Function("if(0)import('')")();s.src=main;s.type="module";s.crossOrigin="use-credentials";}catch(e){s.src="/client/shimport@2.0.5.js";s.setAttribute("data-main",main);}document.head.appendChild(s);}());</script> <link href=client/client-31a52aa5.css rel=stylesheet><link href=client/createOctokit-a85f76c7.css rel=stylesheet><link href=client/index-b0b6455a.css rel=stylesheet> <title>Logox Status</title> <script>// If `prefers-color-scheme` is not supported, fall back to light mode.
-      // In this case, light.css will be downloaded with `highest` priority.
-      if (typeof window !== "undefined" && typeof document !== "undefined" && "matchMedia" in window && window.matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
-        document.documentElement.style.display = 'none';
-        document.head.insertAdjacentHTML(
-          'beforeend',
-          '<link rel="stylesheet" href={`${config.path}/themes/light.css`} onload="document.documentElement.style.display = \'\'">',
-        );
-      } </script> <link href=https://monitor.logox.top/themes/light.css rel=stylesheet media=(prefers-color-scheme:light)> <link href=https://monitor.logox.top/themes/dark.css rel=stylesheet media=(prefers-color-scheme:dark)><link href=https://monitor.logox.top/global.css rel=stylesheet><link href=https://raw.githubusercontent.com/upptime/upptime/master/assets/upptime-icon.svg rel=icon type=image/svg><link href=/logo-192.png rel=icon type=image/png> <link href=/client/client.d6960c50.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/client-31a52aa5.css rel=preload as=style><link href=/client/index.b9a28e74.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit.ae1f9bdd.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/inject_styles.803b7e80.js rel=modulepreload as=script crossorigin=use-credentials><link href=/client/createOctokit-a85f76c7.css rel=preload as=style><link href=/client/index-b0b6455a.css rel=preload as=style></head> <body> <div id=sapper> <nav class=svelte-a08hsz><div class="svelte-a08hsz container"><div><a href=https://monitor.logox.top class="svelte-a08hsz logo"><img alt="" class=svelte-a08hsz src=https://docs.logox.top/logo.svg> <div>Logox Status</div></a></div> <ul class=svelte-a08hsz><li><a href=/ class=svelte-a08hsz target=_self aria-current=page>状态页</a> <li><a href=https://logox.top class=svelte-a08hsz target=_self>官网</a> <li><a href=https://docs.logox.top class=svelte-a08hsz target=_self>API 文档</a> </li> </ul></div> </nav> <main class=container> <header class=svelte-ngkazm><h1>系统状态</h1> <p class="svelte-ngkazm lead">实时展示 Logox API 与核心服务的可用性、响应时间与历史事件。</header> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section class=svelte-8lnl4f><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <div class="svelte-fqsq6s f changed"><h2>Live Status</h2> <form class="svelte-fqsq6s f r"><div><input class=svelte-fqsq6s id=data_day name=d type=radio value=day><label class=svelte-fqsq6s for=data_day>24h</label></div> <div><input class=svelte-fqsq6s id=data_week name=d type=radio value=week checked><label class=svelte-fqsq6s for=data_week>7d</label></div> <div><input class=svelte-fqsq6s id=data_month name=d type=radio value=month><label class=svelte-fqsq6s for=data_month>30d</label></div> <div><input class=svelte-fqsq6s id=data_year name=d type=radio value=year><label class=svelte-fqsq6s for=data_year>1y</label></div> <div><input class=svelte-fqsq6s id=data_all name=d type=radio value=all><label class=svelte-fqsq6s for=data_all>all</label></div></form></div> <section class="svelte-fqsq6s live-status"><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div> </section> <section><div class="svelte-68jxue loading"><svg class=svelte-68jxue height=38 stroke=#aaa width=38 xmlns=http://www.w3.org/2000/svg><g fill=none fill-rule=evenodd><g stroke-width=2 transform="translate(1 1)"><circle cx=18 cy=18 r=18 stroke-opacity=.5></circle><path d="M36 18c0-9.94-8.06-18-18-18"><animateTransform attributeName=transform dur=1s from="0 18 18" repeatCount=indefinite to="360 18 18" type=rotate></animateTransform></path></g></g></svg></div></section></main> <footer class=svelte-jbr799><p>This page is <a href=https://github.com/thzjy/upptime>open source</a>, powered by <a href=https://upptime.js.org>Upptime</a></p> </footer></div> <script> try {
-        if (typeof window !== "undefined" && window.navigator && navigator.serviceWorker) {
-          navigator.serviceWorker.getRegistrations().then(function (registrations) {
-            for (let registration of registrations) {
-              registration.unregister();
-            }
-          });
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LOGOX Channel Monitor</title>
+  <style>
+    :root {
+      --bg: #f6f7f2;
+      --panel: #ffffff;
+      --ink: #17201c;
+      --muted: #65716b;
+      --line: #dbe2dc;
+      --green: #1f9d55;
+      --yellow: #d6a21b;
+      --orange: #df6b21;
+      --red: #c9382e;
+      --gray: #c9cfca;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { max-width: 1180px; margin: 0 auto; padding: 34px 18px 56px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    h1 { margin: 0; font-size: 42px; line-height: 1; }
+    .muted { color: var(--muted); }
+    .badge {
+      min-width: 230px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .badge strong { display: block; font-size: 26px; text-transform: uppercase; }
+    .up { color: var(--green); }
+    .degraded { color: var(--yellow); }
+    .down, .empty { color: var(--red); }
+    .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 18px 0; }
+    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 13px; }
+    .card b { display: block; font-size: 24px; line-height: 1.15; }
+    .card span { color: var(--muted); font-size: 13px; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot, .cell { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+    .green { background: var(--green); }
+    .yellow { background: var(--yellow); }
+    .orange { background: var(--orange); }
+    .red { background: var(--red); }
+    .gray { background: var(--gray); }
+    .channel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 16px;
+      margin: 10px 0;
+    }
+    .channel-head { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    h2 { margin: 0; font-size: 17px; }
+    .status {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      color: var(--panel);
+    }
+    .status.up { background: var(--green); }
+    .status.unhealthy { background: var(--yellow); color: #2c2400; }
+    .status.gateway_down, .status.no_data { background: var(--red); }
+    .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; margin-top: 14px; }
+    .cell { width: auto; height: 17px; }
+    .error { margin-top: 14px; color: var(--red); }
+    @media (max-width: 900px) {
+      .hero, .cards { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(60, minmax(5px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div>
+        <h1 data-i18n="title">LOGOX Channel Monitor</h1>
+        <p class="muted"><span data-i18n="sourceLabel">Source:</span><span id="source"></span></p>
+      </div>
+      <div class="badge">
+        <strong id="gateway-state">loading</strong>
+        <small id="updated-at" data-i18n="loading">Loading probe data</small>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><b id="total">-</b><span data-i18n="total">Channels</span></div>
+      <div class="card"><b id="healthy">-</b><span data-i18n="healthy">Healthy</span></div>
+      <div class="card"><b id="unhealthy">-</b><span data-i18n="unhealthy">Unhealthy</span></div>
+      <div class="card"><b id="duration">-</b><span data-i18n="duration">Summary ms</span></div>
+      <div class="card"><b id="stable-days">-</b><span data-i18n="stableDays">Stable days</span></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="legend">
+        <span><i class="dot green"></i><span data-i18n="normal">Normal</span></span>
+        <span><i class="dot yellow"></i><span data-i18n="abnormal">Abnormal</span></span>
+        <span><i class="dot red"></i><span data-i18n="gatewayFailed">Gateway failed</span></span>
+        <span><i class="dot gray"></i><span data-i18n="noData">No data</span></span>
+      </div>
+      <span id="sample-count">-</span>
+    </div>
+
+    <section id="channels"></section>
+    <p class="error" id="error"></p>
+  </main>
+
+  <script>
+    const messages = {
+      zh: {
+        title: "LOGOX 渠道监控",
+        sourceLabel: "数据源：",
+        loading: "正在读取探针数据",
+        total: "渠道总数",
+        healthy: "健康",
+        unhealthy: "异常",
+        duration: "汇总耗时 ms",
+        stableDays: "稳定运行天数",
+        normal: "正常",
+        abnormal: "异常",
+        gatewayFailed: "网关失败",
+        noData: "无数据",
+        updatedAt: "更新于",
+        samples: "样本",
+        interval: "采集间隔",
+        seconds: "秒",
+        statusCode: "状态码",
+        latency: "延迟",
+        stable: "稳定运行",
+        hours: "小时",
+        error: "错误",
+        noChannels: "暂无渠道数据",
+        loadFailed: "读取失败",
+      },
+      en: {
+        title: "LOGOX Channel Monitor",
+        sourceLabel: "Source:",
+        loading: "Loading probe data",
+        total: "Channels",
+        healthy: "Healthy",
+        unhealthy: "Unhealthy",
+        duration: "Summary ms",
+        stableDays: "Stable days",
+        normal: "Normal",
+        abnormal: "Abnormal",
+        gatewayFailed: "Gateway failed",
+        noData: "No data",
+        updatedAt: "Updated at",
+        samples: "Samples",
+        interval: "interval",
+        seconds: "s",
+        statusCode: "Status",
+        latency: "Latency",
+        stable: "Stable",
+        hours: "hours",
+        error: "Error",
+        noChannels: "No channel data",
+        loadFailed: "Load failed",
+      },
+    };
+    const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
+    const lang = preferredLang.startsWith("zh")
+      ? "zh"
+      : "en";
+    const t = messages[lang];
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    document.title = t.title;
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      node.textContent = t[node.dataset.i18n] || node.textContent;
+    });
+
+    const params = new URLSearchParams(location.search);
+    const defaultApi = "https://tgw.logox.top";
+    const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
+    const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
+    const historyUrl = `${apiBase}/probe/history?limit=1440`;
+    const pollMs = 30000;
+    const gridSize = 120;
+
+    document.getElementById("source").textContent = "https://logox.top";
+
+    function fmtTime(raw) {
+      if (!raw) return "-";
+      const date = new Date(raw);
+      if (Number.isNaN(date.getTime())) return String(raw);
+      return date.toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { hour12: false });
+    }
+
+    function fmtDays(days) {
+      if (!Number.isFinite(days)) return "-";
+      if (days < 1) return days.toFixed(2);
+      return days.toFixed(1);
+    }
+
+    function fmtHours(hours) {
+      if (!Number.isFinite(hours)) return "-";
+      if (hours < 1) return hours.toFixed(2);
+      return hours.toFixed(1);
+    }
+
+    function statusLabel(state) {
+      if (state === "healthy") return "up";
+      if (state === "degraded") return "degraded";
+      if (state === "down") return "down";
+      if (state === "empty") return "empty";
+      return state || "unknown";
+    }
+
+    function channelState(check) {
+      if (!check) return "no_data";
+      return check.ok ? "up" : "unhealthy";
+    }
+
+    function cellColor(sample, check) {
+      if (!sample) return "gray";
+      if (sample.status === "down" || sample.status === "empty") return "red";
+      if (!check) return "gray";
+      if (check.ok) return "green";
+      const code = check.status_code || 0;
+      if (code >= 500) return "orange";
+      if (code >= 400) return "yellow";
+      return "yellow";
+    }
+
+    function latestCheck(samples, name) {
+      for (let i = samples.length - 1; i >= 0; i--) {
+        const found = (samples[i].checks || []).find((check) => check.name === name);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function stableHoursForChannel(samples, name) {
+      let latestHealthyAt = null;
+      let stableSince = null;
+      for (let i = samples.length - 1; i >= 0; i--) {
+        const sample = samples[i];
+        const check = (sample.checks || []).find((item) => item.name === name);
+        if (!check || !check.ok) break;
+        const checkedAt = new Date(sample.checked_at);
+        if (Number.isNaN(checkedAt.getTime())) break;
+        latestHealthyAt ||= checkedAt;
+        stableSince = checkedAt;
+      }
+      if (!latestHealthyAt || !stableSince) return null;
+      return Math.max(0, latestHealthyAt.getTime() - stableSince.getTime()) / 3600000;
+    }
+
+    function collectChannels(samples) {
+      const seen = new Map();
+      for (const sample of samples) {
+        for (const check of sample.checks || []) {
+          if (!seen.has(check.name)) {
+            seen.set(check.name, check.display_name || check.name);
+          }
         }
-        if (typeof window !== "undefined" && "caches" in window) {
-          caches.keys().then(function (keyList) {
-            return Promise.all(
-              keyList.map(function (key) {
-                return caches.delete(key);
-              })
-            );
-          });
-        }
-      } catch (error) {} </script> 
+      }
+      return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));
+    }
+
+    function render(data) {
+      const samples = data.samples || [];
+      const latest = samples[samples.length - 1] || {};
+      const summary = latest.summary || {};
+      const state = statusLabel(latest.status);
+      const badge = document.querySelector(".badge");
+
+      document.getElementById("gateway-state").textContent = state;
+      document.getElementById("gateway-state").className = state;
+      badge.className = `badge ${state}`;
+      document.getElementById("updated-at").textContent = `${t.updatedAt} ${fmtTime(latest.checked_at || data.updated_at)}`;
+      document.getElementById("total").textContent = summary.total ?? "-";
+      document.getElementById("healthy").textContent = summary.healthy ?? "-";
+      document.getElementById("unhealthy").textContent = summary.unhealthy ?? "-";
+      document.getElementById("duration").textContent = summary.duration_ms ?? "-";
+      document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);
+      document.getElementById("sample-count").textContent =
+        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
+
+      const recent = samples.slice(-gridSize);
+      const channels = collectChannels(samples);
+      const html = channels.map((channel) => {
+        const current = latestCheck(samples, channel.name);
+        const state = channelState(current);
+        const stableHours = stableHoursForChannel(samples, channel.name);
+        const cells = recent.map((sample) => {
+          const check = (sample.checks || []).find((item) => item.name === channel.name);
+          const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
+          return `<span class="cell ${cellColor(sample, check)}" title="${escapeHtml(title)}"></span>`;
+        }).join("");
+        return `
+          <article class="channel">
+            <div class="channel-head">
+              <div>
+                <h2>${escapeHtml(channel.displayName)}</h2>
+              </div>
+              <div class="status ${state}">${state.toUpperCase()}</div>
+            </div>
+            <div class="meta">
+              <span>${t.statusCode}: ${current?.status_code || "-"}</span>
+              <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
+              <span>${t.stable}: ${stableHours == null ? "-" : `${fmtHours(stableHours)} ${t.hours}`}</span>
+              ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
+            </div>
+            <div class="grid">${cells}</div>
+          </article>`;
+      }).join("");
+      document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
+      document.getElementById("error").textContent = "";
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[char]));
+    }
+
+    async function load() {
+      try {
+        const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
+        const response = await fetch(historyUrl, { cache: "no-store", headers });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        render(await response.json());
+      } catch (error) {
+        document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;
+      }
+    }
+
+    load();
+    setInterval(load, pollMs);
+  </script>
+</body>
+</html>

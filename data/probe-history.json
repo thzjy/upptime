@@ -1,0 +1,1459 @@
+[
+  {
+    "time": "2026-04-21T14:39:28Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1526
+    },
+    "checks": [
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 913
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 815
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 912
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 585
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 586
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 546,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1213
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 912
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1325
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 922
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:50:26Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 5457
+    },
+    "checks": [
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 849
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 1067
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 848
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 521
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 516
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 706,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 5457
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 848
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1304
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 857
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:54:17Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1393
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1025
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 842
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 505
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 658,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1392
+      },
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 593
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 1179
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 503
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:54:40Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1393
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1025
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 842
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 505
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 658,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1392
+      },
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 593
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 1179
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 503
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T14:56:16Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1565
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1027
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 838
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 501
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 829
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 490,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 831
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1259
+      },
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 832
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 852
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 502
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T15:15:15Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1583
+    },
+    "checks": [
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1012
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 853
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 514
+      },
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1582
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 546,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 675
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1317
+      },
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 605
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 838
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 515
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T15:31:10Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 10,
+      "healthy": 9,
+      "unhealthy": 1,
+      "duration_ms": 1379
+    },
+    "checks": [
+      {
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1130
+      },
+      {
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 958
+      },
+      {
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 958
+      },
+      {
+        "name": "vertex-model",
+        "display_name": "Vertex Official",
+        "ok": true,
+        "model": "gemini-2.5-flash-lite",
+        "status_code": 200,
+        "latency_ms": 1183
+      },
+      {
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "model": "gpt-5.4",
+        "status_code": 200,
+        "latency_ms": 805
+      },
+      {
+        "name": "openai-models",
+        "display_name": "OpenAI 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1366
+      },
+      {
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 686,
+        "error": "unexpected_status"
+      },
+      {
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock 模型列表",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1379
+      },
+      {
+        "name": "openrouter-models",
+        "display_name": "OpenRouter Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1138
+      },
+      {
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "model": "gemini-2.5-pro",
+        "status_code": 200,
+        "latency_ms": 805
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T15:51:48Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 8,
+      "unhealthy": 1,
+      "duration_ms": 1311
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1152
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 848
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 839
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 598
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex Official",
+        "ok": false,
+        "status_code": 404,
+        "latency_ms": 491,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 670
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1310
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 506
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 506
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T16:01:41Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 1255
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1231
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 864
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 667
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 856
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 865
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 658
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1255
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 505
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 504
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T16:15:39Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 2813
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 2813
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 872
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 863
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 630
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 815
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 697
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1285
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 538
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 540
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T17:35:30Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1341
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1080
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 849
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 840
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 842
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 548
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 839
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1341
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 516,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 515,
+        "error": "unexpected_status"
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T19:22:09Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1283
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1067
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 883
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1059
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 636
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 551
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 874
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1282
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 547,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 547,
+        "error": "unexpected_status"
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T20:28:14Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1825
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1637
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1341
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1825
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1089
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 653
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1332
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1362
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 999,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 1001,
+        "error": "unexpected_status"
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T21:24:55Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1405
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1405
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1264
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1155
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1156
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1111
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1155
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1378
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 882,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 884,
+        "error": "unexpected_status"
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T22:10:48Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1287
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1142
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 887
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 878
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 878
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 802
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 656
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1286
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 547,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 548,
+        "error": "unexpected_status"
+      }
+    ]
+  },
+  {
+    "time": "2026-04-21T23:09:22Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1363
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1059
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 851
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 842
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 608
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 635
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 842
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1360
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 513,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 515,
+        "error": "unexpected_status"
+      }
+    ]
+  },
+  {
+    "time": "2026-04-22T00:03:13Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 7,
+      "unhealthy": 2,
+      "duration_ms": 1284
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1114
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 853
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 844
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 595
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 565
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 634
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1284
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 514,
+        "error": "unexpected_status"
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": false,
+        "status_code": 503,
+        "latency_ms": 514,
+        "error": "unexpected_status"
+      }
+    ]
+  }
+]
