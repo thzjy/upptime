@@ -6,7 +6,7 @@ sites:
     url: https://logox.top/health
 
 status-website:
-  baseUrl: /upptime
+  cname: monitor.logox.top
 
   logoUrl: https://docs.logox.top/logo.svg
   name: Logox Status
