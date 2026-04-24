@@ -1455,5 +1455,800 @@
         "error": "unexpected_status"
       }
     ]
+  },
+  {
+    "time": "2026-04-24T08:01:31Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 2454
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1050,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 842,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1061,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 834,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 823,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 835,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 2454,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 8340,
+        "stable_hours": 2.316666666666667
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 563,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 500,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14580,
+        "stable_hours": 4.05
+      }
+    ]
+  },
+  {
+    "time": "2026-04-24T08:02:17Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 1283
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1046,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1015,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1146,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 764,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 997,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1006,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1282,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 8400,
+        "stable_hours": 2.3333333333333335
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 681,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 685,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 14640,
+        "stable_hours": 4.066666666666666
+      }
+    ]
+  },
+  {
+    "time": "2026-04-24T08:10:03Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 2454
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 887,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 851,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 841,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 592,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 841,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 841,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 2454,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 8880,
+        "stable_hours": 2.466666666666667
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 507,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 512,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15120,
+        "stable_hours": 4.2
+      }
+    ]
+  },
+  {
+    "time": "2026-04-24T08:14:16Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 1292
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 874,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 841,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 836,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 819,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 837,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 1291,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 9120,
+        "stable_hours": 2.533333333333333
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 507,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 509,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15360,
+        "stable_hours": 4.266666666666667
+      }
+    ]
+  },
+  {
+    "time": "2026-04-24T08:15:09Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 2458
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 935,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 826,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 952,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 820,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 830,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 819,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 2457,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 9180,
+        "stable_hours": 2.55
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 499,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 495,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 15420,
+        "stable_hours": 4.283333333333333
+      }
+    ]
+  },
+  {
+    "time": "2026-04-24T08:26:48Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 2740
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 928,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.58333333333333
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 869,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.79166666666667
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 860,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.65277777777779
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 613,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.72222222222223
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 542,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.58333333333333
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 694,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.72222222222223
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 2740,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 9879,
+        "stable_hours": 2.7441666666666666,
+        "availability_24h": 99.51388888888889
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 532,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.79166666666667
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 533,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16119,
+        "stable_hours": 4.4775,
+        "availability_24h": 99.79166666666667
+      }
+    ]
+  },
+  {
+    "time": "2026-04-24T08:27:36Z",
+    "gateway_ok": true,
+    "summary": {
+      "total": 9,
+      "healthy": 9,
+      "unhealthy": 0,
+      "duration_ms": 2545
+    },
+    "checks": [
+      {
+        "order": 1,
+        "name": "openai-models",
+        "display_name": "OpenAI 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 839,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.58333333333333
+      },
+      {
+        "order": 2,
+        "name": "openrouter-models",
+        "display_name": "OpenRouter",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 849,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.79166666666667
+      },
+      {
+        "order": 3,
+        "name": "anthropic-models",
+        "display_name": "Anthropic Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 838,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.65277777777779
+      },
+      {
+        "order": 4,
+        "name": "gemini-models",
+        "display_name": "Gemini Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 838,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.72222222222223
+      },
+      {
+        "order": 5,
+        "name": "vertex-models",
+        "display_name": "Vertex 官方",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 655,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.58333333333333
+      },
+      {
+        "order": 6,
+        "name": "grok-models",
+        "display_name": "Grok Official",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 622,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.72222222222223
+      },
+      {
+        "order": 7,
+        "name": "aws-bedrock-models",
+        "display_name": "AWS Bedrock Claude",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 2544,
+        "stable_since": "2026-04-24T05:41:47Z",
+        "stable_for_seconds": 9942,
+        "stable_hours": 2.7616666666666667,
+        "availability_24h": 99.51388888888889
+      },
+      {
+        "order": 8,
+        "name": "cliproxyapi-codex",
+        "display_name": "Codex API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 509,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.79166666666667
+      },
+      {
+        "order": 9,
+        "name": "cliproxyapi-gemini",
+        "display_name": "Gemini API relay service",
+        "ok": true,
+        "status_code": 200,
+        "latency_ms": 508,
+        "stable_since": "2026-04-24T03:57:47Z",
+        "stable_for_seconds": 16182,
+        "stable_hours": 4.495,
+        "availability_24h": 99.79166666666667
+      }
+    ]
   }
 ]
