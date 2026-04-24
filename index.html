@@ -3,92 +3,98 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LOGOX 渠道监控</title>
+  <title>LOGOX Channel Monitor</title>
   <style>
     :root {
-      --bg: #f4efe6;
-      --panel: #fffaf0;
-      --ink: #1f261f;
-      --muted: #667064;
-      --line: #dfd4c1;
+      --bg: #f6f7f2;
+      --panel: #ffffff;
+      --ink: #17201c;
+      --muted: #65716b;
+      --line: #dbe2dc;
       --green: #1f9d55;
-      --yellow: #d8a316;
+      --yellow: #d6a21b;
       --orange: #df6b21;
       --red: #c9382e;
-      --blue: #2775c7;
-      --gray: #c6c6bf;
+      --gray: #c9cfca;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 12% 8%, rgba(31, 157, 85, .16), transparent 28rem),
-        radial-gradient(circle at 88% 0%, rgba(216, 163, 22, .18), transparent 26rem),
-        linear-gradient(135deg, #f7f0df 0%, #eef3e8 100%);
       min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-    main { max-width: 1180px; margin: 0 auto; padding: 42px 20px 64px; }
+    main { max-width: 1180px; margin: 0 auto; padding: 34px 18px 56px; }
     .hero {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 20px;
+      gap: 18px;
       align-items: end;
-      margin-bottom: 22px;
+      margin-bottom: 18px;
     }
-    h1 { font-size: clamp(34px, 6vw, 70px); line-height: .9; margin: 0; letter-spacing: -.06em; }
-    .subtitle { color: var(--muted); margin: 12px 0 0; }
+    h1 { margin: 0; font-size: 42px; line-height: 1; }
+    .muted { color: var(--muted); }
     .badge {
+      min-width: 230px;
       border: 1px solid var(--line);
-      background: rgba(255, 250, 240, .72);
-      border-radius: 22px;
-      padding: 16px 18px;
-      min-width: 250px;
-      box-shadow: 0 16px 40px rgba(50, 45, 35, .08);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 14px 16px;
     }
-    .badge strong { display: block; font-size: 28px; text-transform: uppercase; }
-    .badge.up strong { color: var(--green); }
-    .badge.degraded strong { color: var(--yellow); }
-    .badge.down strong { color: var(--red); }
-    .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0 28px; }
-    .card { background: rgba(255, 250, 240, .72); border: 1px solid var(--line); border-radius: 18px; padding: 15px; }
-    .card b { display: block; font-size: 26px; }
-    .card span, .muted { color: var(--muted); }
-    .legend { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 18px; color: var(--muted); font-size: 13px; }
+    .badge strong { display: block; font-size: 26px; text-transform: uppercase; }
+    .up { color: var(--green); }
+    .degraded { color: var(--yellow); }
+    .down, .empty { color: var(--red); }
+    .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 18px 0; }
+    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 13px; }
+    .card b { display: block; font-size: 24px; line-height: 1.15; }
+    .card span { color: var(--muted); font-size: 13px; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px; }
     .legend span { display: inline-flex; align-items: center; gap: 6px; }
-    .dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; }
-    .channel {
-      background: rgba(255, 250, 240, .78);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 18px;
-      margin: 12px 0;
-      box-shadow: 0 18px 50px rgba(50, 45, 35, .07);
-    }
-    .channel-head { display: flex; justify-content: space-between; gap: 16px; align-items: start; }
-    h2 { margin: 0; font-size: 18px; }
-    .channel p { margin: 5px 0 0; color: var(--muted); }
-    .status { border-radius: 999px; padding: 7px 11px; font-size: 12px; font-weight: 800; white-space: nowrap; }
-    .status.up { color: #0f6f3a; background: rgba(31, 157, 85, .14); }
-    .status.unhealthy { color: #965b00; background: rgba(216, 163, 22, .18); }
-    .status.gateway_down { color: #9b211a; background: rgba(201, 56, 46, .16); }
-    .status.no_data { color: #666; background: rgba(120, 120, 120, .13); }
-    .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 12px; }
-    .grid { display: grid; grid-template-columns: repeat(100, minmax(4px, 1fr)); gap: 3px; margin: 16px 0 12px; }
-    .cell { height: 18px; border-radius: 5px; box-shadow: inset 0 -1px 0 rgba(0,0,0,.12); }
+    .dot, .cell { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
     .green { background: var(--green); }
     .yellow { background: var(--yellow); }
     .orange { background: var(--orange); }
     .red { background: var(--red); }
-    .blue { background: var(--blue); }
     .gray { background: var(--gray); }
-    .stats { display: flex; flex-wrap: wrap; gap: 8px; }
-    .stats-label { color: var(--muted); font-size: 12px; line-height: 28px; }
-    .stat { background: rgba(31, 38, 31, .06); border: 1px solid rgba(31, 38, 31, .08); border-radius: 999px; padding: 6px 9px; font-size: 12px; color: var(--muted); }
-    @media (max-width: 820px) {
+    .channel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 16px;
+      margin: 10px 0;
+    }
+    .channel-head { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    h2 { margin: 0; font-size: 17px; }
+    .status {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      color: var(--panel);
+    }
+    .status.up { background: var(--green); }
+    .status.unhealthy { background: var(--yellow); color: #2c2400; }
+    .status.gateway_down, .status.no_data { background: var(--red); }
+    .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; margin-top: 14px; }
+    .cell { width: auto; height: 17px; }
+    .error { margin-top: 14px; color: var(--red); }
+    @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: repeat(50, minmax(5px, 1fr)); }
+      .grid { grid-template-columns: repeat(60, minmax(5px, 1fr)); }
     }
   </style>
 </head>
@@ -96,193 +102,273 @@
   <main>
     <header class="hero">
       <div>
-        <h1>LOGOX 渠道监控</h1>
+        <h1 data-i18n="title">LOGOX Channel Monitor</h1>
+        <p class="muted"><span data-i18n="sourceLabel">Source:</span><span id="source"></span></p>
       </div>
-      <div class="badge up">
-        <strong>up</strong>
-        <small>更新于 2026-04-24 16:27:36</small>
+      <div class="badge">
+        <strong id="gateway-state">loading</strong>
+        <small id="updated-at" data-i18n="loading">Loading probe data</small>
       </div>
     </header>
 
     <section class="cards">
-      <div class="card"><b>9</b><span>渠道总数</span></div>
-      <div class="card"><b>9</b><span>健康</span></div>
-      <div class="card"><b>0</b><span>异常</span></div>
-      <div class="card"><b>2545</b><span>汇总耗时 ms</span></div>
+      <div class="card"><b id="total">-</b><span data-i18n="total">Channels</span></div>
+      <div class="card"><b id="healthy">-</b><span data-i18n="healthy">Healthy</span></div>
+      <div class="card"><b id="unhealthy">-</b><span data-i18n="unhealthy">Unhealthy</span></div>
+      <div class="card"><b id="duration">-</b><span data-i18n="duration">Summary ms</span></div>
+      <div class="card"><b id="stable-days">-</b><span data-i18n="stableDays">Stable days</span></div>
     </section>
 
-    <nav class="legend">
-      <span><i class="dot green"></i>正常</span>
-      <span><i class="dot blue"></i>未接入</span>
-      <span><i class="dot yellow"></i>4xx</span>
-      <span><i class="dot orange"></i>5xx</span>
-      <span><i class="dot red"></i>网关失败/超时</span>
-      <span><i class="dot gray"></i>无数据</span>
-    </nav>
+    <div class="toolbar">
+      <div class="legend">
+        <span><i class="dot green"></i><span data-i18n="normal">Normal</span></span>
+        <span><i class="dot yellow"></i><span data-i18n="abnormal">Abnormal</span></span>
+        <span><i class="dot red"></i><span data-i18n="gatewayFailed">Gateway failed</span></span>
+        <span><i class="dot gray"></i><span data-i18n="noData">No data</span></span>
+      </div>
+      <span id="sample-count">-</span>
+    </div>
 
-    
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>OpenAI 官方</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：839ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>OpenRouter</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：849ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>Anthropic Official</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：838ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>Gemini Official</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：838ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>Vertex 官方</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：655ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell yellow" title="2026-04-21 22:39:28 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 22:50:26 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 22:54:17 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 22:54:40 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 22:56:16 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 23:15:15 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 23:31:10 404 unexpected_status"></span><span class="cell yellow" title="2026-04-21 23:51:48 404 unexpected_status"></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          <div class="stats"><span class="stats-label">异常统计</span><span class="stat"><b>404:unexpected_status</b> x8</span></div>
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>Grok Official</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：622ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>AWS Bedrock Claude</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：2544ms</span>
-            <span>24小时可用性：100.00%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell green" title="2026-04-22 01:35:30 200 "></span><span class="cell green" title="2026-04-22 03:22:09 200 "></span><span class="cell green" title="2026-04-22 04:28:14 200 "></span><span class="cell green" title="2026-04-22 05:24:55 200 "></span><span class="cell green" title="2026-04-22 06:10:48 200 "></span><span class="cell green" title="2026-04-22 07:09:22 200 "></span><span class="cell green" title="2026-04-22 08:03:13 200 "></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>Codex API relay service</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：509ms</span>
-            <span>24小时可用性：1.81%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell orange" title="2026-04-22 01:35:30 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 03:22:09 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 04:28:14 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 05:24:55 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 06:10:48 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 07:09:22 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 08:03:13 503 unexpected_status"></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          <div class="stats"><span class="stats-label">异常统计</span><span class="stat"><b>503:unexpected_status</b> x7</span></div>
-        </section>
-        
-        <section class="channel">
-          <div class="channel-head">
-            <div>
-              <h2>Gemini API relay service</h2>
-              
-            </div>
-            <div class="status up">UP</div>
-          </div>
-          <div class="meta">
-            <span>状态码：200</span>
-            <span>延迟：508ms</span>
-            <span>24小时可用性：1.81%</span>
-            
-          </div>
-          <div class="grid"><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell gray" title="无数据  no_data"></span><span class="cell green" title="2026-04-21 22:39:28 200 "></span><span class="cell green" title="2026-04-21 22:50:26 200 "></span><span class="cell green" title="2026-04-21 22:54:17 200 "></span><span class="cell green" title="2026-04-21 22:54:40 200 "></span><span class="cell green" title="2026-04-21 22:56:16 200 "></span><span class="cell green" title="2026-04-21 23:15:15 200 "></span><span class="cell green" title="2026-04-21 23:31:10 200 "></span><span class="cell green" title="2026-04-21 23:51:48 200 "></span><span class="cell green" title="2026-04-22 00:01:41 200 "></span><span class="cell green" title="2026-04-22 00:15:39 200 "></span><span class="cell orange" title="2026-04-22 01:35:30 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 03:22:09 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 04:28:14 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 05:24:55 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 06:10:48 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 07:09:22 503 unexpected_status"></span><span class="cell orange" title="2026-04-22 08:03:13 503 unexpected_status"></span><span class="cell green" title="2026-04-24 16:01:31 200 "></span><span class="cell green" title="2026-04-24 16:02:17 200 "></span><span class="cell green" title="2026-04-24 16:10:03 200 "></span><span class="cell green" title="2026-04-24 16:14:16 200 "></span><span class="cell green" title="2026-04-24 16:15:09 200 "></span><span class="cell green" title="2026-04-24 16:26:48 200 "></span><span class="cell green" title="2026-04-24 16:27:36 200 "></span></div>
-          <div class="stats"><span class="stats-label">异常统计</span><span class="stat"><b>503:unexpected_status</b> x7</span></div>
-        </section>
-        
+    <section id="channels"></section>
+    <p class="error" id="error"></p>
   </main>
+
+  <script>
+    const messages = {
+      zh: {
+        title: "LOGOX 渠道监控",
+        sourceLabel: "数据源：",
+        loading: "正在读取探针数据",
+        total: "渠道总数",
+        healthy: "健康",
+        unhealthy: "异常",
+        duration: "汇总耗时 ms",
+        stableDays: "稳定运行天数",
+        normal: "正常",
+        abnormal: "异常",
+        gatewayFailed: "网关失败",
+        noData: "无数据",
+        updatedAt: "更新于",
+        samples: "样本",
+        interval: "采集间隔",
+        seconds: "秒",
+        statusCode: "状态码",
+        latency: "延迟",
+        stable: "稳定运行",
+        availability24h: "24小时可用性",
+        hours: "小时",
+        error: "错误",
+        noChannels: "暂无渠道数据",
+        loadFailed: "读取失败",
+      },
+      en: {
+        title: "LOGOX Channel Monitor",
+        sourceLabel: "Source:",
+        loading: "Loading probe data",
+        total: "Channels",
+        healthy: "Healthy",
+        unhealthy: "Unhealthy",
+        duration: "Summary ms",
+        stableDays: "Stable days",
+        normal: "Normal",
+        abnormal: "Abnormal",
+        gatewayFailed: "Gateway failed",
+        noData: "No data",
+        updatedAt: "Updated at",
+        samples: "Samples",
+        interval: "interval",
+        seconds: "s",
+        statusCode: "Status",
+        latency: "Latency",
+        stable: "Stable",
+        availability24h: "24h availability",
+        hours: "hours",
+        error: "Error",
+        noChannels: "No channel data",
+        loadFailed: "Load failed",
+      },
+    };
+    const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
+    const lang = preferredLang.startsWith("zh")
+      ? "zh"
+      : "en";
+    const t = messages[lang];
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    document.title = t.title;
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      node.textContent = t[node.dataset.i18n] || node.textContent;
+    });
+
+    const params = new URLSearchParams(location.search);
+    const defaultApi = "https://tgw.logox.top";
+    const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
+    const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
+    const historyUrl = `${apiBase}/probe/history?limit=1440`;
+    const pollMs = 30000;
+    const gridSize = 120;
+
+    document.getElementById("source").textContent = "https://logox.top";
+
+    function fmtTime(raw) {
+      if (!raw) return "-";
+      const date = new Date(raw);
+      if (Number.isNaN(date.getTime())) return String(raw);
+      return date.toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { hour12: false });
+    }
+
+    function fmtDays(days) {
+      if (!Number.isFinite(days)) return "-";
+      if (days < 1) return days.toFixed(2);
+      return days.toFixed(1);
+    }
+
+    function fmtHours(hours) {
+      if (!Number.isFinite(hours)) return "-";
+      if (hours < 1) return hours.toFixed(2);
+      return hours.toFixed(1);
+    }
+
+    function fmtPercent(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toFixed(2)}%`;
+    }
+
+    function statusLabel(state) {
+      if (state === "healthy") return "up";
+      if (state === "degraded") return "degraded";
+      if (state === "down") return "down";
+      if (state === "empty") return "empty";
+      return state || "unknown";
+    }
+
+    function channelState(check) {
+      if (!check) return "no_data";
+      return check.ok ? "up" : "unhealthy";
+    }
+
+    function cellColor(sample, check) {
+      if (!sample) return "gray";
+      if (sample.status === "down" || sample.status === "empty") return "red";
+      if (!check) return "gray";
+      if (check.ok) return "green";
+      const code = check.status_code || 0;
+      if (code >= 500) return "orange";
+      if (code >= 400) return "yellow";
+      return "yellow";
+    }
+
+    function latestCheck(samples, name) {
+      for (let i = samples.length - 1; i >= 0; i--) {
+        const found = (samples[i].checks || []).find((check) => check.name === name);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function stableHoursForChannel(samples, name) {
+      let latestHealthyAt = null;
+      let stableSince = null;
+      for (let i = samples.length - 1; i >= 0; i--) {
+        const sample = samples[i];
+        const check = (sample.checks || []).find((item) => item.name === name);
+        if (!check || !check.ok) break;
+        const checkedAt = new Date(sample.checked_at);
+        if (Number.isNaN(checkedAt.getTime())) break;
+        latestHealthyAt ||= checkedAt;
+        stableSince = checkedAt;
+      }
+      if (!latestHealthyAt || !stableSince) return null;
+      return Math.max(0, latestHealthyAt.getTime() - stableSince.getTime()) / 3600000;
+    }
+
+    function collectChannels(samples) {
+      const seen = new Map();
+      for (const sample of samples) {
+        for (const check of sample.checks || []) {
+          if (!seen.has(check.name)) {
+            seen.set(check.name, check.display_name || check.name);
+          }
+        }
+      }
+      return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));
+    }
+
+    function render(data) {
+      const samples = data.samples || [];
+      const latest = samples[samples.length - 1] || {};
+      const summary = latest.summary || {};
+      const state = statusLabel(latest.status);
+      const badge = document.querySelector(".badge");
+
+      document.getElementById("gateway-state").textContent = state;
+      document.getElementById("gateway-state").className = state;
+      badge.className = `badge ${state}`;
+      document.getElementById("updated-at").textContent = `${t.updatedAt} ${fmtTime(latest.checked_at || data.updated_at)}`;
+      document.getElementById("total").textContent = summary.total ?? "-";
+      document.getElementById("healthy").textContent = summary.healthy ?? "-";
+      document.getElementById("unhealthy").textContent = summary.unhealthy ?? "-";
+      document.getElementById("duration").textContent = summary.duration_ms ?? "-";
+      document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);
+      document.getElementById("sample-count").textContent =
+        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
+
+      const recent = samples.slice(-gridSize);
+      const channels = collectChannels(samples);
+      const html = channels.map((channel) => {
+        const current = latestCheck(samples, channel.name);
+        const state = channelState(current);
+        const stableHours = stableHoursForChannel(samples, channel.name);
+        const availability24h = current?.availability_24h ?? channel.availability_24h;
+        const cells = recent.map((sample) => {
+          const check = (sample.checks || []).find((item) => item.name === channel.name);
+          const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
+          return `<span class="cell ${cellColor(sample, check)}" title="${escapeHtml(title)}"></span>`;
+        }).join("");
+        return `
+          <article class="channel">
+            <div class="channel-head">
+              <div>
+                <h2>${escapeHtml(channel.displayName)}</h2>
+              </div>
+              <div class="status ${state}">${state.toUpperCase()}</div>
+            </div>
+            <div class="meta">
+              <span>${t.statusCode}: ${current?.status_code || "-"}</span>
+              <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
+              <span>${t.stable}: ${stableHours == null ? "-" : `${fmtHours(stableHours)} ${t.hours}`}</span>
+              <span>${t.availability24h}: ${fmtPercent(availability24h)}</span>
+              ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
+            </div>
+            <div class="grid">${cells}</div>
+          </article>`;
+      }).join("");
+      document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
+      document.getElementById("error").textContent = "";
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[char]));
+    }
+
+    async function load() {
+      try {
+        const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
+        const response = await fetch(historyUrl, { cache: "no-store", headers });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        render(await response.json());
+      } catch (error) {
+        document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;
+      }
+    }
+
+    load();
+    setInterval(load, pollMs);
+  </script>
 </body>
 </html>
