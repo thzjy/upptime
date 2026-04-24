@@ -36,12 +36,14 @@ def format_time(raw):
     return dt.astimezone(DISPLAY_TZ).strftime("%Y-%m-%d %H:%M:%S")
 
 
-def fmt_hours(hours):
-    if hours is None:
-        return "-"
-    if hours < 1:
-        return f"{hours:.2f}"
-    return f"{hours:.1f}"
+def load_history():
+    if not HISTORY_PATH.exists():
+        return []
+    try:
+        data = json.loads(HISTORY_PATH.read_text(encoding="utf-8"))
+        return data if isinstance(data, list) else []
+    except json.JSONDecodeError:
+        return []
 
 
 def parse_time(raw):
@@ -51,16 +53,6 @@ def parse_time(raw):
         return datetime.fromisoformat(str(raw).replace("Z", "+00:00"))
     except ValueError:
         return None
-
-
-def load_history():
-    if not HISTORY_PATH.exists():
-        return []
-    try:
-        data = json.loads(HISTORY_PATH.read_text(encoding="utf-8"))
-        return data if isinstance(data, list) else []
-    except json.JSONDecodeError:
-        return []
 
 
 def fetch_summary():
@@ -159,6 +151,7 @@ def current_for_channel(history, name):
                 "state": "gateway_down",
                 "latency_ms": None,
                 "status_code": None,
+                "availability_72h": None,
                 "error": sample.get("error", "gateway_down"),
             }
         check = next((item for item in sample.get("checks", []) if item.get("name") == name), None)
@@ -169,26 +162,26 @@ def current_for_channel(history, name):
                 "model": check.get("model"),
                 "latency_ms": check.get("latency_ms"),
                 "status_code": check.get("status_code"),
-                "availability_24h": check.get("availability_24h"),
+                "availability_72h": check.get("availability_72h"),
                 "error": check.get("error"),
             }
     return {"ok": None, "state": "no_data"}
 
 
-def availability_24h_for_channel(history, name):
+def availability_72h_for_channel(history, name):
     if not history:
         return None
-    latest = history[-1]
+
     end = None
     for sample in reversed(history):
         if sample.get("gateway_ok"):
             end = parse_time(sample.get("time"))
             if end is not None:
-                latest = sample
                 break
     if end is None:
         return None
-    start = end - timedelta(hours=24)
+
+    start = end - timedelta(hours=72)
     points = []
     for sample in history:
         checked_at = parse_time(sample.get("time"))
@@ -198,13 +191,16 @@ def availability_24h_for_channel(history, name):
         if check is None:
             continue
         points.append((checked_at, check.get("ok") is True))
+
     if not points:
         return None
+
     anchor_ok = points[0][1]
     for checked_at, ok in reversed(points):
         if checked_at <= start:
             anchor_ok = ok
             break
+
     cursor = start
     healthy = 0.0
     current_ok = anchor_ok
@@ -212,14 +208,17 @@ def availability_24h_for_channel(history, name):
         if checked_at <= start:
             current_ok = ok
             continue
-        segment = min(checked_at, end) - cursor
+        segment_end = checked_at if checked_at < end else end
+        segment = segment_end - cursor
         if segment.total_seconds() > 0 and current_ok:
             healthy += segment.total_seconds()
         cursor = checked_at
         current_ok = ok
+
     tail = end - cursor
     if tail.total_seconds() > 0 and current_ok:
         healthy += tail.total_seconds()
+
     total = (end - start).total_seconds()
     if total <= 0:
         return None
@@ -232,7 +231,6 @@ def build_dashboard(history):
     channels = []
     for known in known_channels:
         name = known["name"]
-        availability_24h = availability_24h_for_channel(history, name)
         cells = []
         errors = Counter()
         for sample in recent:
@@ -249,15 +247,16 @@ def build_dashboard(history):
             })
         while len(cells) < GRID_SIZE:
             cells.insert(0, {"time": None, "color": "gray", "status_code": None, "error": "no_data"})
+        availability_72h = availability_72h_for_channel(history, name)
         channels.append({
             "name": name,
             "display_name": known["display_name"],
             "current": {
                 **current_for_channel(history, name),
-                "availability_24h": availability_24h,
+                "availability_72h": availability_72h,
             },
             "history": cells,
-            "availability_24h": availability_24h,
+            "availability_72h": availability_72h,
             "unhealthy_stats": [
                 {"key": key, "count": count}
                 for key, count in errors.most_common(8)
@@ -324,9 +323,9 @@ def render_html(dashboard):
         model = current.get("model") if should_show_model(channel["name"], current) else None
         model_html = f'<p>模型：{html.escape(str(model))}</p>' if model else ""
         latency = "-" if current.get("latency_ms") is None else f'{current.get("latency_ms")}ms'
-        availability = current.get("availability_24h")
+        availability = current.get("availability_72h")
         if availability is None:
-            availability = channel.get("availability_24h")
+            availability = channel.get("availability_72h")
         availability_text = "-" if availability is None else f"{availability:.2f}%"
         error = current.get("error")
         error_html = f'<span>错误：{html.escape(str(error))}</span>' if error else ""
@@ -343,7 +342,7 @@ def render_html(dashboard):
           <div class="meta">
             <span>状态码：{html.escape(str(current.get("status_code") or "-"))}</span>
             <span>延迟：{html.escape(latency)}</span>
-            <span>24小时可用性：{html.escape(availability_text)}</span>
+            <span>72小时可用性：{html.escape(availability_text)}</span>
             {error_html}
           </div>
           <div class="grid">{cells}</div>

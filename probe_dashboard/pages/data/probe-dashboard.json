@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-24T08:27:36Z",
+  "updated_at": "2026-04-24T08:57:37Z",
   "gateway": {
     "ok": true,
     "state": "up",
@@ -9,7 +9,7 @@
     "total": 9,
     "healthy": 9,
     "unhealthy": 0,
-    "duration_ms": 2545
+    "duration_ms": 2478
   },
   "channels": [
     {
@@ -19,18 +19,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 839,
+        "latency_ms": 892,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 100.0,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -624,9 +618,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 100.0,
       "unhealthy_stats": []
     },
     {
@@ -636,18 +636,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 849,
+        "latency_ms": 835,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 100.0,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1241,9 +1235,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 100.0,
       "unhealthy_stats": []
     },
     {
@@ -1253,18 +1253,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 838,
+        "latency_ms": 825,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 100.0,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -1858,9 +1852,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 100.0,
       "unhealthy_stats": []
     },
     {
@@ -1870,18 +1870,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 838,
+        "latency_ms": 587,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 100.0,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -2475,9 +2469,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 100.0,
       "unhealthy_stats": []
     },
     {
@@ -2487,18 +2487,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 655,
+        "latency_ms": 619,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 90.18364197530863,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -3092,9 +3086,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 90.18364197530863,
       "unhealthy_stats": [
         {
           "key": "404:unexpected_status",
@@ -3109,18 +3109,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 622,
+        "latency_ms": 659,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 100.0,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -3714,9 +3708,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 100.0,
       "unhealthy_stats": []
     },
     {
@@ -3726,18 +3726,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 2544,
+        "latency_ms": 2478,
         "status_code": 200,
-        "availability_24h": 100.0,
+        "availability_72h": 100.0,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -4331,9 +4325,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 100.0,
+      "availability_72h": 100.0,
       "unhealthy_stats": []
     },
     {
@@ -4343,18 +4343,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 509,
+        "latency_ms": 499,
         "status_code": 200,
-        "availability_24h": 1.8113425925925926,
+        "availability_72h": 13.2866512345679,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -4948,9 +4942,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 1.8113425925925926,
+      "availability_72h": 13.2866512345679,
       "unhealthy_stats": [
         {
           "key": "503:unexpected_status",
@@ -4965,18 +4965,12 @@
         "ok": true,
         "state": "up",
         "model": null,
-        "latency_ms": 508,
+        "latency_ms": 499,
         "status_code": 200,
-        "availability_24h": 1.8113425925925926,
+        "availability_72h": 13.2866512345679,
         "error": null
       },
       "history": [
-        {
-          "time": null,
-          "color": "gray",
-          "status_code": null,
-          "error": "no_data"
-        },
         {
           "time": null,
           "color": "gray",
@@ -5570,9 +5564,15 @@
           "color": "green",
           "status_code": 200,
           "error": null
+        },
+        {
+          "time": "2026-04-24T08:57:37Z",
+          "color": "green",
+          "status_code": 200,
+          "error": null
         }
       ],
-      "availability_24h": 1.8113425925925926,
+      "availability_72h": 13.2866512345679,
       "unhealthy_stats": [
         {
           "key": "503:unexpected_status",
