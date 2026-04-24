@@ -154,8 +154,7 @@
         seconds: "秒",
         statusCode: "状态码",
         latency: "延迟",
-        stable: "稳定运行",
-        availability24h: "24小时可用性",
+        availability72h: "72小时可用性",
         hours: "小时",
         error: "错误",
         noChannels: "暂无渠道数据",
@@ -180,8 +179,7 @@
         seconds: "s",
         statusCode: "Status",
         latency: "Latency",
-        stable: "Stable",
-        availability24h: "24h availability",
+        availability72h: "72h availability",
         hours: "hours",
         error: "Error",
         noChannels: "No channel data",
@@ -222,12 +220,6 @@
       return days.toFixed(1);
     }
 
-    function fmtHours(hours) {
-      if (!Number.isFinite(hours)) return "-";
-      if (hours < 1) return hours.toFixed(2);
-      return hours.toFixed(1);
-    }
-
     function fmtPercent(value) {
       if (!Number.isFinite(value)) return "-";
       return `${value.toFixed(2)}%`;
@@ -265,20 +257,52 @@
       return null;
     }
 
-    function stableHoursForChannel(samples, name) {
-      let latestHealthyAt = null;
-      let stableSince = null;
-      for (let i = samples.length - 1; i >= 0; i--) {
-        const sample = samples[i];
-        const check = (sample.checks || []).find((item) => item.name === name);
-        if (!check || !check.ok) break;
+    function availabilityForChannel(samples, name, hoursWindow) {
+      const endSample = [...samples].reverse().find((sample) => Number.isFinite(new Date(sample.checked_at).getTime()));
+      if (!endSample) return null;
+      const end = new Date(endSample.checked_at);
+      const start = new Date(end.getTime() - hoursWindow * 3600000);
+      const points = [];
+
+      for (const sample of samples) {
         const checkedAt = new Date(sample.checked_at);
-        if (Number.isNaN(checkedAt.getTime())) break;
-        latestHealthyAt ||= checkedAt;
-        stableSince = checkedAt;
+        if (Number.isNaN(checkedAt.getTime()) || checkedAt > end) continue;
+        const check = (sample.checks || []).find((item) => item.name === name);
+        if (!check) continue;
+        points.push({ checkedAt, ok: !!check.ok });
       }
-      if (!latestHealthyAt || !stableSince) return null;
-      return Math.max(0, latestHealthyAt.getTime() - stableSince.getTime()) / 3600000;
+
+      if (!points.length) return null;
+
+      let anchorOk = points[0].ok;
+      for (let i = points.length - 1; i >= 0; i--) {
+        if (points[i].checkedAt <= start) {
+          anchorOk = points[i].ok;
+          break;
+        }
+      }
+
+      let cursor = start;
+      let healthyMs = 0;
+      let currentOk = anchorOk;
+      for (const point of points) {
+        if (point.checkedAt <= start) {
+          currentOk = point.ok;
+          continue;
+        }
+        const segmentEnd = point.checkedAt < end ? point.checkedAt : end;
+        const segmentMs = segmentEnd.getTime() - cursor.getTime();
+        if (segmentMs > 0 && currentOk) healthyMs += segmentMs;
+        cursor = point.checkedAt;
+        currentOk = point.ok;
+      }
+
+      const tailMs = end.getTime() - cursor.getTime();
+      if (tailMs > 0 && currentOk) healthyMs += tailMs;
+
+      const totalMs = end.getTime() - start.getTime();
+      if (totalMs <= 0) return null;
+      return (healthyMs / totalMs) * 100;
     }
 
     function collectChannels(samples) {
@@ -317,8 +341,7 @@
       const html = channels.map((channel) => {
         const current = latestCheck(samples, channel.name);
         const state = channelState(current);
-        const stableHours = stableHoursForChannel(samples, channel.name);
-        const availability24h = current?.availability_24h ?? channel.availability_24h;
+        const availability72h = availabilityForChannel(samples, channel.name, 72);
         const cells = recent.map((sample) => {
           const check = (sample.checks || []).find((item) => item.name === channel.name);
           const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
@@ -335,8 +358,7 @@
             <div class="meta">
               <span>${t.statusCode}: ${current?.status_code || "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
-              <span>${t.stable}: ${stableHours == null ? "-" : `${fmtHours(stableHours)} ${t.hours}`}</span>
-              <span>${t.availability24h}: ${fmtPercent(availability24h)}</span>
+              <span>${t.availability72h}: ${fmtPercent(availability72h)}</span>
               ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
             </div>
             <div class="grid">${cells}</div>
