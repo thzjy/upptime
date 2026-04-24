@@ -8,7 +8,7 @@ Open the page with an explicit API base when it is hosted away from the gateway:
 https://your-pages-host.example/?api=https://tgw.logox.top
 ```
 
-The dashboard shows the latest summary, recent channel history, and stable running days from the gateway response.
+The dashboard shows the latest summary and recent channel history from the gateway response.
 
 ## Legacy updater
 

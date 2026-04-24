@@ -41,9 +41,53 @@ def load_history():
         return []
     try:
         data = json.loads(HISTORY_PATH.read_text(encoding="utf-8"))
-        return data if isinstance(data, list) else []
+        return strip_stable_fields(data) if isinstance(data, list) else []
     except json.JSONDecodeError:
         return []
+
+
+def strip_stable_fields(history):
+    cleaned = []
+    for sample in history:
+        if not isinstance(sample, dict):
+            continue
+        item = dict(sample)
+        item.pop("stable_since", None)
+        item.pop("stable_for_seconds", None)
+        item.pop("stable_hours", None)
+        checks = []
+        for check in sample.get("checks", []):
+            if not isinstance(check, dict):
+                continue
+            check_item = dict(check)
+            check_item.pop("stable_since", None)
+            check_item.pop("stable_for_seconds", None)
+            check_item.pop("stable_hours", None)
+            checks.append(check_item)
+        if checks or "checks" in item:
+            item["checks"] = checks
+        cleaned.append(item)
+    return cleaned
+
+
+def strip_sample_stable_fields(sample):
+    if not isinstance(sample, dict):
+        return sample
+    item = dict(sample)
+    item.pop("stable_since", None)
+    item.pop("stable_for_seconds", None)
+    item.pop("stable_hours", None)
+    checks = []
+    for check in sample.get("checks", []):
+        if not isinstance(check, dict):
+            continue
+        check_item = dict(check)
+        check_item.pop("stable_since", None)
+        check_item.pop("stable_for_seconds", None)
+        check_item.pop("stable_hours", None)
+        checks.append(check_item)
+    item["checks"] = checks
+    return item
 
 
 def parse_time(raw):
@@ -68,19 +112,19 @@ def fetch_summary():
         payload = json.loads(raw)
         if status_code != 200:
             raise RuntimeError(f"unexpected HTTP status {status_code}")
-        return {
+        return strip_sample_stable_fields({
             "time": utc_now(),
             "gateway_ok": True,
             "summary": payload.get("summary", {}),
             "checks": payload.get("checks", []),
-        }
+        })
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, RuntimeError) as exc:
-        return {
+        return strip_sample_stable_fields({
             "time": utc_now(),
             "gateway_ok": False,
             "error": str(exc),
             "checks": [],
-        }
+        })
 
 
 def known_channel_names(history):
@@ -485,7 +529,7 @@ def main():
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     if LOGO_SOURCE.exists():
         LOGO_PATH.write_text(LOGO_SOURCE.read_text(encoding="utf-8"), encoding="utf-8")
-    history = load_history()
+    history = strip_stable_fields(load_history())
     history.append(fetch_summary())
     history = history[-MAX_HISTORY:]
     dashboard = build_dashboard(history)
