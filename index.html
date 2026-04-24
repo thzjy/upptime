@@ -1,1 +1,396 @@
-﻿<!doctype html><html lang="zh-CN"><head>  <meta charset="utf-8">  <meta name="viewport" content="width=device-width, initial-scale=1">  <title>LOGOX Channel Monitor</title>  <style>    :root {      --bg: #f6f7f2;      --panel: #ffffff;      --ink: #17201c;      --muted: #65716b;      --line: #dbe2dc;      --green: #1f9d55;      --yellow: #d6a21b;      --orange: #df6b21;      --red: #c9382e;      --gray: #c9cfca;    }    * { box-sizing: border-box; }    body {      margin: 0;      min-height: 100vh;      color: var(--ink);      background: var(--bg);      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;    }    main { max-width: 1180px; margin: 0 auto; padding: 34px 18px 56px; }    .hero {      display: grid;      grid-template-columns: 1fr auto;      gap: 18px;      align-items: end;      margin-bottom: 18px;    }    h1 { margin: 0; font-size: 42px; line-height: 1; }    .muted { color: var(--muted); }    .badge {      min-width: 230px;      border: 1px solid var(--line);      background: var(--panel);      border-radius: 8px;      padding: 14px 16px;    }    .badge strong { display: block; font-size: 26px; text-transform: uppercase; }    .up { color: var(--green); }    .degraded { color: var(--yellow); }    .down, .empty { color: var(--red); }    .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 18px 0; }    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 13px; }    .card b { display: block; font-size: 24px; line-height: 1.15; }    .card span { color: var(--muted); font-size: 13px; }    .toolbar {      display: flex;      flex-wrap: wrap;      align-items: center;      justify-content: space-between;      gap: 10px;      margin: 18px 0;      color: var(--muted);      font-size: 13px;    }    .legend { display: flex; flex-wrap: wrap; gap: 10px; }    .legend span { display: inline-flex; align-items: center; gap: 6px; }    .dot, .cell { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }    .green { background: var(--green); }    .yellow { background: var(--yellow); }    .orange { background: var(--orange); }    .red { background: var(--red); }    .gray { background: var(--gray); }    .channel {      border: 1px solid var(--line);      border-radius: 8px;      background: var(--panel);      padding: 16px;      margin: 10px 0;    }    .channel-head { display: flex; justify-content: space-between; gap: 14px; align-items: start; }    h2 { margin: 0; font-size: 17px; }    .status {      border-radius: 999px;      padding: 6px 10px;      font-size: 12px;      font-weight: 800;      white-space: nowrap;      color: var(--panel);    }    .status.up { background: var(--green); }    .status.unhealthy { background: var(--yellow); color: #2c2400; }    .status.gateway_down, .status.no_data { background: var(--red); }    .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; margin-top: 14px; }    .cell { width: auto; height: 17px; }    .error { margin-top: 14px; color: var(--red); }    @media (max-width: 900px) {      .hero, .cards { grid-template-columns: 1fr; }      .grid { grid-template-columns: repeat(60, minmax(5px, 1fr)); }    }  </style></head><body>  <main>    <header class="hero">      <div>        <h1 data-i18n="title">LOGOX Channel Monitor</h1>        <p class="muted"><span data-i18n="sourceLabel">Source:</span><span id="source"></span></p>      </div>      <div class="badge">        <strong id="gateway-state">loading</strong>        <small id="updated-at" data-i18n="loading">Loading probe data</small>      </div>    </header>    <section class="cards">      <div class="card"><b id="total">-</b><span data-i18n="total">Channels</span></div>      <div class="card"><b id="healthy">-</b><span data-i18n="healthy">Healthy</span></div>      <div class="card"><b id="unhealthy">-</b><span data-i18n="unhealthy">Unhealthy</span></div>      <div class="card"><b id="duration">-</b><span data-i18n="duration">Summary ms</span></div>      <div class="card"><b id="stable-days">-</b><span data-i18n="stableDays">Stable days</span></div>    </section>    <div class="toolbar">      <div class="legend">        <span><i class="dot green"></i><span data-i18n="normal">Normal</span></span>        <span><i class="dot yellow"></i><span data-i18n="abnormal">Abnormal</span></span>        <span><i class="dot red"></i><span data-i18n="gatewayFailed">Gateway failed</span></span>        <span><i class="dot gray"></i><span data-i18n="noData">No data</span></span>      </div>      <span id="sample-count">-</span>    </div>    <section id="channels"></section>    <p class="error" id="error"></p>  </main>  <script>    const messages = {      zh: {        title: "LOGOX ????",        sourceLabel: "????",        loading: "????????",        total: "????",        healthy: "??",        unhealthy: "??",        duration: "???? ms",        stableDays: "??????",        normal: "??",        abnormal: "??",        gatewayFailed: "????",        noData: "???",        updatedAt: "???",        samples: "??",        interval: "????",        seconds: "?",        statusCode: "???",        latency: "??",        availability72h: "72?????",        hours: "??",        error: "??",        noChannels: "??????",        loadFailed: "????",      },      en: {        title: "LOGOX Channel Monitor",        sourceLabel: "Source:",        loading: "Loading probe data",        total: "Channels",        healthy: "Healthy",        unhealthy: "Unhealthy",        duration: "Summary ms",        stableDays: "Stable days",        normal: "Normal",        abnormal: "Abnormal",        gatewayFailed: "Gateway failed",        noData: "No data",        updatedAt: "Updated at",        samples: "Samples",        interval: "interval",        seconds: "s",        statusCode: "Status",        latency: "Latency",        availability72h: "72h availability",        hours: "hours",        error: "Error",        noChannels: "No channel data",        loadFailed: "Load failed",      },    };    const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();    const lang = preferredLang.startsWith("zh")      ? "zh"      : "en";    const t = messages[lang];    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";    document.title = t.title;    document.querySelectorAll("[data-i18n]").forEach((node) => {      node.textContent = t[node.dataset.i18n] || node.textContent;    });    const params = new URLSearchParams(location.search);    const defaultApi = "https://tgw.logox.top";    const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");    const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";    const historyUrl = `${apiBase}/probe/history?limit=1440`;    const pollMs = 30000;    const gridSize = 120;    document.getElementById("source").textContent = "https://logox.top";    function fmtTime(raw) {      if (!raw) return "-";      const date = new Date(raw);      if (Number.isNaN(date.getTime())) return String(raw);      return date.toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { hour12: false });    }    function fmtDays(days) {      if (!Number.isFinite(days)) return "-";      if (days < 1) return days.toFixed(2);      return days.toFixed(1);    }    function fmtPercent(value) {      if (!Number.isFinite(value)) return "-";      return `${value.toFixed(2)}%`;    }    function statusLabel(state) {      if (state === "healthy") return "up";      if (state === "degraded") return "degraded";      if (state === "down") return "down";      if (state === "empty") return "empty";      return state || "unknown";    }    function channelState(check) {      if (!check) return "no_data";      return check.ok ? "up" : "unhealthy";    }    function cellColor(sample, check) {      if (!sample) return "gray";      if (sample.status === "down" || sample.status === "empty") return "red";      if (!check) return "gray";      if (check.ok) return "green";      const code = check.status_code || 0;      if (code >= 500) return "orange";      if (code >= 400) return "yellow";      return "yellow";    }    function latestCheck(samples, name) {      for (let i = samples.length - 1; i >= 0; i--) {        const found = (samples[i].checks || []).find((check) => check.name === name);        if (found) return found;      }      return null;    }    function availabilityForChannel(samples, name, hoursWindow) {      const endSample = [...samples].reverse().find((sample) => Number.isFinite(new Date(sample.checked_at).getTime()));      if (!endSample) return null;      const end = new Date(endSample.checked_at);      const start = new Date(end.getTime() - hoursWindow * 3600000);      const points = [];      for (const sample of samples) {        const checkedAt = new Date(sample.checked_at);        if (Number.isNaN(checkedAt.getTime()) || checkedAt > end) continue;        const check = (sample.checks || []).find((item) => item.name === name);        if (!check) continue;        points.push({ checkedAt, ok: !!check.ok });      }      if (!points.length) return null;      let anchorOk = points[0].ok;      for (let i = points.length - 1; i >= 0; i--) {        if (points[i].checkedAt <= start) {          anchorOk = points[i].ok;          break;        }      }      let cursor = start;      let healthyMs = 0;      let currentOk = anchorOk;      for (const point of points) {        if (point.checkedAt <= start) {          currentOk = point.ok;          continue;        }        const segmentEnd = point.checkedAt < end ? point.checkedAt : end;        const segmentMs = segmentEnd.getTime() - cursor.getTime();        if (segmentMs > 0 && currentOk) healthyMs += segmentMs;        cursor = point.checkedAt;        currentOk = point.ok;      }      const tailMs = end.getTime() - cursor.getTime();      if (tailMs > 0 && currentOk) healthyMs += tailMs;      const totalMs = end.getTime() - start.getTime();      if (totalMs <= 0) return null;      return (healthyMs / totalMs) * 100;    }    function collectChannels(samples) {      const seen = new Map();      for (const sample of samples) {        for (const check of sample.checks || []) {          if (!seen.has(check.name)) {            seen.set(check.name, check.display_name || check.name);          }        }      }      return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));    }    function render(data) {      const samples = data.samples || [];      const latest = samples[samples.length - 1] || {};      const summary = latest.summary || {};      const state = statusLabel(latest.status);      const badge = document.querySelector(".badge");      document.getElementById("gateway-state").textContent = state;      document.getElementById("gateway-state").className = state;      badge.className = `badge ${state}`;      document.getElementById("updated-at").textContent = `${t.updatedAt} ${fmtTime(latest.checked_at || data.updated_at)}`;      document.getElementById("total").textContent = summary.total ?? "-";      document.getElementById("healthy").textContent = summary.healthy ?? "-";      document.getElementById("unhealthy").textContent = summary.unhealthy ?? "-";      document.getElementById("duration").textContent = summary.duration_ms ?? "-";      document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);      document.getElementById("sample-count").textContent =        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;      const recent = samples.slice(-gridSize);      const channels = collectChannels(samples);      const html = channels.map((channel) => {        const current = latestCheck(samples, channel.name);        const state = channelState(current);        const availability72h = availabilityForChannel(samples, channel.name, 72);        const cells = recent.map((sample) => {          const check = (sample.checks || []).find((item) => item.name === channel.name);          const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();          return `<span class="cell ${cellColor(sample, check)}" title="${escapeHtml(title)}"></span>`;        }).join("");        return `          <article class="channel">            <div class="channel-head">              <div>                <h2>${escapeHtml(channel.displayName)}</h2>              </div>              <div class="status ${state}">${state.toUpperCase()}</div>            </div>            <div class="meta">              <span>${t.statusCode}: ${current?.status_code || "-"}</span>              <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>              <span>${t.availability72h}: ${fmtPercent(availability72h)}</span>              ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}            </div>            <div class="grid">${cells}</div>          </article>`;      }).join("");      document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;      document.getElementById("error").textContent = "";    }    function escapeHtml(value) {      return String(value).replace(/[&<>"']/g, (char) => ({        "&": "&amp;",        "<": "&lt;",        ">": "&gt;",        '"': "&quot;",        "'": "&#39;",      }[char]));    }    async function load() {      try {        const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};        const response = await fetch(historyUrl, { cache: "no-store", headers });        if (!response.ok) throw new Error(`HTTP ${response.status}`);        render(await response.json());      } catch (error) {        document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;      }    }    load();    setInterval(load, pollMs);  </script></body></html>
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LOGOX Channel Monitor</title>
+  <style>
+    :root {
+      --bg: #f6f7f2;
+      --panel: #ffffff;
+      --ink: #17201c;
+      --muted: #65716b;
+      --line: #dbe2dc;
+      --green: #1f9d55;
+      --yellow: #d6a21b;
+      --orange: #df6b21;
+      --red: #c9382e;
+      --gray: #c9cfca;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background: var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { max-width: 1180px; margin: 0 auto; padding: 34px 18px 56px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+    h1 { margin: 0; font-size: 42px; line-height: 1; }
+    .muted { color: var(--muted); }
+    .badge {
+      min-width: 230px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .badge strong { display: block; font-size: 26px; text-transform: uppercase; }
+    .up { color: var(--green); }
+    .degraded { color: var(--yellow); }
+    .down, .empty { color: var(--red); }
+    .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 18px 0; }
+    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 13px; }
+    .card b { display: block; font-size: 24px; line-height: 1.15; }
+    .card span { color: var(--muted); font-size: 13px; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .legend { display: flex; flex-wrap: wrap; gap: 10px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot, .cell { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+    .green { background: var(--green); }
+    .yellow { background: var(--yellow); }
+    .orange { background: var(--orange); }
+    .red { background: var(--red); }
+    .gray { background: var(--gray); }
+    .channel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 16px;
+      margin: 10px 0;
+    }
+    .channel-head { display: flex; justify-content: space-between; gap: 14px; align-items: start; }
+    h2 { margin: 0; font-size: 17px; }
+    .status {
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+      color: var(--panel);
+    }
+    .status.up { background: var(--green); }
+    .status.unhealthy { background: var(--yellow); color: #2c2400; }
+    .status.gateway_down, .status.no_data { background: var(--red); }
+    .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; margin-top: 14px; }
+    .cell { width: auto; height: 17px; }
+    .error { margin-top: 14px; color: var(--red); }
+    @media (max-width: 900px) {
+      .hero, .cards { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(60, minmax(5px, 1fr)); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <div>
+        <h1 data-i18n="title">LOGOX Channel Monitor</h1>
+        <p class="muted"><span data-i18n="sourceLabel">Source:</span><span id="source"></span></p>
+      </div>
+      <div class="badge">
+        <strong id="gateway-state">loading</strong>
+        <small id="updated-at" data-i18n="loading">Loading probe data</small>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><b id="total">-</b><span data-i18n="total">Channels</span></div>
+      <div class="card"><b id="healthy">-</b><span data-i18n="healthy">Healthy</span></div>
+      <div class="card"><b id="unhealthy">-</b><span data-i18n="unhealthy">Unhealthy</span></div>
+      <div class="card"><b id="duration">-</b><span data-i18n="duration">Summary ms</span></div>
+      <div class="card"><b id="stable-days">-</b><span data-i18n="stableDays">Stable days</span></div>
+    </section>
+
+    <div class="toolbar">
+      <div class="legend">
+        <span><i class="dot green"></i><span data-i18n="normal">Normal</span></span>
+        <span><i class="dot yellow"></i><span data-i18n="abnormal">Abnormal</span></span>
+        <span><i class="dot red"></i><span data-i18n="gatewayFailed">Gateway failed</span></span>
+        <span><i class="dot gray"></i><span data-i18n="noData">No data</span></span>
+      </div>
+      <span id="sample-count">-</span>
+    </div>
+
+    <section id="channels"></section>
+    <p class="error" id="error"></p>
+  </main>
+
+  <script>
+    const messages = {
+      zh: {
+        title: "LOGOX ????",
+        sourceLabel: "????",
+        loading: "????????",
+        total: "????",
+        healthy: "??",
+        unhealthy: "??",
+        duration: "???? ms",
+        stableDays: "??????",
+        normal: "??",
+        abnormal: "??",
+        gatewayFailed: "????",
+        noData: "???",
+        updatedAt: "???",
+        samples: "??",
+        interval: "????",
+        seconds: "?",
+        statusCode: "???",
+        latency: "??",
+        availability72h: "72?????",
+        hours: "??",
+        error: "??",
+        noChannels: "??????",
+        loadFailed: "????",
+      },
+      en: {
+        title: "LOGOX Channel Monitor",
+        sourceLabel: "Source:",
+        loading: "Loading probe data",
+        total: "Channels",
+        healthy: "Healthy",
+        unhealthy: "Unhealthy",
+        duration: "Summary ms",
+        stableDays: "Stable days",
+        normal: "Normal",
+        abnormal: "Abnormal",
+        gatewayFailed: "Gateway failed",
+        noData: "No data",
+        updatedAt: "Updated at",
+        samples: "Samples",
+        interval: "interval",
+        seconds: "s",
+        statusCode: "Status",
+        latency: "Latency",
+        availability72h: "72h availability",
+        hours: "hours",
+        error: "Error",
+        noChannels: "No channel data",
+        loadFailed: "Load failed",
+      },
+    };
+    const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
+    const lang = preferredLang.startsWith("zh")
+      ? "zh"
+      : "en";
+    const t = messages[lang];
+    document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+    document.title = t.title;
+    document.querySelectorAll("[data-i18n]").forEach((node) => {
+      node.textContent = t[node.dataset.i18n] || node.textContent;
+    });
+
+    const params = new URLSearchParams(location.search);
+    const defaultApi = "https://tgw.logox.top";
+    const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
+    const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
+    const historyUrl = `${apiBase}/probe/history?limit=1440`;
+    const pollMs = 30000;
+    const gridSize = 120;
+
+    document.getElementById("source").textContent = "https://logox.top";
+
+    function fmtTime(raw) {
+      if (!raw) return "-";
+      const date = new Date(raw);
+      if (Number.isNaN(date.getTime())) return String(raw);
+      return date.toLocaleString(lang === "zh" ? "zh-CN" : "en-US", { hour12: false });
+    }
+
+    function fmtDays(days) {
+      if (!Number.isFinite(days)) return "-";
+      if (days < 1) return days.toFixed(2);
+      return days.toFixed(1);
+    }
+
+    function fmtPercent(value) {
+      if (!Number.isFinite(value)) return "-";
+      return `${value.toFixed(2)}%`;
+    }
+
+    function statusLabel(state) {
+      if (state === "healthy") return "up";
+      if (state === "degraded") return "degraded";
+      if (state === "down") return "down";
+      if (state === "empty") return "empty";
+      return state || "unknown";
+    }
+
+    function channelState(check) {
+      if (!check) return "no_data";
+      return check.ok ? "up" : "unhealthy";
+    }
+
+    function cellColor(sample, check) {
+      if (!sample) return "gray";
+      if (sample.status === "down" || sample.status === "empty") return "red";
+      if (!check) return "gray";
+      if (check.ok) return "green";
+      const code = check.status_code || 0;
+      if (code >= 500) return "orange";
+      if (code >= 400) return "yellow";
+      return "yellow";
+    }
+
+    function latestCheck(samples, name) {
+      for (let i = samples.length - 1; i >= 0; i--) {
+        const found = (samples[i].checks || []).find((check) => check.name === name);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function availabilityForChannel(samples, name, hoursWindow) {
+      const endSample = [...samples].reverse().find((sample) => Number.isFinite(new Date(sample.checked_at).getTime()));
+      if (!endSample) return null;
+      const end = new Date(endSample.checked_at);
+      const start = new Date(end.getTime() - hoursWindow * 3600000);
+      const points = [];
+
+      for (const sample of samples) {
+        const checkedAt = new Date(sample.checked_at);
+        if (Number.isNaN(checkedAt.getTime()) || checkedAt > end) continue;
+        const check = (sample.checks || []).find((item) => item.name === name);
+        if (!check) continue;
+        points.push({ checkedAt, ok: !!check.ok });
+      }
+
+      if (!points.length) return null;
+
+      let anchorOk = points[0].ok;
+      for (let i = points.length - 1; i >= 0; i--) {
+        if (points[i].checkedAt <= start) {
+          anchorOk = points[i].ok;
+          break;
+        }
+      }
+
+      let cursor = start;
+      let healthyMs = 0;
+      let currentOk = anchorOk;
+      for (const point of points) {
+        if (point.checkedAt <= start) {
+          currentOk = point.ok;
+          continue;
+        }
+        const segmentEnd = point.checkedAt < end ? point.checkedAt : end;
+        const segmentMs = segmentEnd.getTime() - cursor.getTime();
+        if (segmentMs > 0 && currentOk) healthyMs += segmentMs;
+        cursor = point.checkedAt;
+        currentOk = point.ok;
+      }
+
+      const tailMs = end.getTime() - cursor.getTime();
+      if (tailMs > 0 && currentOk) healthyMs += tailMs;
+
+      const totalMs = end.getTime() - start.getTime();
+      if (totalMs <= 0) return null;
+      return (healthyMs / totalMs) * 100;
+    }
+
+    function collectChannels(samples) {
+      const seen = new Map();
+      for (const sample of samples) {
+        for (const check of sample.checks || []) {
+          if (!seen.has(check.name)) {
+            seen.set(check.name, check.display_name || check.name);
+          }
+        }
+      }
+      return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));
+    }
+
+    function render(data) {
+      const samples = data.samples || [];
+      const latest = samples[samples.length - 1] || {};
+      const summary = latest.summary || {};
+      const state = statusLabel(latest.status);
+      const badge = document.querySelector(".badge");
+
+      document.getElementById("gateway-state").textContent = state;
+      document.getElementById("gateway-state").className = state;
+      badge.className = `badge ${state}`;
+      document.getElementById("updated-at").textContent = `${t.updatedAt} ${fmtTime(latest.checked_at || data.updated_at)}`;
+      document.getElementById("total").textContent = summary.total ?? "-";
+      document.getElementById("healthy").textContent = summary.healthy ?? "-";
+      document.getElementById("unhealthy").textContent = summary.unhealthy ?? "-";
+      document.getElementById("duration").textContent = summary.duration_ms ?? "-";
+      document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);
+      document.getElementById("sample-count").textContent =
+        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
+
+      const recent = samples.slice(-gridSize);
+      const channels = collectChannels(samples);
+      const html = channels.map((channel) => {
+        const current = latestCheck(samples, channel.name);
+        const state = channelState(current);
+        const availability72h = availabilityForChannel(samples, channel.name, 72);
+        const cells = recent.map((sample) => {
+          const check = (sample.checks || []).find((item) => item.name === channel.name);
+          const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
+          return `<span class="cell ${cellColor(sample, check)}" title="${escapeHtml(title)}"></span>`;
+        }).join("");
+        return `
+          <article class="channel">
+            <div class="channel-head">
+              <div>
+                <h2>${escapeHtml(channel.displayName)}</h2>
+              </div>
+              <div class="status ${state}">${state.toUpperCase()}</div>
+            </div>
+            <div class="meta">
+              <span>${t.statusCode}: ${current?.status_code || "-"}</span>
+              <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
+              <span>${t.availability72h}: ${fmtPercent(availability72h)}</span>
+              ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
+            </div>
+            <div class="grid">${cells}</div>
+          </article>`;
+      }).join("");
+      document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
+      document.getElementById("error").textContent = "";
+    }
+
+    function escapeHtml(value) {
+      return String(value).replace(/[&<>"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      }[char]));
+    }
+
+    async function load() {
+      try {
+        const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
+        const response = await fetch(historyUrl, { cache: "no-store", headers });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        render(await response.json());
+      } catch (error) {
+        document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;
+      }
+    }
+
+    load();
+    setInterval(load, pollMs);
+  </script>
+</body>
+</html>
