@@ -7,8 +7,8 @@ on:
       - master
     paths:
       - ".github/workflows/probe-dashboard.yml"
-      - "probe_dashboard/pages/**"
-      - "probe_dashboard/README.md"
+      - "CNAME"
+      - "index.html"
 
 permissions:
   contents: write
@@ -30,11 +30,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Stage publish files
+        run: |
+          rm -rf site
+          mkdir -p site
+          cp index.html site/index.html
+          cp CNAME site/CNAME
+
       - name: Deploy probe dashboard
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: probe_dashboard/pages
+          publish_dir: site
           cname: monitor.logox.top
           force_orphan: false
           user_name: github-actions
