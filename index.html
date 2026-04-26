@@ -152,9 +152,11 @@
         samples: "样本",
         interval: "采样间隔",
         seconds: "秒",
+        minutes: "分钟",
         statusCode: "状态码",
         latency: "延迟",
-        availability72h: "72小时可用性",
+        availabilityWindow: "24小时可用性",
+        gridWindow: "小格最近约",
         hours: "小时",
         error: "错误",
         noChannels: "暂无渠道数据",
@@ -177,9 +179,11 @@
         samples: "Samples",
         interval: "interval",
         seconds: "s",
+        minutes: "min",
         statusCode: "Status",
         latency: "Latency",
-        availability72h: "72h availability",
+        availabilityWindow: "24h availability",
+        gridWindow: "grid approx.",
         hours: "hours",
         error: "Error",
         noChannels: "No channel data",
@@ -202,8 +206,9 @@
     const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
-    const pollMs = 30000;
+    const pollMs = 60000;
     const gridSize = 120;
+    let loadInFlight = false;
 
     document.getElementById("source").textContent = "https://logox.top";
 
@@ -334,14 +339,14 @@
       document.getElementById("duration").textContent = summary.duration_ms ?? "-";
       document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);
       document.getElementById("sample-count").textContent =
-        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
+        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}, ${t.gridWindow} ${gridSize} ${t.minutes}`;
 
       const recent = samples.slice(-gridSize);
       const channels = collectChannels(samples);
       const html = channels.map((channel) => {
         const current = latestCheck(samples, channel.name);
         const state = channelState(current);
-        const availability72h = availabilityForChannel(samples, channel.name, 72);
+        const availability24h = availabilityForChannel(samples, channel.name, 24);
         const cells = recent.map((sample) => {
           const check = (sample.checks || []).find((item) => item.name === channel.name);
           const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
@@ -358,7 +363,7 @@
             <div class="meta">
               <span>${t.statusCode}: ${current?.status_code || "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
-              <span>${t.availability72h}: ${fmtPercent(availability72h)}</span>
+              <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
               ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
             </div>
             <div class="grid">${cells}</div>
@@ -379,6 +384,8 @@
     }
 
     async function load() {
+      if (loadInFlight) return;
+      loadInFlight = true;
       try {
         const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
         const response = await fetch(historyUrl, { cache: "no-store", headers });
@@ -386,6 +393,8 @@
         render(await response.json());
       } catch (error) {
         document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;
+      } finally {
+        loadInFlight = false;
       }
     }
 
