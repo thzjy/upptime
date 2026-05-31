@@ -203,7 +203,7 @@
     });
 
     const params = new URLSearchParams(location.search);
-    const defaultApi = "https://tgw.logox.top";
+    const defaultApi = "https://tgw.d2capi.com";
     const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
@@ -211,7 +211,7 @@
     const gridSize = 120;
     let loadInFlight = false;
 
-    document.getElementById("source").textContent = "https://logox.top";
+    document.getElementById("source").textContent = "https://d2capi.com";
 
     function fmtTime(raw) {
       if (!raw) return "-";
