@@ -207,7 +207,7 @@
     });
 
     const params = new URLSearchParams(location.search);
-    const defaultApi = "https://tgw.d2capi.com";
+    const defaultApi = "https://probe.d2capi.com";
     const apiBase = (params.get("api") || localStorage.getItem("probeApiBase") || defaultApi).replace(/\/+$/, "");
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
