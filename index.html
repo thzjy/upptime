@@ -52,7 +52,7 @@
     .degraded { color: var(--yellow); }
     .down, .empty { color: var(--red); }
     .cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 18px 0; }
-    .card { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 13px; }
+    .card { min-width: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 13px; overflow: hidden; }
     .card b { display: block; font-size: 24px; line-height: 1.15; }
     .card span { color: var(--muted); font-size: 13px; }
     .toolbar {
@@ -74,6 +74,7 @@
     .red { background: var(--red); }
     .gray { background: var(--gray); }
     .channel {
+      min-width: 0;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
@@ -94,12 +95,23 @@
     .status.unhealthy { background: var(--yellow); color: #2c2400; }
     .status.gateway_down, .status.no_data { background: var(--red); }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; margin-top: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; max-width: 100%; margin-top: 14px; overflow: hidden; }
     .cell { width: auto; height: 17px; }
     .error { margin-top: 14px; color: var(--red); }
     @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
       .grid { grid-template-columns: repeat(60, minmax(5px, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      main { padding: 22px 12px 40px; }
+      h1 { font-size: 30px; }
+      .toolbar { align-items: flex-start; flex-direction: column; }
+      .legend { gap: 8px; }
+      #sample-count { display: block; width: 100%; line-height: 1.6; overflow-wrap: anywhere; }
+      .channel { padding: 12px; }
+      .channel-head { align-items: flex-start; }
+      .grid { grid-template-columns: repeat(40, minmax(0, 1fr)); gap: 2px; }
+      .cell { height: 15px; }
     }
   </style>
 </head>
