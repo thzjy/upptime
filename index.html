@@ -95,8 +95,9 @@
     .status.unhealthy { background: var(--yellow); color: #2c2400; }
     .status.gateway_down, .status.no_data { background: var(--red); }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
-    .grid { display: flex; gap: 1px; width: 100%; margin-top: 14px; overflow: hidden; }
-    .cell { flex: 1 1 0; min-width: 1px; height: 17px; }
+    .grid { display: grid; grid-template-columns: repeat(180, minmax(0, 1fr)); gap: 0; width: 100%; margin-top: 14px; overflow: hidden; border-radius: 3px; }
+    .cell { width: auto; min-width: 0; height: 17px; border-radius: 0; box-shadow: inset -1px 0 rgba(255,255,255,.72); }
+    .cell:last-child { box-shadow: none; }
     .error { margin-top: 14px; color: var(--red); }
     @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
@@ -226,8 +227,9 @@
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
     const pollMs = 60000;
-    const sampleWindow = 180;
-    const gridSize = sampleWindow;
+    const availabilityWindow = 1440;
+    const timelineWindow = 180;
+    const gridSize = timelineWindow;
 
     function timelineSamples(samples, channelName) {
       if (samples.length <= gridSize) return samples.map((sample) => ({ sample, check: (sample.checks || []).find((item) => item.name === channelName) }));
@@ -305,7 +307,7 @@
     }
 
     function availabilityForChannel(samples, name) {
-      const windowSamples = samples.slice(-sampleWindow);
+      const windowSamples = samples.slice(-availabilityWindow);
       if (!windowSamples.length) return null;
       let healthy = 0;
       for (const sample of windowSamples) {
@@ -326,7 +328,7 @@
     }
 
     function normalizeHistoryData(data) {
-      const samples = Array.isArray(data?.samples) ? data.samples.slice(-sampleWindow) : [];
+      const samples = Array.isArray(data?.samples) ? data.samples.slice(-availabilityWindow) : [];
       return { ...data, samples, returned_samples: samples.length, total_samples: Math.max(data?.total_samples || 0, samples.length) };
     }
 
@@ -349,7 +351,7 @@
 
     function failedHistoryFromCache(error) {
       const cached = readCachedHistory();
-      const samples = Array.isArray(cached?.samples) ? cached.samples.slice(-sampleWindow + 1) : [];
+      const samples = Array.isArray(cached?.samples) ? cached.samples.slice(-availabilityWindow + 1) : [];
       let channels = collectChannels(samples);
       if (!channels.length) {
         channels = [{ name: "__all_channels__", displayName: t.allChannelsFailed }];
@@ -369,7 +371,7 @@
         summary: { total: failedChecks.length, healthy: 0, unhealthy: failedChecks.length, duration_ms: 0 },
         checks: failedChecks,
       };
-      const nextSamples = [...samples, failedSample].slice(-sampleWindow);
+      const nextSamples = [...samples, failedSample].slice(-availabilityWindow);
       return normalizeHistoryData({
         ok: false,
         updated_at: checkedAt,
@@ -401,7 +403,7 @@
       document.getElementById("sample-count").textContent =
         `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
 
-      const recent = samples.slice(-sampleWindow);
+      const recent = samples.slice(-timelineWindow);
       const channels = collectChannels(samples);
       const html = channels.map((channel) => {
         const current = latestCheck(samples, channel.name);
