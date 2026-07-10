@@ -155,32 +155,32 @@
   <script>
     const messages = {
       zh: {
-        title: "D2CAPI 渠道监控",
-        sourceLabel: "数据源：",
-        loading: "正在加载探测数据",
-        total: "渠道数",
-        healthy: "正常",
-        unhealthy: "异常",
-        duration: "汇总耗时 ms",
-        stableDays: "稳定天数",
-        normal: "正常",
-        abnormal: "异常",
-        gatewayFailed: "网关失败",
-        noData: "无数据",
-        updatedAt: "更新时间",
-        samples: "样本",
-        interval: "采样间隔",
-        seconds: "秒",
-        minutes: "分钟",
-        statusCode: "状态码",
-        latency: "延迟",
-        availabilityWindow: "24小时可用性",
-        hours: "小时",
-        error: "错误",
-        noChannels: "暂无渠道数据",
-        loadFailed: "加载失败",
-        allChannelsFailed: "当前服务全部渠道都失败",
-        viewLogs: "查看日志",
+        title: "D2CAPI \u6e20\u9053\u76d1\u63a7",
+        sourceLabel: "\u6570\u636e\u6e90\uff1a",
+        loading: "\u6b63\u5728\u52a0\u8f7d\u63a2\u6d4b\u6570\u636e",
+        total: "\u6e20\u9053\u6570",
+        healthy: "\u6b63\u5e38",
+        unhealthy: "\u5f02\u5e38",
+        duration: "\u6c47\u603b\u8017\u65f6 ms",
+        stableDays: "\u7a33\u5b9a\u5929\u6570",
+        normal: "\u6b63\u5e38",
+        abnormal: "\u5f02\u5e38",
+        gatewayFailed: "\u7f51\u5173\u5931\u8d25",
+        noData: "\u65e0\u6570\u636e",
+        updatedAt: "\u66f4\u65b0\u65f6\u95f4",
+        samples: "\u6837\u672c",
+        interval: "\u91c7\u6837\u95f4\u9694",
+        seconds: "\u79d2",
+        minutes: "\u5206\u949f",
+        statusCode: "\u72b6\u6001\u7801",
+        latency: "\u5ef6\u8fdf",
+        availabilityWindow: "24\u5c0f\u65f6\u53ef\u7528\u6027",
+        hours: "\u5c0f\u65f6",
+        error: "\u9519\u8bef",
+        noChannels: "\u6682\u65e0\u6e20\u9053\u6570\u636e",
+        loadFailed: "\u52a0\u8f7d\u5931\u8d25",
+        allChannelsFailed: "\u5f53\u524d\u670d\u52a1\u5168\u90e8\u6e20\u9053\u90fd\u5931\u8d25",
+        viewLogs: "\u67e5\u770b\u65e5\u5fd7",
       },
       en: {
         title: "D2CAPI Channel Monitor",
@@ -414,7 +414,7 @@
       }).join("");
       document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
       document.getElementById("error").innerHTML = data.load_error
-        ? `${escapeHtml(t.allChannelsFailed)} · <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a> · ${escapeHtml(data.load_error)}`
+        ? `${escapeHtml(t.allChannelsFailed)} &middot; <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a> &middot; ${escapeHtml(data.load_error)}`
         : "";
     }
 
