@@ -226,8 +226,8 @@
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
     const pollMs = 60000;
-    const sampleWindow = 1440;
-    const gridSize = 240;
+    const sampleWindow = 180;
+    const gridSize = sampleWindow;
 
     function timelineSamples(samples, channelName) {
       if (samples.length <= gridSize) return samples.map((sample) => ({ sample, check: (sample.checks || []).find((item) => item.name === channelName) }));
@@ -319,9 +319,7 @@
       const seen = new Map();
       for (const sample of samples) {
         for (const check of sample.checks || []) {
-          if (!seen.has(check.name)) {
-            seen.set(check.name, check.display_name || check.name);
-          }
+          seen.set(check.name, check.display_name || seen.get(check.name) || check.name);
         }
       }
       return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));
