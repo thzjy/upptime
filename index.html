@@ -95,12 +95,12 @@
     .status.unhealthy { background: var(--yellow); color: #2c2400; }
     .status.gateway_down, .status.no_data { background: var(--red); }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(120, minmax(4px, 1fr)); gap: 3px; max-width: 100%; margin-top: 14px; overflow: hidden; }
+    .grid { display: grid; grid-template-columns: repeat(1440, minmax(0, 1fr)); gap: 1px; max-width: 100%; margin-top: 14px; overflow: hidden; }
     .cell { width: auto; height: 17px; }
     .error { margin-top: 14px; color: var(--red); }
     @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: repeat(60, minmax(5px, 1fr)); }
+      .grid { grid-template-columns: repeat(1440, minmax(0, 1fr)); }
     }
     @media (max-width: 560px) {
       main { padding: 22px 12px 40px; }
@@ -110,7 +110,7 @@
       #sample-count { display: block; width: 100%; line-height: 1.6; overflow-wrap: anywhere; }
       .channel { padding: 12px; }
       .channel-head { align-items: flex-start; }
-      .grid { grid-template-columns: repeat(40, minmax(0, 1fr)); gap: 2px; }
+      .grid { grid-template-columns: repeat(1440, minmax(0, 1fr)); gap: 1px; }
       .cell { height: 15px; }
     }
   </style>
@@ -179,6 +179,8 @@
         error: "错误",
         noChannels: "暂无渠道数据",
         loadFailed: "加载失败",
+        allChannelsFailed: "当前服务全部渠道都失败",
+        viewLogs: "查看日志",
       },
       en: {
         title: "D2CAPI Channel Monitor",
@@ -205,6 +207,8 @@
         error: "Error",
         noChannels: "No channel data",
         loadFailed: "Load failed",
+        allChannelsFailed: "All channels for the current service failed",
+        viewLogs: "View logs",
       },
     };
     const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
@@ -224,7 +228,9 @@
     const authToken = params.get("token") || localStorage.getItem("probeAuthToken") || "";
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
     const pollMs = 60000;
-    const gridSize = 120;
+    const sampleWindow = 1440;
+    const gridSize = sampleWindow;
+    const cacheKey = `probeHistoryCache:${apiBase}`;
     let loadInFlight = false;
 
     document.getElementById("source").textContent = "https://d2capi.com";
@@ -279,52 +285,15 @@
       return null;
     }
 
-    function availabilityForChannel(samples, name, hoursWindow) {
-      const endSample = [...samples].reverse().find((sample) => Number.isFinite(new Date(sample.checked_at).getTime()));
-      if (!endSample) return null;
-      const end = new Date(endSample.checked_at);
-      const start = new Date(end.getTime() - hoursWindow * 3600000);
-      const points = [];
-
-      for (const sample of samples) {
-        const checkedAt = new Date(sample.checked_at);
-        if (Number.isNaN(checkedAt.getTime()) || checkedAt > end) continue;
+    function availabilityForChannel(samples, name) {
+      const windowSamples = samples.slice(-sampleWindow);
+      if (!windowSamples.length) return null;
+      let healthy = 0;
+      for (const sample of windowSamples) {
         const check = (sample.checks || []).find((item) => item.name === name);
-        if (!check) continue;
-        points.push({ checkedAt, ok: !!check.ok });
+        if (check?.ok) healthy += 1;
       }
-
-      if (!points.length) return null;
-
-      let anchorOk = points[0].ok;
-      for (let i = points.length - 1; i >= 0; i--) {
-        if (points[i].checkedAt <= start) {
-          anchorOk = points[i].ok;
-          break;
-        }
-      }
-
-      let cursor = start;
-      let healthyMs = 0;
-      let currentOk = anchorOk;
-      for (const point of points) {
-        if (point.checkedAt <= start) {
-          currentOk = point.ok;
-          continue;
-        }
-        const segmentEnd = point.checkedAt < end ? point.checkedAt : end;
-        const segmentMs = segmentEnd.getTime() - cursor.getTime();
-        if (segmentMs > 0 && currentOk) healthyMs += segmentMs;
-        cursor = point.checkedAt;
-        currentOk = point.ok;
-      }
-
-      const tailMs = end.getTime() - cursor.getTime();
-      if (tailMs > 0 && currentOk) healthyMs += tailMs;
-
-      const totalMs = end.getTime() - start.getTime();
-      if (totalMs <= 0) return null;
-      return (healthyMs / totalMs) * 100;
+      return (healthy / windowSamples.length) * 100;
     }
 
     function collectChannels(samples) {
@@ -339,7 +308,64 @@
       return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));
     }
 
+    function normalizeHistoryData(data) {
+      const samples = Array.isArray(data?.samples) ? data.samples.slice(-sampleWindow) : [];
+      return { ...data, samples, returned_samples: samples.length, total_samples: Math.max(data?.total_samples || 0, samples.length) };
+    }
+
+    function readCachedHistory() {
+      try {
+        const cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
+        return cached && Array.isArray(cached.samples) ? cached : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function writeCachedHistory(data) {
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify(normalizeHistoryData(data)));
+      } catch {
+        undefined;
+      }
+    }
+
+    function failedHistoryFromCache(error) {
+      const cached = readCachedHistory();
+      const samples = Array.isArray(cached?.samples) ? cached.samples.slice(-sampleWindow + 1) : [];
+      let channels = collectChannels(samples);
+      if (!channels.length) {
+        channels = [{ name: "__all_channels__", displayName: t.allChannelsFailed }];
+      }
+      const checkedAt = new Date().toISOString();
+      const failedChecks = channels.map((channel) => ({
+        name: channel.name,
+        display_name: channel.displayName,
+        ok: false,
+        status_code: 0,
+        latency_ms: null,
+        error: `${t.loadFailed}: ${error.message || error}`,
+      }));
+      const failedSample = {
+        checked_at: checkedAt,
+        status: "down",
+        summary: { total: failedChecks.length, healthy: 0, unhealthy: failedChecks.length, duration_ms: 0 },
+        checks: failedChecks,
+      };
+      const nextSamples = [...samples, failedSample].slice(-sampleWindow);
+      return normalizeHistoryData({
+        ok: false,
+        updated_at: checkedAt,
+        interval_seconds: 60,
+        total_samples: Math.max(cached?.total_samples || 0, nextSamples.length),
+        returned_samples: nextSamples.length,
+        samples: nextSamples,
+        load_error: error.message || String(error),
+      });
+    }
+
     function render(data) {
+      data = normalizeHistoryData(data);
       const samples = data.samples || [];
       const latest = samples[samples.length - 1] || {};
       const summary = latest.summary || {};
@@ -363,7 +389,7 @@
       const html = channels.map((channel) => {
         const current = latestCheck(samples, channel.name);
         const state = channelState(current);
-        const availability24h = availabilityForChannel(samples, channel.name, 24);
+        const availability24h = availabilityForChannel(samples, channel.name);
         const cells = recent.map((sample) => {
           const check = (sample.checks || []).find((item) => item.name === channel.name);
           const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
@@ -387,7 +413,9 @@
           </article>`;
       }).join("");
       document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
-      document.getElementById("error").textContent = "";
+      document.getElementById("error").innerHTML = data.load_error
+        ? `${escapeHtml(t.allChannelsFailed)} · <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a> · ${escapeHtml(data.load_error)}`
+        : "";
     }
 
     function escapeHtml(value) {
@@ -407,9 +435,13 @@
         const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
         const response = await fetch(historyUrl, { cache: "no-store", headers });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        render(await response.json());
+        const data = normalizeHistoryData(await response.json());
+        writeCachedHistory(data);
+        render(data);
       } catch (error) {
-        document.getElementById("error").textContent = `${t.loadFailed}: ${error.message}`;
+        const data = failedHistoryFromCache(error);
+        writeCachedHistory(data);
+        render(data);
       } finally {
         loadInFlight = false;
       }
