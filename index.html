@@ -92,8 +92,8 @@
       color: var(--panel);
     }
     .status.up { background: var(--green); }
-    .status.unhealthy { background: var(--yellow); color: #2c2400; }
-    .status.gateway_down, .status.no_data { background: var(--red); }
+    .status.down { background: var(--red); }
+    .status.stopped, .status.no_data { background: var(--gray); color: #20242a; }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
     .grid { display: grid; grid-template-columns: repeat(180, minmax(0, 1fr)); gap: 0; width: 100%; margin-top: 14px; overflow: hidden; border-radius: 3px; }
     .cell { width: auto; min-width: 0; height: 17px; border-radius: 0; box-shadow: inset -1px 0 rgba(255,255,255,.72); }
@@ -283,8 +283,8 @@
     }
 
     function channelState(check) {
-      if (!check) return "no_data";
-      return check.ok ? "up" : "unhealthy";
+      if (!check) return "stopped";
+      return check.ok ? "up" : "down";
     }
 
     function cellColor(sample, check) {
@@ -296,14 +296,6 @@
       if (code >= 500) return "orange";
       if (code >= 400) return "yellow";
       return "yellow";
-    }
-
-    function latestCheck(samples, name) {
-      for (let i = samples.length - 1; i >= 0; i--) {
-        const found = (samples[i].checks || []).find((check) => check.name === name);
-        if (found) return found;
-      }
-      return null;
     }
 
     function availabilityForChannel(samples, name) {
@@ -406,7 +398,7 @@
       const recent = samples.slice(-timelineWindow);
       const channels = collectChannels(samples);
       const html = channels.map((channel) => {
-        const current = latestCheck(samples, channel.name);
+        const current = (latest.checks || []).find((check) => check.name === channel.name) || null;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
         const cells = timelineSamples(recent, channel.name).map(({ sample, check }) => {
