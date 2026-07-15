@@ -102,6 +102,9 @@
     @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
     }
+    .channel-group { margin-top: 26px; }
+    .channel-group-title { margin: 0 0 10px; font-size: 22px; }
+    .channel-group-note { margin: -4px 0 12px; color: var(--muted); font-size: 13px; }
     @media (max-width: 560px) {
       main { padding: 22px 12px 40px; }
       h1 { font-size: 30px; }
@@ -180,6 +183,10 @@
         loadFailed: "加载失败",
         allChannelsFailed: "当前服务全部渠道都失败",
         viewLogs: "查看日志",
+        integratedChannels: "已接入的监控渠道",
+        integratedNote: "参与生产路由，并监测第一梯队模型更新",
+        observedChannels: "未接入的监控渠道",
+        observedNote: "仅监测服务可达性，不进入生产模型目录",
       },
       en: {
         title: "D2CAPI Channel Monitor",
@@ -208,6 +215,10 @@
         loadFailed: "Load failed",
         allChannelsFailed: "All channels for the current service failed",
         viewLogs: "View logs",
+        integratedChannels: "Integrated channels",
+        integratedNote: "Used by production routing and monitored for first-tier model updates",
+        observedChannels: "Not integrated",
+        observedNote: "Reachability monitoring only; excluded from the production catalog",
       },
     };
     const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
@@ -313,10 +324,14 @@
       const seen = new Map();
       for (const sample of samples) {
         for (const check of sample.checks || []) {
-          seen.set(check.name, check.display_name || seen.get(check.name) || check.name);
+          const previous = seen.get(check.name) || {};
+          seen.set(check.name, {
+            displayName: check.display_name || previous.displayName || check.name,
+            integrationStatus: check.integration_status || previous.integrationStatus || "not_integrated",
+          });
         }
       }
-      return [...seen.entries()].map(([name, displayName]) => ({ name, displayName }));
+      return [...seen.entries()].map(([name, value]) => ({ name, ...value }));
     }
 
     function normalizeHistoryData(data) {
@@ -397,7 +412,7 @@
 
       const recent = samples.slice(-timelineWindow);
       const channels = collectChannels(samples);
-      const html = channels.map((channel) => {
+      const channelCard = (channel) => {
         const current = (latest.checks || []).find((check) => check.name === channel.name) || null;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
@@ -421,7 +436,14 @@
             </div>
             <div class="grid">${cells}</div>
           </article>`;
-      }).join("");
+      };
+      const renderGroup = (status, title, note) => {
+        const cards = channels.filter((channel) => channel.integrationStatus === status).map(channelCard).join("");
+        if (!cards) return "";
+        return `<section class="channel-group"><h2 class="channel-group-title">${escapeHtml(title)}</h2><p class="channel-group-note">${escapeHtml(note)}</p>${cards}</section>`;
+      };
+      const html = renderGroup("integrated", t.integratedChannels, t.integratedNote)
+        + renderGroup("not_integrated", t.observedChannels, t.observedNote);
       document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
       document.getElementById("error").innerHTML = data.load_error
         ? `${escapeHtml(t.allChannelsFailed)} &middot; <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a> &middot; ${escapeHtml(data.load_error)}`
