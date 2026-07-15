@@ -102,9 +102,6 @@
     @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
     }
-    .channel-group { margin-top: 26px; }
-    .channel-group-title { margin: 0 0 10px; font-size: 22px; }
-    .channel-group-note { margin: -4px 0 12px; color: var(--muted); font-size: 13px; }
     @media (max-width: 560px) {
       main { padding: 22px 12px 40px; }
       h1 { font-size: 30px; }
@@ -183,10 +180,7 @@
         loadFailed: "加载失败",
         allChannelsFailed: "当前服务全部渠道都失败",
         viewLogs: "查看日志",
-        integratedChannels: "已接入的监控渠道",
-        integratedNote: "参与生产路由，并监测第一梯队模型更新",
-        observedChannels: "未接入的监控渠道",
-        observedNote: "仅监测服务可达性，不进入生产模型目录",
+        integratedTag: "已接入",
       },
       en: {
         title: "D2CAPI Channel Monitor",
@@ -215,10 +209,7 @@
         loadFailed: "Load failed",
         allChannelsFailed: "All channels for the current service failed",
         viewLogs: "View logs",
-        integratedChannels: "Integrated channels",
-        integratedNote: "Used by production routing and monitored for first-tier model updates",
-        observedChannels: "Not integrated",
-        observedNote: "Reachability monitoring only; excluded from the production catalog",
+        integratedTag: "Integrated",
       },
     };
     const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
@@ -432,18 +423,13 @@
               <span>${t.statusCode}: ${current?.status_code || "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
               <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
+              ${channel.integrationStatus === "integrated" ? `<span>${escapeHtml(t.integratedTag)}</span>` : ""}
               ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
             </div>
             <div class="grid">${cells}</div>
           </article>`;
       };
-      const renderGroup = (status, title, note) => {
-        const cards = channels.filter((channel) => channel.integrationStatus === status).map(channelCard).join("");
-        if (!cards) return "";
-        return `<section class="channel-group"><h2 class="channel-group-title">${escapeHtml(title)}</h2><p class="channel-group-note">${escapeHtml(note)}</p>${cards}</section>`;
-      };
-      const html = renderGroup("integrated", t.integratedChannels, t.integratedNote)
-        + renderGroup("not_integrated", t.observedChannels, t.observedNote);
+      const html = channels.map(channelCard).join("");
       document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
       document.getElementById("error").innerHTML = data.load_error
         ? `${escapeHtml(t.allChannelsFailed)} &middot; <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a> &middot; ${escapeHtml(data.load_error)}`
