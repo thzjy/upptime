@@ -364,6 +364,7 @@
         error: `${t.loadFailed}: ${error.message || error}`,
       }));
       const failedSample = {
+        synthetic: true,
         checked_at: checkedAt,
         status: "down",
         summary: { total: failedChecks.length, healthy: 0, unhealthy: failedChecks.length, duration_ms: 0 },
@@ -403,8 +404,17 @@
 
       const recent = samples.slice(-timelineWindow);
       const channels = collectChannels(samples);
+      const lastSampledCheck = (name) => {
+        for (let index = samples.length - 1; index >= 0; index -= 1) {
+          if (samples[index]?.synthetic) continue;
+          const check = (samples[index]?.checks || []).find((item) => item.name === name);
+          if (check) return check;
+        }
+        return null;
+      };
       const channelCard = (channel) => {
         const current = (latest.checks || []).find((check) => check.name === channel.name) || null;
+        const sampled = lastSampledCheck(channel.name) || current;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
         const cells = timelineSamples(recent, channel.name).map(({ sample, check }) => {
@@ -420,7 +430,7 @@
               <div class="status ${state}">${state.toUpperCase()}</div>
             </div>
             <div class="meta">
-              <span>${t.statusCode}: ${current?.status_code || "-"}</span>
+              <span>${t.statusCode}: ${sampled?.status_code || "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
               <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
               ${channel.integrationStatus === "integrated" ? `<span>${escapeHtml(t.integratedTag)}</span>` : ""}
