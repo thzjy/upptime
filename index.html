@@ -233,25 +233,23 @@
     const timelineWindow = 180;
     const gridSize = timelineWindow;
 
-    function timelineSamples(samples, channelName) {
-      if (samples.length <= gridSize) return samples.map((sample) => ({ sample, check: (sample.checks || []).find((item) => item.name === channelName) }));
-      const bucketSize = samples.length / gridSize;
-      return Array.from({ length: gridSize }, (_, index) => {
-        const start = Math.floor(index * bucketSize);
-        const end = Math.max(start + 1, Math.floor((index + 1) * bucketSize));
-        const bucket = samples.slice(start, end);
-        let selected = bucket[bucket.length - 1];
-        let selectedCheck = (selected.checks || []).find((item) => item.name === channelName);
-        for (const sample of bucket) {
-          const check = (sample.checks || []).find((item) => item.name === channelName);
-          if (!check || !check.ok || sample.status === "down" || sample.status === "empty") {
-            selected = sample;
-            selectedCheck = check;
-            if (sample.status === "down" || sample.status === "empty") break;
-          }
+    function timelineSamples(samples, channelName, now = Date.now()) {
+      const minute = 60000;
+      const endSlot = Math.floor(now / minute);
+      const startSlot = endSlot - gridSize + 1;
+      const slots = Array.from({ length: gridSize }, () => ({ sample: null, check: null }));
+      for (const sample of samples) {
+        const at = Date.parse(sample.checked_at || "");
+        if (!Number.isFinite(at)) continue;
+        const index = Math.floor(at / minute) - startSlot;
+        if (index < 0 || index >= gridSize) continue;
+        const check = (sample.checks || []).find((item) => item.name === channelName) || null;
+        const previous = slots[index];
+        if (!previous.sample || cellColor(sample, check) !== "green" || cellColor(previous.sample, previous.check) === "gray") {
+          slots[index] = { sample, check };
         }
-        return { sample: selected, check: selectedCheck };
-      });
+      }
+      return slots;
     }
     const cacheKey = `probeHistoryCache:${apiBase}`;
     let loadInFlight = false;
@@ -330,6 +328,26 @@
       return { ...data, samples, returned_samples: samples.length, total_samples: Math.max(data?.total_samples || 0, samples.length) };
     }
 
+    function mergeServerAndCachedHistory(serverData) {
+      const server = normalizeHistoryData(serverData);
+      const cached = readCachedHistory();
+      if (!cached) return server;
+      const merged = new Map();
+      for (const sample of [...(cached.samples || []), ...(server.samples || [])]) {
+        const key = `${sample.checked_at || ""}:${sample.synthetic ? "synthetic" : "server"}`;
+        if (sample.checked_at) merged.set(key, sample);
+      }
+      const samples = [...merged.values()]
+        .sort((left, right) => Date.parse(left.checked_at) - Date.parse(right.checked_at))
+        .slice(-availabilityWindow);
+      return normalizeHistoryData({
+        ...server,
+        samples,
+        returned_samples: samples.length,
+        total_samples: Math.max(server.total_samples || 0, samples.length),
+      });
+    }
+
     function readCachedHistory() {
       try {
         const cached = JSON.parse(localStorage.getItem(cacheKey) || "null");
@@ -402,7 +420,6 @@
       document.getElementById("sample-count").textContent =
         `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
 
-      const recent = samples.slice(-timelineWindow);
       const channels = collectChannels(samples);
       const lastSampledCheck = (name) => {
         for (let index = samples.length - 1; index >= 0; index -= 1) {
@@ -417,8 +434,8 @@
         const sampled = lastSampledCheck(channel.name) || current;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
-        const cells = timelineSamples(recent, channel.name).map(({ sample, check }) => {
-          const title = `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim();
+        const cells = timelineSamples(samples, channel.name).map(({ sample, check }) => {
+          const title = sample ? `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim() : "";
           return `<span class="cell ${cellColor(sample, check)}" title="${escapeHtml(title)}"></span>`;
         }).join("");
         return `
@@ -463,7 +480,7 @@
         const headers = authToken ? { Authorization: `Bearer ${authToken}` } : {};
         const response = await fetch(historyUrl, { cache: "no-store", headers });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = normalizeHistoryData(await response.json());
+        const data = mergeServerAndCachedHistory(await response.json());
         writeCachedHistory(data);
         render(data);
       } catch (error) {
