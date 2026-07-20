@@ -6,6 +6,7 @@ export function sampleColor(sample, check) {
   if (!check) return "gray";
   if (check.ok) return "green";
   const code = Number(check.status_code || 0);
+  if (code === 0) return "red";
   if (code >= 500) return "orange";
   return "yellow";
 }
