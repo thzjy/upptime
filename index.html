@@ -95,8 +95,8 @@
     .status.down { background: var(--red); }
     .status.stopped, .status.no_data { background: var(--gray); color: #20242a; }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(180, minmax(0, 1fr)); gap: 0; width: 100%; margin-top: 14px; overflow: hidden; border-radius: 3px; }
-    .cell { width: auto; min-width: 0; height: 17px; border-radius: 0; box-shadow: inset -1px 0 rgba(255,255,255,.72); }
+    .grid { display: grid; grid-template-columns: repeat(60, minmax(0, 1fr)); gap: 1px; width: 100%; margin-top: 14px; overflow: hidden; border-radius: 3px; }
+    .cell { width: auto; min-width: 0; height: 17px; border-radius: 1px; }
     .cell:last-child { box-shadow: none; }
     .error { margin-top: 14px; color: var(--red); }
     @media (max-width: 900px) {
@@ -151,7 +151,8 @@
     <p class="error" id="error"></p>
   </main>
 
-  <script>
+  <script type="module">
+    import { timelineBuckets, timeWeightedAvailability } from "./monitor_logic.mjs?v=20260720";
     const messages = {
       zh: {
         title: "D2CAPI 渠道监控",
@@ -230,27 +231,6 @@
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
     const pollMs = 60000;
     const availabilityWindow = 1440;
-    const timelineWindow = 180;
-    const gridSize = timelineWindow;
-
-    function timelineSamples(samples, channelName, now = Date.now()) {
-      const minute = 60000;
-      const endSlot = Math.floor(now / minute);
-      const startSlot = endSlot - gridSize + 1;
-      const slots = Array.from({ length: gridSize }, () => ({ sample: null, check: null }));
-      for (const sample of samples) {
-        const at = Date.parse(sample.checked_at || "");
-        if (!Number.isFinite(at)) continue;
-        const index = Math.floor(at / minute) - startSlot;
-        if (index < 0 || index >= gridSize) continue;
-        const check = (sample.checks || []).find((item) => item.name === channelName) || null;
-        const previous = slots[index];
-        if (!previous.sample || cellColor(sample, check) !== "green" || cellColor(previous.sample, previous.check) === "gray") {
-          slots[index] = { sample, check };
-        }
-      }
-      return slots;
-    }
     const cacheKey = `probeHistoryCache:${apiBase}`;
     let loadInFlight = false;
 
@@ -287,26 +267,9 @@
       return check.ok ? "up" : "down";
     }
 
-    function cellColor(sample, check) {
-      if (!sample) return "gray";
-      if (sample.status === "down" || sample.status === "empty") return "red";
-      if (!check) return "gray";
-      if (check.ok) return "green";
-      const code = check.status_code || 0;
-      if (code >= 500) return "orange";
-      if (code >= 400) return "yellow";
-      return "yellow";
-    }
-
     function availabilityForChannel(samples, name) {
-      const windowSamples = samples.slice(-availabilityWindow);
-      if (!windowSamples.length) return null;
-      let healthy = 0;
-      for (const sample of windowSamples) {
-        const check = (sample.checks || []).find((item) => item.name === name);
-        if (check?.ok) healthy += 1;
-      }
-      return (healthy / windowSamples.length) * 100;
+      const latestAt = Date.parse(samples[samples.length - 1]?.checked_at || "");
+      return Number.isFinite(latestAt) ? timeWeightedAvailability(samples, name, latestAt) : null;
     }
 
     function collectChannels(samples) {
@@ -392,6 +355,9 @@
       return normalizeHistoryData({
         ok: false,
         updated_at: checkedAt,
+        stable_since: cached?.stable_since,
+        stable_for_seconds: cached?.stable_for_seconds,
+        stable_days: cached?.stable_days,
         interval_seconds: 60,
         total_samples: Math.max(cached?.total_samples || 0, nextSamples.length),
         returned_samples: nextSamples.length,
@@ -434,9 +400,10 @@
         const sampled = lastSampledCheck(channel.name) || current;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
-        const cells = timelineSamples(samples, channel.name).map(({ sample, check }) => {
+        const timelineEnd = Math.max(Date.now(), Date.parse(latest.checked_at || "") || 0);
+        const cells = timelineBuckets(samples, channel.name, timelineEnd).map(({ sample, check, color }) => {
           const title = sample ? `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim() : "";
-          return `<span class="cell ${cellColor(sample, check)}" title="${escapeHtml(title)}"></span>`;
+          return `<span class="cell ${color}" title="${escapeHtml(title)}"></span>`;
         }).join("");
         return `
           <article class="channel">
@@ -447,7 +414,7 @@
               <div class="status ${state}">${state.toUpperCase()}</div>
             </div>
             <div class="meta">
-              <span>${t.statusCode}: ${sampled?.status_code || "-"}</span>
+              <span>${t.statusCode}: ${sampled?.status_code ?? "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
               <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
               ${channel.integrationStatus === "integrated" ? `<span>${escapeHtml(t.integratedTag)}</span>` : ""}
