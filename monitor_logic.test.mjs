@@ -24,6 +24,14 @@ test("each minute retains its own sample", () => {
   assert.equal(buckets[179].color, "green");
 });
 
+test("latest sample always occupies the final cell", () => {
+  const now = Date.parse("2026-07-20T02:00:00Z");
+  const buckets = timelineBuckets([sample(now, true)], "channel", now);
+  assert.equal(buckets.length, 180);
+  assert.equal(buckets[179].color, "green");
+  assert.equal(buckets[179].check.status_code, 200);
+});
+
 test("availability uses the latest 1440 one-minute samples", () => {
 	const end = Date.parse("2026-07-20T02:00:00Z");
 	const rows = Array.from({ length: 1441 }, (_, index) => sample(end - (1440 - index) * 60_000, index !== 1440));

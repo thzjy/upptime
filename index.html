@@ -284,12 +284,19 @@
     }
 
     function normalizeHistoryData(data) {
-      const samples = Array.isArray(data?.samples) ? data.samples.slice(-availabilityWindow) : [];
+      const samples = Array.isArray(data?.samples) ? data.samples
+        .filter((sample) => Number.isFinite(Date.parse(sample?.checked_at || "")))
+        .sort((left, right) => Date.parse(left.checked_at) - Date.parse(right.checked_at))
+        .slice(-availabilityWindow) : [];
       return { ...data, samples, returned_samples: samples.length, total_samples: Math.max(data?.total_samples || 0, samples.length) };
     }
 
     function mergeServerAndCachedHistory(serverData) {
       const server = normalizeHistoryData(serverData);
+      // A successful server response is authoritative. In particular, never let
+      // a synthetic fail-to-fetch sample cached in the browser replace the
+      // server's latest status code or occupy the final timeline cell.
+      if (server.samples.length) return server;
       const cached = readCachedHistory();
       if (!cached) return server;
       const merged = new Map();
