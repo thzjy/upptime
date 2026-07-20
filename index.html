@@ -95,8 +95,8 @@
     .status.down { background: var(--red); }
     .status.stopped, .status.no_data { background: var(--gray); color: #20242a; }
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
-    .grid { display: grid; grid-template-columns: repeat(60, minmax(0, 1fr)); gap: 1px; width: 100%; margin-top: 14px; overflow: hidden; border-radius: 3px; }
-    .cell { width: auto; min-width: 0; height: 17px; border-radius: 1px; }
+    .grid { display: grid; grid-template-columns: repeat(180, minmax(0, 1fr)); gap: 0; width: 100%; margin-top: 14px; overflow: hidden; border-radius: 3px; }
+    .cell { width: auto; min-width: 0; height: 17px; border-radius: 0; }
     .cell:last-child { box-shadow: none; }
     .error { margin-top: 14px; color: var(--red); }
     @media (max-width: 900px) {
@@ -387,22 +387,13 @@
         `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
 
       const channels = collectChannels(samples);
-      const lastSampledCheck = (name) => {
-        for (let index = samples.length - 1; index >= 0; index -= 1) {
-          if (samples[index]?.synthetic) continue;
-          const check = (samples[index]?.checks || []).find((item) => item.name === name);
-          if (check) return check;
-        }
-        return null;
-      };
       const channelCard = (channel) => {
         const current = (latest.checks || []).find((check) => check.name === channel.name) || null;
-        const sampled = lastSampledCheck(channel.name) || current;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
         const timelineEnd = Math.max(Date.now(), Date.parse(latest.checked_at || "") || 0);
         const cells = timelineBuckets(samples, channel.name, timelineEnd).map(({ sample, check, color }) => {
-          const title = sample ? `${fmtTime(sample.checked_at)} ${check?.status_code || ""} ${check?.error || ""}`.trim() : "";
+          const title = sample ? `${fmtTime(sample.checked_at)} ${check?.status_code ?? ""} ${check?.error || ""}`.trim() : "";
           return `<span class="cell ${color}" title="${escapeHtml(title)}"></span>`;
         }).join("");
         return `
@@ -414,7 +405,7 @@
               <div class="status ${state}">${state.toUpperCase()}</div>
             </div>
             <div class="meta">
-              <span>${t.statusCode}: ${sampled?.status_code ?? "-"}</span>
+              <span>${t.statusCode}: ${current?.status_code ?? "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
               <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
               ${channel.integrationStatus === "integrated" ? `<span>${escapeHtml(t.integratedTag)}</span>` : ""}

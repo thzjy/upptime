@@ -10,7 +10,7 @@ export function sampleColor(sample, check) {
   return "yellow";
 }
 
-export function timelineBuckets(samples, channelName, now = Date.now(), count = 60, bucketMinutes = 3) {
+export function timelineBuckets(samples, channelName, now = Date.now(), count = 180, bucketMinutes = 1) {
   const bucketMS = bucketMinutes * 60_000;
   const start = now - count * bucketMS;
   const buckets = Array.from({ length: count }, () => ({ sample: null, check: null, color: "gray" }));

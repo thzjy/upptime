@@ -7,19 +7,21 @@ const sample = (at, ok, synthetic = false) => ({
   checked_at: new Date(at).toISOString(), synthetic, status: ok ? "healthy" : "down", checks: [check(ok)],
 });
 
-test("three-hour timeline uses sixty equal three-minute buckets", () => {
+test("three-hour timeline uses 180 one-minute buckets", () => {
   const now = Date.parse("2026-07-20T02:00:00Z");
   const rows = [sample(now - 179 * 60_000, true), sample(now - 60_000, false)];
   const buckets = timelineBuckets(rows, "channel", now);
-  assert.equal(buckets.length, 60);
-  assert.equal(buckets[0].color, "green");
-  assert.equal(buckets[59].color, "red");
+  assert.equal(buckets.length, 180);
+  assert.equal(buckets[1].color, "green");
+  assert.equal(buckets[179].color, "red");
 });
 
-test("a failed sample dominates its three-minute bucket", () => {
+test("each minute retains its own sample", () => {
   const now = Date.parse("2026-07-20T02:00:00Z");
   const rows = [sample(now - 120_000, false), sample(now - 60_000, true)];
-  assert.equal(timelineBuckets(rows, "channel", now)[59].color, "red");
+  const buckets = timelineBuckets(rows, "channel", now);
+  assert.equal(buckets[178].color, "red");
+  assert.equal(buckets[179].color, "green");
 });
 
 test("availability is weighted by elapsed time", () => {
