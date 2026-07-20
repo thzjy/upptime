@@ -152,7 +152,7 @@
   </main>
 
   <script type="module">
-    import { timelineBuckets, timeWeightedAvailability } from "./monitor_logic.mjs?v=20260720";
+    import { sampledAvailability, timelineBuckets } from "./monitor_logic.mjs?v=20260720-2";
     const messages = {
       zh: {
         title: "D2CAPI 渠道监控",
@@ -268,8 +268,7 @@
     }
 
     function availabilityForChannel(samples, name) {
-      const latestAt = Date.parse(samples[samples.length - 1]?.checked_at || "");
-      return Number.isFinite(latestAt) ? timeWeightedAvailability(samples, name, latestAt) : null;
+      return sampledAvailability(samples, name, availabilityWindow);
     }
 
     function collectChannels(samples) {
@@ -391,7 +390,7 @@
         const current = (latest.checks || []).find((check) => check.name === channel.name) || null;
         const state = channelState(current);
         const availability24h = availabilityForChannel(samples, channel.name);
-        const timelineEnd = Math.max(Date.now(), Date.parse(latest.checked_at || "") || 0);
+        const timelineEnd = Date.parse(latest.checked_at || "") || Date.now();
         const cells = timelineBuckets(samples, channel.name, timelineEnd).map(({ sample, check, color }) => {
           const title = sample ? `${fmtTime(sample.checked_at)} ${check?.status_code ?? ""} ${check?.error || ""}`.trim() : "";
           return `<span class="cell ${color}" title="${escapeHtml(title)}"></span>`;

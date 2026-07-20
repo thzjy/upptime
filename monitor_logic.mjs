@@ -25,30 +25,15 @@ export function timelineBuckets(samples, channelName, now = Date.now(), count = 
   return buckets;
 }
 
-export function timeWeightedAvailability(samples, channelName, endMS, windowMS = 24 * 60 * 60_000) {
-  const points = [];
-  for (const sample of samples || []) {
-    const at = Date.parse(sample.checked_at || "");
-    if (!Number.isFinite(at) || at > endMS) continue;
+export function sampledAvailability(samples, channelName, limit = 1440) {
+  const windowSamples = (samples || []).slice(-limit);
+  let healthy = 0;
+  let observed = 0;
+  for (const sample of windowSamples) {
     const check = (sample.checks || []).find((item) => item.name === channelName);
-    if (check) points.push({ at, ok: Boolean(check.ok) });
+    if (!check) continue;
+    observed += 1;
+    if (check.ok) healthy += 1;
   }
-  if (!points.length) return null;
-  points.sort((left, right) => left.at - right.at);
-  const startMS = endMS - windowMS;
-  let currentOK = points[0].ok;
-  for (const point of points) {
-    if (point.at > startMS) break;
-    currentOK = point.ok;
-  }
-  let cursor = startMS;
-  let healthyMS = 0;
-  for (const point of points) {
-    if (point.at <= startMS) continue;
-    if (point.at > cursor && currentOK) healthyMS += point.at - cursor;
-    cursor = Math.max(cursor, point.at);
-    currentOK = point.ok;
-  }
-  if (cursor < endMS && currentOK) healthyMS += endMS - cursor;
-  return healthyMS / windowMS * 100;
+  return observed ? healthy / observed * 100 : null;
 }
