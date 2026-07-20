@@ -181,7 +181,6 @@
         loadFailed: "加载失败",
         allChannelsFailed: "当前服务全部渠道都失败",
         viewLogs: "查看日志",
-        integratedTag: "已接入",
       },
       en: {
         title: "D2CAPI Channel Monitor",
@@ -210,7 +209,6 @@
         loadFailed: "Load failed",
         allChannelsFailed: "All channels for the current service failed",
         viewLogs: "View logs",
-        integratedTag: "Integrated",
       },
     };
     const preferredLang = (navigator.languages?.[0] || navigator.language || "").toLowerCase();
@@ -407,7 +405,6 @@
               <span>${t.statusCode}: ${current?.status_code ?? "-"}</span>
               <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
               <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
-              ${channel.integrationStatus === "integrated" ? `<span>${escapeHtml(t.integratedTag)}</span>` : ""}
               ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
             </div>
             <div class="grid">${cells}</div>
