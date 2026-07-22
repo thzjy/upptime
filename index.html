@@ -97,7 +97,7 @@
     .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); font-size: 13px; margin-top: 10px; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(180, 5px);
+      grid-template-columns: repeat(180, minmax(0, 1fr));
       gap: 1px;
       width: 100%;
       margin-top: 14px;
@@ -105,12 +105,9 @@
     }
     .cell { width: 100%; min-width: 0; height: 17px; border-radius: 2px; box-sizing: border-box; }
     .error { margin-top: 14px; color: var(--red); }
-    @media (max-width: 1240px) {
-      .grid { grid-template-columns: repeat(120, 5px); }
-    }
     @media (max-width: 900px) {
       .hero, .cards { grid-template-columns: 1fr; }
-      .grid { grid-template-columns: repeat(90, 4px); }
+      .grid { grid-template-columns: repeat(90, minmax(0, 1fr)); }
     }
     @media (max-width: 560px) {
       main { padding: 22px 12px 40px; }
@@ -120,11 +117,8 @@
       #sample-count { display: block; width: 100%; line-height: 1.6; overflow-wrap: anywhere; }
       .channel { padding: 12px; }
       .channel-head { align-items: flex-start; }
-      .grid { grid-template-columns: repeat(60, 4px); }
+      .grid { grid-template-columns: repeat(60, minmax(0, 1fr)); }
       .cell { height: 15px; }
-    }
-    @media (max-width: 340px) {
-      .grid { grid-template-columns: repeat(60, 3px); }
     }
   </style>
 </head>
