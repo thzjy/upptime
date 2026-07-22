@@ -6,6 +6,7 @@ import { sampledAvailability, timelineBuckets } from "./monitor_logic.mjs";
 test("timeline cells cannot overflow and cover their gaps", () => {
   const html = fs.readFileSync(new URL("./index.html", import.meta.url), "utf8");
   assert.match(html, /gap:\s*1px/);
+  assert.match(html, /grid-template-columns:\s*repeat\(180,\s*5px\)/);
   assert.match(html, /\.cell\s*\{[^}]*width:\s*100%/s);
 });
 
