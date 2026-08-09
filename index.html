@@ -19,6 +19,7 @@
       --yellow: #d6a21b;
       --orange: #df6b21;
       --red: #c9382e;
+      --purple: #7759c2;
       --gray: #c9cfca;
     }
     * { box-sizing: border-box; }
@@ -73,6 +74,7 @@
     .yellow { background: var(--yellow); }
     .orange { background: var(--orange); }
     .red { background: var(--red); }
+    .purple { background: var(--purple); }
     .gray { background: var(--gray); }
     .channel {
       min-width: 0;
@@ -158,6 +160,7 @@
         <span><i class="dot yellow"></i><span data-i18n="unexpectedHttp">Unexpected HTTP</span></span>
         <span><i class="dot orange"></i><span data-i18n="serverError">HTTP 5xx</span></span>
         <span><i class="dot red"></i><span data-i18n="channelProbeFailed">Channel probe failed</span></span>
+        <span><i class="dot purple"></i><span data-i18n="infrastructureFailure">Probe infrastructure failed</span></span>
         <span><i class="dot gray"></i><span data-i18n="noDataOrFetchFailed">No data / fetch failed</span></span>
       </div>
       <span id="sample-count">-</span>
@@ -169,17 +172,20 @@
 
   <script type="module">
     import {
+      compactHistoryForCache,
       fetchJSONWithRetry,
       getLocalStorage,
       historySampleTime,
       isSharedInfrastructureSample,
       latestChannelObservation,
+      mergeHistorySamples,
+      normalizeApiBase,
       readStorageJSON,
       readStorageText,
       sampledAvailability,
-      timelineBuckets,
+      timelineSamples,
       writeStorageJSON,
-    } from "./monitor_logic.mjs?v=20260809-1";
+    } from "./monitor_logic.mjs?v=20260809-3";
     const messages = {
       zh: {
         title: "D2CAPI 渠道监控",
@@ -194,6 +200,7 @@
         unexpectedHttp: "异常 HTTP",
         serverError: "HTTP 5xx",
         channelProbeFailed: "渠道连接失败",
+        infrastructureFailure: "探针基础设施失败（已重试）",
         noDataOrFetchFailed: "无数据 / 取数失败",
         noData: "无数据",
         updatedAt: "更新时间",
@@ -228,6 +235,7 @@
         unexpectedHttp: "Unexpected HTTP",
         serverError: "HTTP 5xx",
         channelProbeFailed: "Channel probe failed",
+        infrastructureFailure: "Probe infrastructure failed (after retries)",
         noDataOrFetchFailed: "No data / fetch failed",
         noData: "No data",
         updatedAt: "Updated at",
@@ -264,8 +272,9 @@
     const params = new URLSearchParams(location.search);
     const storage = getLocalStorage(window);
     const defaultApi = "https://probe.d2capi.com";
-    const apiBase = (params.get("api") || readStorageText(storage, "probeApiBase") || defaultApi).replace(/\/+$/, "");
-    const authToken = params.get("token") || readStorageText(storage, "probeAuthToken");
+    const configuredApi = normalizeApiBase(readStorageText(storage, "probeApiBase"), defaultApi);
+    const apiBase = normalizeApiBase(params.get("api"), configuredApi);
+    const authToken = params.get("token") || (apiBase === configuredApi ? readStorageText(storage, "probeAuthToken") : "");
     const historyUrl = `${apiBase}/probe/history?limit=1440`;
     const pollMs = 60000;
     const availabilityWindow = 1440;
@@ -273,6 +282,7 @@
     const fetchTimeoutMs = 8000;
     const cacheKey = `probeHistoryCache:${apiBase}`;
     let loadInFlight = false;
+    let lastSuccessfulHistory = null;
 
     document.getElementById("source").textContent = "https://d2capi.com";
 
@@ -335,12 +345,22 @@
     }
 
     function normalizeHistoryData(data) {
-      const samples = Array.isArray(data?.samples) ? data.samples
-        .filter((sample) => !sample?.synthetic)
-        .filter((sample) => Number.isFinite(historySampleTime(sample)))
-        .sort((left, right) => historySampleTime(left) - historySampleTime(right))
-        .slice(-availabilityWindow) : [];
+      const samples = mergeHistorySamples([], data?.samples || [], availabilityWindow);
       return { ...data, samples, returned_samples: samples.length, total_samples: Math.max(data?.total_samples || 0, samples.length) };
+    }
+
+    function mergeHistoryData(previous, incoming) {
+      const samples = mergeHistorySamples(previous?.samples || [], incoming?.samples || [], availabilityWindow);
+      return normalizeHistoryData({
+        ...(previous || {}),
+        ...(incoming || {}),
+        samples,
+        stale: false,
+        load_error: "",
+        cached_availability: null,
+        source_returned_samples: samples.length,
+        total_samples: Math.max(previous?.total_samples || 0, incoming?.total_samples || 0, samples.length),
+      });
     }
 
     function readCachedHistory() {
@@ -349,7 +369,7 @@
     }
 
     function writeCachedHistory(data) {
-      writeStorageJSON(storage, cacheKey, normalizeHistoryData(data));
+      writeStorageJSON(storage, cacheKey, compactHistoryForCache(normalizeHistoryData(data)));
     }
 
     function render(data) {
@@ -374,16 +394,15 @@
       document.getElementById("duration").textContent = summary.duration_ms ?? "-";
       document.getElementById("stable-days").textContent = fmtDays(data.stable_days ?? latest.stable_days);
       document.getElementById("sample-count").textContent =
-        `${t.samples} ${data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
+        `${t.samples} ${data.source_returned_samples ?? data.returned_samples ?? samples.length}/${data.total_samples ?? samples.length}, ${t.interval} ${data.interval_seconds || "-"} ${t.seconds}`;
 
       const channels = collectChannels(samples);
       const channelCard = (channel) => {
         const observation = latestChannelObservation(samples, channel.name);
         const current = observation?.check || null;
         const state = channelState(current);
-        const availability24h = availabilityForChannel(samples, channel.name);
-        const timelineEnd = observation?.at || (Number.isFinite(latestAt) ? latestAt : Date.now());
-        const cells = timelineBuckets(samples, channel.name, timelineEnd).map(({ check, checkedAt, bucketAt, color }) => {
+        const availability24h = data.cached_availability?.[channel.name] ?? availabilityForChannel(samples, channel.name);
+        const cells = timelineSamples(samples, channel.name).map(({ check, checkedAt, bucketAt, color }) => {
           const title = check
             ? `${fmtTime(checkedAt)} ${check.status_code ?? ""} ${check.error || ""}`.trim()
             : `${fmtTime(bucketAt)} ${t.noData}`;
@@ -398,9 +417,9 @@
               <div class="status ${state}">${state.toUpperCase()}</div>
             </div>
             <div class="meta">
-              <span>${t.checkedAt}: ${fmtTime(observation?.checkedAt)}</span>
-              <span>${t.statusCode}: ${current?.status_code ?? "-"}</span>
-              <span>${t.latency}: ${current?.latency_ms == null ? "-" : `${current.latency_ms}ms`}</span>
+              <span>${t.checkedAt}: ${escapeHtml(fmtTime(observation?.checkedAt))}</span>
+              <span>${t.statusCode}: ${escapeHtml(current?.status_code ?? "-")}</span>
+              <span>${t.latency}: ${escapeHtml(current?.latency_ms == null ? "-" : `${current.latency_ms}ms`)}</span>
               <span>${t.availabilityWindow}: ${fmtPercent(availability24h)}</span>
               ${current?.error ? `<span>${t.error}: ${escapeHtml(current.error)}</span>` : ""}
             </div>
@@ -437,11 +456,17 @@
           retryDelayMS: 300,
           timeoutMS: fetchTimeoutMs,
         });
-        const data = normalizeHistoryData(payload);
+        const incoming = normalizeHistoryData(payload);
+        const expectedSamples = Math.min(availabilityWindow, Number(incoming.total_samples) || 0);
+        const latestIncoming = incoming.samples.at(-1);
+        const expectedChannels = Number(latestIncoming?.summary?.total) || 0;
+        if (!incoming.samples.length || incoming.samples.length < expectedSamples || (expectedChannels && latestIncoming.checks?.length < expectedChannels)) throw new Error("history response was empty or incomplete");
+        const data = mergeHistoryData(lastSuccessfulHistory || readCachedHistory(), incoming);
+        lastSuccessfulHistory = data;
         writeCachedHistory(data);
         render(data);
       } catch (error) {
-        const cached = readCachedHistory();
+        const cached = lastSuccessfulHistory || readCachedHistory();
         render({
           ...(cached || {}),
           load_error: error.message || String(error),
@@ -452,6 +477,11 @@
       }
     }
 
+    const initialCache = readCachedHistory();
+    if (initialCache?.samples?.length) {
+      lastSuccessfulHistory = initialCache;
+      render({ ...initialCache, stale: true });
+    }
     load();
     setInterval(load, pollMs);
   </script>

@@ -1,5 +1,3 @@
-const severity = { gray: 0, green: 1, yellow: 2, orange: 3, red: 4 };
-
 export function getLocalStorage(scope = globalThis) {
   try {
     return scope.localStorage || null;
@@ -33,6 +31,20 @@ export function writeStorageJSON(storage, key, value) {
   }
 }
 
+export function normalizeApiBase(raw, fallback = "https://probe.d2capi.com") {
+  const parse = (value) => {
+    try {
+      const url = new URL(String(value || ""));
+      const localHTTP = url.protocol === "http:" && ["localhost", "127.0.0.1", "[::1]"].includes(url.hostname);
+      if ((url.protocol !== "https:" && !localHTTP) || url.username || url.password) return "";
+      return `${url.origin}${url.pathname.replace(/\/+$/, "")}`;
+    } catch {
+      return "";
+    }
+  };
+  return parse(raw) || parse(fallback) || "https://probe.d2capi.com";
+}
+
 export function observationTime(sample, check) {
   for (const raw of [check?.checked_at, sample?.checked_at]) {
     const at = Date.parse(raw || "");
@@ -46,6 +58,11 @@ export function historySampleTime(sample) {
     .map((raw) => Date.parse(raw || ""))
     .filter(Number.isFinite);
   return times.length ? Math.max(...times) : Number.NaN;
+}
+
+function batchSampleTime(sample) {
+  const at = Date.parse(sample?.checked_at || "");
+  return Number.isFinite(at) ? at : historySampleTime(sample);
 }
 
 export function latestChannelObservation(samples, channelName) {
@@ -71,7 +88,7 @@ export function isSharedInfrastructureSample(sample) {
 
 export function sampleColor(sample, check) {
   if (!sample || !check) return "gray";
-  if (isSharedInfrastructureSample(sample)) return "gray";
+  if (isSharedInfrastructureSample(sample)) return "purple";
   if (check.ok) return "green";
   const code = Number(check.status_code || 0);
   if (code === 0) return "red";
@@ -79,28 +96,51 @@ export function sampleColor(sample, check) {
   return "yellow";
 }
 
-export function timelineBuckets(samples, channelName, now = Date.now(), count = 180, bucketMinutes = 1) {
-  const bucketMS = bucketMinutes * 60_000;
-  const start = now - (count - 1) * bucketMS;
-  const buckets = Array.from({ length: count }, (_, index) => ({
+export function timelineSamples(samples, channelName, count = 180) {
+  const size = Math.max(0, Math.trunc(Number(count) || 0));
+  if (!size) return [];
+  const batches = (Array.isArray(samples) ? samples : [])
+    .filter((sample) => !sample?.synthetic && Number.isFinite(batchSampleTime(sample)))
+    .sort((left, right) => batchSampleTime(left) - batchSampleTime(right))
+    .slice(-size);
+  const padding = Array.from({ length: Math.max(0, size - batches.length) }, () => ({
     sample: null,
     check: null,
     checkedAt: null,
-    bucketAt: start + index * bucketMS,
+    bucketAt: null,
     color: "gray",
   }));
-  for (const sample of samples || []) {
-    if (sample?.synthetic) continue;
+  const observations = batches.map((sample) => {
     const check = (sample.checks || []).find((item) => item.name === channelName) || null;
     const time = observationTime(sample, check);
-    if (!check || !time || time.at < start || time.at > now) continue;
-    const index = Math.min(count - 1, Math.floor((time.at - start) / bucketMS));
-    const color = sampleColor(sample, check);
-    if (severity[color] >= severity[buckets[index].color]) {
-      buckets[index] = { ...buckets[index], sample, check, checkedAt: time.raw, color };
+    return {
+      sample,
+      check,
+      checkedAt: time?.raw || null,
+      bucketAt: time?.at ?? batchSampleTime(sample),
+      color: sampleColor(sample, check),
+    };
+  });
+  return [...padding, ...observations];
+}
+
+export function mergeHistorySamples(previousSamples, incomingSamples, limit = 1440) {
+  const size = Math.max(0, Math.trunc(Number(limit) || 0));
+  if (!size) return [];
+  const batches = new Map();
+  const add = (samples) => {
+    for (const sample of Array.isArray(samples) ? samples : []) {
+      if (sample?.synthetic) continue;
+      const at = batchSampleTime(sample);
+      if (Number.isFinite(at)) batches.set(at, sample);
     }
-  }
-  return buckets;
+  };
+  add(previousSamples);
+  add(incomingSamples);
+  return [...batches.entries()]
+    .sort(([left], [right]) => left - right)
+    .slice(-size)
+    .map(([, sample]) => sample);
 }
 
 export function sampledAvailability(samples, channelName, limit = 1440) {
@@ -115,6 +155,44 @@ export function sampledAvailability(samples, channelName, limit = 1440) {
     if (check.ok) healthy += 1;
   }
   return observed ? healthy / observed * 100 : null;
+}
+
+export function compactHistoryForCache(data, limit = 180) {
+  const samples = Array.isArray(data?.samples) ? data.samples : [];
+  const channelNames = [...new Set(samples.flatMap((sample) => (
+    Array.isArray(sample?.checks) ? sample.checks.map((check) => check?.name).filter(Boolean) : []
+  )))];
+  const cachedAvailability = Object.fromEntries(channelNames.map((name) => [
+    name,
+    sampledAvailability(samples, name),
+  ]));
+  const size = Math.max(0, Math.trunc(Number(limit) || 0));
+  const compactSamples = (size ? samples.slice(-size) : []).map((sample) => ({
+    status: sample?.status,
+    checked_at: sample?.checked_at,
+    stable_days: sample?.stable_days,
+    summary: sample?.summary,
+    checks: (Array.isArray(sample?.checks) ? sample.checks : []).map((check) => ({
+      name: check?.name,
+      display_name: check?.display_name,
+      integration_status: check?.integration_status,
+      ok: check?.ok,
+      status_code: check?.status_code,
+      latency_ms: check?.latency_ms,
+      checked_at: check?.checked_at,
+      error: check?.error,
+    })),
+  }));
+  return {
+    updated_at: data?.updated_at,
+    interval_seconds: data?.interval_seconds,
+    stable_days: data?.stable_days,
+    total_samples: Math.max(Number(data?.total_samples) || 0, samples.length),
+    returned_samples: compactSamples.length,
+    source_returned_samples: Math.max(Number(data?.source_returned_samples) || 0, samples.length),
+    cached_availability: cachedAvailability,
+    samples: compactSamples,
+  };
 }
 
 export async function fetchJSONWithRetry(url, options = {}) {
@@ -132,7 +210,7 @@ export async function fetchJSONWithRetry(url, options = {}) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMS);
     try {
-      const response = await fetchImpl(url, { cache, headers, signal: controller.signal });
+      const response = await fetchImpl(url, { cache, headers, redirect: "error", signal: controller.signal });
       if (!response.ok) {
         const error = new Error(`HTTP ${response.status}`);
         error.retryable = response.status === 408 || response.status === 429 || response.status >= 500;
