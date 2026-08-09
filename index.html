@@ -19,7 +19,6 @@
       --yellow: #d6a21b;
       --orange: #df6b21;
       --red: #c9382e;
-      --purple: #7759c2;
       --gray: #c9cfca;
     }
     * { box-sizing: border-box; }
@@ -74,7 +73,6 @@
     .yellow { background: var(--yellow); }
     .orange { background: var(--orange); }
     .red { background: var(--red); }
-    .purple { background: var(--purple); }
     .gray { background: var(--gray); }
     .channel {
       min-width: 0;
@@ -157,10 +155,9 @@
     <div class="toolbar">
       <div class="legend">
         <span><i class="dot green"></i><span data-i18n="normal">Normal</span></span>
-        <span><i class="dot yellow"></i><span data-i18n="unexpectedHttp">Unexpected HTTP</span></span>
+        <span><i class="dot yellow"></i><span data-i18n="requestFailed">4xx / Request failed</span></span>
         <span><i class="dot orange"></i><span data-i18n="serverError">HTTP 5xx</span></span>
         <span><i class="dot red"></i><span data-i18n="channelProbeFailed">Channel probe failed</span></span>
-        <span><i class="dot purple"></i><span data-i18n="infrastructureFailure">Probe infrastructure failed</span></span>
         <span><i class="dot gray"></i><span data-i18n="noDataOrFetchFailed">No data / fetch failed</span></span>
       </div>
       <span id="sample-count">-</span>
@@ -176,7 +173,6 @@
       fetchJSONWithRetry,
       getLocalStorage,
       historySampleTime,
-      isSharedInfrastructureSample,
       latestChannelObservation,
       mergeHistorySamples,
       normalizeApiBase,
@@ -185,7 +181,7 @@
       sampledAvailability,
       timelineSamples,
       writeStorageJSON,
-    } from "./monitor_logic.mjs?v=20260809-3";
+    } from "./monitor_logic.mjs?v=20260809-4";
     const messages = {
       zh: {
         title: "D2CAPI 渠道监控",
@@ -197,10 +193,9 @@
         duration: "汇总耗时 ms",
         stableDays: "稳定天数",
         normal: "正常",
-        unexpectedHttp: "异常 HTTP",
+        requestFailed: "4xx / 请求失败",
         serverError: "HTTP 5xx",
         channelProbeFailed: "渠道连接失败",
-        infrastructureFailure: "探针基础设施失败（已重试）",
         noDataOrFetchFailed: "无数据 / 取数失败",
         noData: "无数据",
         updatedAt: "更新时间",
@@ -215,7 +210,6 @@
         hours: "小时",
         error: "错误",
         noChannels: "暂无渠道数据",
-        sharedProbeFailure: "本轮采样基础设施失败，渠道状态沿用最后一次真实观测",
         staleState: "陈旧",
         staleBadge: "缓存数据（已陈旧）",
         staleData: "数据拉取失败，当前显示最后成功缓存（数据已陈旧）",
@@ -232,10 +226,9 @@
         duration: "Summary ms",
         stableDays: "Stable days",
         normal: "Normal",
-        unexpectedHttp: "Unexpected HTTP",
+        requestFailed: "4xx / Request failed",
         serverError: "HTTP 5xx",
         channelProbeFailed: "Channel probe failed",
-        infrastructureFailure: "Probe infrastructure failed (after retries)",
         noDataOrFetchFailed: "No data / fetch failed",
         noData: "No data",
         updatedAt: "Updated at",
@@ -250,7 +243,6 @@
         hours: "hours",
         error: "Error",
         noChannels: "No channel data",
-        sharedProbeFailure: "Probe infrastructure failed; channel states use the last real observations",
         staleState: "stale",
         staleBadge: "Cached data (stale)",
         staleData: "Data fetch failed; showing the last successful cache (stale)",
@@ -365,7 +357,9 @@
 
     function readCachedHistory() {
       const cached = readStorageJSON(storage, cacheKey);
-      return cached && Array.isArray(cached.samples) ? normalizeHistoryData(cached) : null;
+      if (!cached || !Array.isArray(cached.samples)) return null;
+      const normalized = normalizeHistoryData(cached);
+      return cached.classification_version === 2 ? normalized : { ...normalized, cached_availability: null };
     }
 
     function writeCachedHistory(data) {
@@ -376,9 +370,8 @@
       data = normalizeHistoryData(data);
       const samples = data.samples || [];
       const latest = samples[samples.length - 1] || {};
-      const sharedProbeFailure = isSharedInfrastructureSample(latest);
-      const summary = sharedProbeFailure ? {} : (latest.summary || {});
-      const summaryState = samples.length && !sharedProbeFailure ? statusLabel(latest.status) : "empty";
+      const summary = latest.summary || {};
+      const summaryState = samples.length ? statusLabel(latest.status) : "empty";
       const state = data.stale ? "empty" : summaryState;
       const latestAt = historySampleTime(latest);
       const badge = document.querySelector(".badge");
@@ -401,7 +394,9 @@
         const observation = latestChannelObservation(samples, channel.name);
         const current = observation?.check || null;
         const state = channelState(current);
-        const availability24h = data.cached_availability?.[channel.name] ?? availabilityForChannel(samples, channel.name);
+        const compactStaleCache = data.stale && data.source_returned_samples > samples.length;
+        const availability24h = data.cached_availability?.[channel.name]
+          ?? (compactStaleCache ? null : availabilityForChannel(samples, channel.name));
         const cells = timelineSamples(samples, channel.name).map(({ check, checkedAt, bucketAt, color }) => {
           const title = check
             ? `${fmtTime(checkedAt)} ${check.status_code ?? ""} ${check.error || ""}`.trim()
@@ -430,9 +425,7 @@
       document.getElementById("channels").innerHTML = html || `<p class="muted">${t.noChannels}</p>`;
       document.getElementById("error").innerHTML = data.load_error
         ? `${escapeHtml(data.stale ? t.staleData : t.noCachedData)} &middot; <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a> &middot; ${escapeHtml(data.load_error)}`
-        : sharedProbeFailure
-          ? `${escapeHtml(t.sharedProbeFailure)} &middot; <a href="${escapeHtml(apiBase)}/probe/summary" target="_blank" rel="noreferrer">${escapeHtml(t.viewLogs)}</a>`
-          : "";
+        : "";
     }
 
     function escapeHtml(value) {

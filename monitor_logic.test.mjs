@@ -93,7 +93,7 @@ test("legacy synthetic fetch-failure samples are ignored", () => {
 	assert.equal(latestChannelObservation([real, synthetic], "channel").sample.synthetic, undefined);
 });
 
-test("shared transport failures are purple and excluded from channel truth", () => {
+test("shared transport failures are yellow and count as failed channel observations", () => {
 	const now = Date.parse("2026-07-20T02:00:00Z");
 	const lastReal = sample(now - 60_000, true);
 	const sharedFailure = {
@@ -105,12 +105,15 @@ test("shared transport failures are purple and excluded from channel truth", () 
 		],
 	};
 	assert.equal(isSharedInfrastructureSample(sharedFailure), true);
-	assert.equal(sampleColor(sharedFailure, sharedFailure.checks[0]), "purple");
+	assert.equal(sampleColor(sharedFailure, sharedFailure.checks[0]), "yellow");
 	const cell = timelineSamples([lastReal, sharedFailure], "channel")[179];
-	assert.equal(cell.color, "purple");
+	assert.equal(cell.color, "yellow");
 	assert.equal(cell.check.error, "shared dns failure");
-	assert.equal(sampledAvailability([lastReal, sharedFailure], "channel"), 100);
-	assert.equal(latestChannelObservation([lastReal, sharedFailure], "channel").checkedAt, lastReal.checked_at);
+	assert.equal(sampledAvailability([lastReal, sharedFailure], "channel"), 50);
+	assert.equal(latestChannelObservation([lastReal, sharedFailure], "channel").checkedAt, sharedFailure.checked_at);
+	const cached = compactHistoryForCache({ samples: [lastReal, sharedFailure] }, 2);
+	assert.equal(cached.classification_version, 2);
+	assert.equal(cached.cached_availability.channel, 50);
 });
 
 test("channel timestamps override summary timestamps with legacy fallback", () => {
@@ -240,6 +243,8 @@ test("blocked local storage degrades to an empty cache without throwing", () => 
 test("dashboard fetch failures render stale cache without synthetic channel samples", () => {
 	const html = fs.readFileSync(new URL("./index.html", import.meta.url), "utf8");
 	assert.doesNotMatch(html, /failedHistoryFromCache|synthetic:\s*true|allChannelsFailed/);
+	assert.doesNotMatch(html, /purple|infrastructureFailure|sharedProbeFailure/);
+	assert.match(html, /4xx \/ 请求失败/);
 	assert.match(html, /fetchJSONWithRetry/);
 	assert.match(html, /let lastSuccessfulHistory = null/);
 	assert.match(html, /incoming\.samples\.length < expectedSamples/);
@@ -248,6 +253,8 @@ test("dashboard fetch failures render stale cache without synthetic channel samp
 	assert.match(html, /const initialCache = readCachedHistory\(\)/);
 	assert.match(html, /render\(\{ \.\.\.initialCache, stale: true \}\)/);
 	assert.match(html, /compactHistoryForCache/);
+	assert.match(html, /cached\.classification_version === 2/);
+	assert.match(html, /compactStaleCache \? null/);
 	assert.match(html, /apiBase === configuredApi/);
 	assert.match(html, /escapeHtml\(fmtTime\(observation\?\.checkedAt\)\)/);
 	assert.match(html, /stale:\s*Boolean\(cached\?\.samples\?\.length\)/);

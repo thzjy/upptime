@@ -68,7 +68,7 @@ function batchSampleTime(sample) {
 export function latestChannelObservation(samples, channelName) {
   let latest = null;
   for (const sample of samples || []) {
-    if (sample?.synthetic || isSharedInfrastructureSample(sample)) continue;
+    if (sample?.synthetic) continue;
     const check = (sample.checks || []).find((item) => item.name === channelName) || null;
     const time = observationTime(sample, check);
     if (!check || !time) continue;
@@ -88,7 +88,7 @@ export function isSharedInfrastructureSample(sample) {
 
 export function sampleColor(sample, check) {
   if (!sample || !check) return "gray";
-  if (isSharedInfrastructureSample(sample)) return "purple";
+  if (isSharedInfrastructureSample(sample)) return "yellow";
   if (check.ok) return "green";
   const code = Number(check.status_code || 0);
   if (code === 0) return "red";
@@ -148,7 +148,7 @@ export function sampledAvailability(samples, channelName, limit = 1440) {
   let healthy = 0;
   let observed = 0;
   for (const sample of windowSamples) {
-    if (sample?.synthetic || isSharedInfrastructureSample(sample)) continue;
+    if (sample?.synthetic) continue;
     const check = (sample.checks || []).find((item) => item.name === channelName);
     if (!check || !observationTime(sample, check)) continue;
     observed += 1;
@@ -184,6 +184,7 @@ export function compactHistoryForCache(data, limit = 180) {
     })),
   }));
   return {
+    classification_version: 2,
     updated_at: data?.updated_at,
     interval_seconds: data?.interval_seconds,
     stable_days: data?.stable_days,
