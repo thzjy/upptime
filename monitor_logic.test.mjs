@@ -253,6 +253,8 @@ test("dashboard fetch failures render stale cache without synthetic channel samp
 	assert.match(html, /const initialCache = readCachedHistory\(\)/);
 	assert.match(html, /render\(\{ \.\.\.initialCache, stale: true \}\)/);
 	assert.match(html, /compactHistoryForCache/);
+	assert.match(html, /probeHistoryCache:v2:/);
+	assert.match(html, /readStorageJSON\(storage, cacheKey\) \|\| readStorageJSON\(storage, legacyCacheKey\)/);
 	assert.match(html, /cached\.classification_version === 2/);
 	assert.match(html, /compactStaleCache \? null/);
 	assert.match(html, /apiBase === configuredApi/);

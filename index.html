@@ -272,7 +272,8 @@
     const availabilityWindow = 1440;
     const fetchAttempts = 3;
     const fetchTimeoutMs = 8000;
-    const cacheKey = `probeHistoryCache:${apiBase}`;
+    const cacheKey = `probeHistoryCache:v2:${apiBase}`;
+    const legacyCacheKey = `probeHistoryCache:${apiBase}`;
     let loadInFlight = false;
     let lastSuccessfulHistory = null;
 
@@ -356,7 +357,7 @@
     }
 
     function readCachedHistory() {
-      const cached = readStorageJSON(storage, cacheKey);
+      const cached = readStorageJSON(storage, cacheKey) || readStorageJSON(storage, legacyCacheKey);
       if (!cached || !Array.isArray(cached.samples)) return null;
       const normalized = normalizeHistoryData(cached);
       return cached.classification_version === 2 ? normalized : { ...normalized, cached_availability: null };
