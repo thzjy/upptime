@@ -1,0 +1,16 @@
+.failure-panel { margin-top: 24px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 16px; }
+.failure-panel header { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
+.failure-panel h2 { font-size: 19px; }
+.failure-total { font-weight: 800; color: var(--red); }
+.failure-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; margin: 14px 0; }
+.failure-group { border: 1px solid var(--line); border-radius: 7px; padding: 10px; }
+.failure-group b, .failure-group span { display: block; overflow-wrap: anywhere; }
+.failure-group span, .failure-note { color: var(--muted); font-size: 12px; }
+.failure-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.failure-table th, .failure-table td { padding: 8px 6px; border-top: 1px solid var(--line); text-align: left; overflow-wrap: anywhere; }
+.failure-table th { color: var(--muted); font-weight: 600; }
+.failure-empty { color: var(--green); font-weight: 700; margin: 12px 0 0; }
+@media (max-width: 640px) {
+  .failure-panel { padding: 12px; }
+  .failure-table th:nth-child(3), .failure-table td:nth-child(3) { display: none; }
+}
